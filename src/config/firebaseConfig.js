@@ -2,16 +2,16 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
+import 'firebase/compat/storage';
 
 let firebaseConfig = {
-    apiKey: "AIzaSyDxE0uYJyNcLwSFPH2vnNTeR55wpRU9jSU",
-  authDomain: "appcar-306903.firebaseapp.com",
-  databaseURL: "https://appcar-306903-default-rtdb.firebaseio.com",
-  projectId: "appcar-306903",
-  storageBucket: "appcar-306903.appspot.com",
-  messagingSenderId: "854083035159",
-  appId: "1:854083035159:web:2ece347498a979129dfc52",
-  measurementId: "G-8QSVQQPJRK"
+    apiKey: "AIzaSyCRRZVDHhox5OoXkox1yOgoz-3WkgxItzw",
+  authDomain: "west-bfcd4.firebaseapp.com",
+  databaseURL: "https://west-bfcd4-default-rtdb.firebaseio.com",
+  projectId: "west-bfcd4",
+  storageBucket: "west-bfcd4.appspot.com",
+  messagingSenderId: "321747926649",
+  appId: "1:321747926649:web:806260240e4c218cfd5ea8"
   };
 
  if(!firebase.apps.length){

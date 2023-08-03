@@ -1,0 +1,27 @@
+.contmenu {
+  display: flex;
+  width: 100%;
+  height: 60px; /* Define a altura do menu para 60px */
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  position: absolute;
+  top: 0;
+}
+
+.contmenu ul {
+  list-style: none;
+  display: flex;
+}
+
+.contmenu li {
+  margin-right: 20px;
+}
+
+.contmenu li:last-child {
+  margin-right: 0;
+}
+
+.contmenu a {
+  text-decoration: none;
+  color: #333;
+}

@@ -5,6 +5,23 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  
+  
+
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+
 
   useEffect(() => {
     // Verifica se há dados no localStorage ao inicializar o contexto
@@ -62,12 +79,52 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const createNewStore = async (storeName) => {
+    try {
+      if (!user) {
+        throw new Error('Usuário não está logado. Faça o login primeiro.');
+      }
+
+      // Obter o ID do usuário logado
+      const userId = user.uid;
+
+      // Criar uma nova loja com um ID único
+      const newStoreRef = firebase.database().ref('stores').push();
+      const newStoreId = newStoreRef.key;
+
+      // Salvar os dados da nova loja no Realtime Database
+      await newStoreRef.set({
+        storeId: newStoreId,
+        userId: userId,
+        storeName: storeName,
+      });
+
+      // Atualizar o estado do usuário com a nova loja
+      setUser((prevUser) => ({
+        ...prevUser,
+        stores: {
+          ...prevUser.stores,
+          [newStoreId]: {
+            storeId: newStoreId,
+            storeName: storeName,
+          },
+        },
+      }));
+
+      return newStoreId;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+
   const value = {
     user,
     isAuthenticated: !!user, // Verifica se o usuário está autenticado
     signInWithEmailAndPassword,
     signUpWithEmailAndPassword,
     signOut,
+    createNewStore,
   };
 
   return (
