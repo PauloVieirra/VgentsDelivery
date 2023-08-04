@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import firebase from '../../config/firebaseConfig';
 import { useAuth } from '../../Context/AuthContext';
+import './stylesCad.css';
 
 const ProductForm = () => {
   const { user } = useAuth();
@@ -12,24 +13,32 @@ const ProductForm = () => {
   const [uploadMessage, setUploadMessage] = useState('');
   const [imageUrl, setImageUrl] = useState(null);
   const [category, setCategory] = useState('');
+  const [isActive, setIsActive] = useState(true);
 
-  const handleImageChange = (e) => {
+  
+
+ 
+const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    setIsImageUploaded(false);
+    
+   
+setIsImageUploaded(false);
   };
 
   const handleImageUpload = async () => {
     try {
       if (!image) {
-        throw new Error('Selecione uma imagem antes de enviar.');
+        
+       
+throw new Error('Selecione uma imagem antes de enviar.');
       }
 
       const imageRef = firebase.storage().ref(`users/${user.uid}/products/${image.name}`);
       await imageRef.put(image);
       const imageUrl = await imageRef.getDownloadURL();
       setIsImageUploaded(true);
-      setUploadMessage('Imagem enviada com sucesso!');
+      setUploadMessage('Tudo certo! clique em cadastrar');
       setImageUrl(imageUrl);
     } catch (error) {
       setIsImageUploaded(false);
@@ -56,10 +65,13 @@ const ProductForm = () => {
         description,
         imageUrl,
         category,
+        isActive,
       });
 
       // Limpar os campos após o envio
-      setTitle('');
+      
+     
+setTitle('');
       setPrice('');
       setDescription('');
       setImage(null);
@@ -67,6 +79,7 @@ const ProductForm = () => {
       setUploadMessage('');
       setImageUrl(null);
       setCategory('');
+      setIsActive(true); // Definir o valor padrão do checkbox como true
 
       alert('Produto cadastrado com sucesso!');
     } catch (error) {
@@ -76,10 +89,15 @@ const ProductForm = () => {
   };
 
   return (
-    <div>
-      <h2>Cadastrar Produto</h2>
+    <div className='contcardcad'>
+       <div className='h2n'>
+           <h2>Cadastrar Produto</h2>
+       </div>
+     
+      
+      
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='continput'>
           <label htmlFor="title">Título:</label>
           <input
             type="text"
@@ -89,7 +107,7 @@ const ProductForm = () => {
             required
           />
         </div>
-        <div>
+        <div className='continput'>
           <label htmlFor="price">Preço:</label>
           <input
             type="number"
@@ -99,7 +117,7 @@ const ProductForm = () => {
             required
           />
         </div>
-        <div>
+        <div className='continput'>
           <label htmlFor="description">Descrição:</label>
           <textarea
             id="description"
@@ -108,7 +126,7 @@ const ProductForm = () => {
             required
           />
         </div>
-        <div>
+        <div className='continput'>
           <label htmlFor="category">Categoria:</label>
           <input
             type="text"
@@ -118,18 +136,36 @@ const ProductForm = () => {
             required
           />
         </div>
-        <div>
-          <label htmlFor="image">Imagem:</label>
+        
+        <div className='continput'>
+          <label htmlFor="isActive">Cadastrar sem publicar:</label>
           <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={handleImageChange}
+            type="checkbox"
+            id="isActive"
+            checked={isActive}
+            onChange={(e) => setIsActive(e.target.checked)}
           />
-          {image && (
-            <img src={URL.createObjectURL(image)} alt="Imagem selecionada" style={{ width: '150px', height: '150px' }} />
-          )}
-          <button type="button" onClick={handleImageUpload}>
+        </div>
+        
+        <div className='continput'>
+          <label htmlFor="image" className="custom-file-input">
+            {image ? (
+              <img src={URL.createObjectURL(image)} alt="Imagem selecionada" style={{ width: '150px', height: '150px' }} />
+            ) : (
+              <>
+                <span>Escolher Imagem</span>
+                <img src="" alt="" style={{ width: '150px', height: '150px', display: 'none' }} />
+              </>
+            )}
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className='continputimg'
+            />
+          </label>
+          <button type="button" onClick={handleImageUpload} className='contbutoncad' >
             Enviar Imagem
           </button>
         </div>

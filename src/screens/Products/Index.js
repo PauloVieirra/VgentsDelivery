@@ -9,13 +9,11 @@ export default function Products() {
   
   <AppLayout>
    <div className='contproduc'>
-    <div className='teste'>
-    
-     <ProductForm/>
-     <ProductList/>
-
-
-
+    <div>
+       <ProductForm/>
+    </div>
+    <div>
+        <ProductList/>
     </div>
     </div>
    </AppLayout>
