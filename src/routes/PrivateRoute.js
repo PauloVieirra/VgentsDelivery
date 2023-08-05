@@ -11,12 +11,9 @@ const AppRoutesControl = () => {
   return (
    
     <Router> 
-     
       <Routes>
         <Route path="/*" element={isAuthenticated ? <AppRoutes /> : <AuthRoutes />} />
-    
       </Routes>
-      
     </Router>
   );
 };

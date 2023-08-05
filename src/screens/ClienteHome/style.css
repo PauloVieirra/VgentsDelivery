@@ -1,0 +1,7 @@
+.clienthome {
+    width: 100%;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    background-color: aqua;
+      }
+    

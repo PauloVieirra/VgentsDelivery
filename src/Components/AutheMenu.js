@@ -2,28 +2,55 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles.css';
 
-const AuthenticatedMenu = () => {
+const AuthenticatedMenu = ({ userType }) => {
   return (
     <div className='contmenu'>
-    <nav>
       <ul>
-        <li>
-          <Link to="/">Início</Link>
-        </li>
-        <li>
-          <Link to="/products">Produtos</Link>
-        </li>
-        <li>
-          <Link to="/pedidos">Pedidos</Link>
-        </li>
-        <li>
-          <Link to="/conta">Conta</Link>
-        </li>
-        <li>
-          <Link to="/suporte">Suporte</Link>
-        </li>
+        
+        {userType === 'adm' && (
+          <> 
+            <li>
+            <Link to="/">Início</Link>
+            </li>
+            <li>
+              <Link to="/Conta">Conta</Link>
+            </li>
+            <li>
+              <Link to="/Store">Loja</Link>
+            </li>
+            <li>
+              <Link to="/Cadastroloja">Cadastro</Link>
+            </li>
+            <li>
+              <Link to="/Dashboard">Dashboard</Link>
+            </li>
+            
+          </>
+        )}
+        {userType === 'logista' && (
+          <>
+            <li>
+              <Link to="/">Inicio</Link>
+            </li>
+            <li>
+              <Link to="/Products">Produtos</Link>
+            </li>
+            <li>
+              <Link to="/Pedidos">Pedidos</Link>
+            </li>
+          </>
+        )}
+        {userType === 'cliente' && (
+          <>
+          <li>
+          <Link to="/">Inicio</Link>
+          </li>
+          <li>
+          <Link to="/ClienteHome">Historico</Link>
+          </li>
+          </>
+        )}
       </ul>
-    </nav>
     </div>
   );
 };

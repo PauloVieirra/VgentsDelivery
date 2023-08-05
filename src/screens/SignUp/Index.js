@@ -29,8 +29,10 @@ const SignUp = () => {
       return;
     }
 
+    const tipo = 'cliente'; // Substitua 'cliente' pelo valor do tipo de usuário desejado
+
     try {
-      await signUpWithEmailAndPassword(email, password, name);
+      await signUpWithEmailAndPassword(email, password, name, tipo);
       // O cadastro foi bem-sucedido, redirecione para a rota desejada (por exemplo, a página inicial)
       navigate('/');
     } catch (error) {
@@ -43,7 +45,8 @@ const SignUp = () => {
       }
       console.error('Erro no cadastro:', error);
     }
-};
+  };
+
 
 return (
   <div>

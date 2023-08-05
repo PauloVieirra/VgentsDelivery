@@ -6,16 +6,15 @@ import AppLayout from '../../Components/AppLayoutMenu';
 
 const Home = () => {
   const { user } = useAuth();
-  console.log(user.nome);
   return (
-    <AppLayout>
+   
     <div className='container'>
       <div className='teste'/> 
 
-       
+      <p >Usuário logado: {user.tipo}</p>
       <h2>Bem-vindo à página Home</h2>
       {user ? (
-        <p>Usuário logado: {user.email}</p>
+        <p >Usuário logado: {user.email}</p>
       ) : (
         <p>Usuário não está logado</p>
       )}
@@ -28,7 +27,7 @@ const Home = () => {
 
 
      </div>
-    </AppLayout>
+  
   );
 };
 

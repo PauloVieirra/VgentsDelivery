@@ -32,40 +32,60 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const signInWithEmailAndPassword = (email, password) => {
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
-        const userData = { email: userCredential.user.email }; // Salve apenas os dados necessários no localStorage
-        localStorage.setItem('userData', JSON.stringify(userData));
-        return userCredential.user;
-      })
-      .catch((error) => {
-        setUser(null);
-        throw error;
-      });
-  };
-
-  const signUpWithEmailAndPassword = async (email, password, name) => {
+  const signInWithEmailAndPassword = async (email, password) => {
     try {
-      const userCredential = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
       const { user } = userCredential;
       setUser(user);
-
+  
       const { uid } = user;
-      firebase.database().ref(`users/${uid}`).set({
-        name,
-        email,
+      const userRef = firebase.database().ref('users').child(uid);
+  
+      // Busque o tipo de usuário no Realtime Database e salve-o junto com as outras informações do usuário
+      userRef.once('value', (snapshot) => {
+        const userData = snapshot.val();
+        if (userData && userData.ROLE && userData.ROLE.tipo) {
+          const tipo = userData.ROLE.tipo;
+          const userDataWithTipo = { ...userData, tipo };
+  
+          // Salvar os dados no Storage (localStorage)
+          localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
+        }
       });
+  
+      return user;
     } catch (error) {
       setUser(null);
       throw error;
     }
   };
+  
+  
+
+  const signUpWithEmailAndPassword = async (email, password, name, tipo) => {
+    try {
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const { user } = userCredential;
+      setUser(user);
+  
+      const { uid } = user;
+      firebase.database().ref(`users/${uid}`).set({
+        name,
+        email,
+        ROLE: {
+          tipo: tipo,
+        },
+      });
+  
+      // Salvar os dados no Storage (localStorage)
+      const userDataWithTipo = { name, email, tipo };
+      localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
+    } catch (error) {
+      setUser(null);
+      throw error;
+    }
+  };
+  
 
   const signOut = () => {
     return firebase
@@ -126,6 +146,7 @@ const AuthProvider = ({ children }) => {
     signOut,
     createNewStore,
   };
+  
 
   return (
     <AuthContext.Provider value={value}>

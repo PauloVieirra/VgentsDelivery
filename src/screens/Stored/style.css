@@ -1,0 +1,82 @@
+.contstore {
+  width: 100%;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  background-color: aqua;
+    }
+ /* CSS para a tela de vitrine de produtos */
+
+/* Estilo do container principal */
+.food-sales-container {
+  width: 100%;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 120px;
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do título da tela */
+.food-sales-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+/* Estilo da lista de produtos */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Estilo dos cartões de produto */
+.product-card {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do título do produto */
+.product-card h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+/* Estilo da descrição do produto */
+.product-card p {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 15px;
+}
+
+/* Estilo do preço do produto */
+.product-card p:last-child {
+  font-size: 16px;
+  font-weight: bold;
+  color: #33a33a;
+  margin-bottom: 10px;
+}
+
+/* Estilo do botão "Add to Cart" */
+.product-card button {
+  padding: 10px 15px;
+  background-color: #33a33a;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #269226;
+}
+

@@ -18,7 +18,6 @@ const SignIn = () => {
       const user = await signInWithEmailAndPassword(email, password);
       if (user) {
         navigate('/');
-          console.log(user);
       } else {
         console.error('Credenciais inválidas: usuário não encontrado.');
       }
