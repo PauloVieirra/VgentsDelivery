@@ -6,6 +6,7 @@ import AppLayout from '../../Components/AppLayoutMenu';
 
 const Home = () => {
   const { user } = useAuth();
+   
   return (
    
     <div className='container'>

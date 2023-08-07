@@ -6,14 +6,13 @@ const AuthenticatedMenu = ({ userType }) => {
   return (
     <div className='contmenu'>
       <ul>
-        
         {userType === 'adm' && (
           <> 
             <li>
             <Link to="/">Início</Link>
             </li>
             <li>
-              <Link to="/Conta">Conta</Link>
+              <Link to="/Products">Produto</Link>
             </li>
             <li>
               <Link to="/Store">Loja</Link>
@@ -48,6 +47,13 @@ const AuthenticatedMenu = ({ userType }) => {
           <li>
           <Link to="/ClienteHome">Historico</Link>
           </li>
+          </>
+        )}
+        {!userType && (
+          <>
+            <li>
+              <Link to="/SignIn">Entrar</Link>
+            </li>
           </>
         )}
       </ul>

@@ -7,7 +7,7 @@ import './style.css';
 export default function Products() {
  return (
   
-  <AppLayout>
+
    <div className='contproduc'>
     <div>
        <ProductForm/>
@@ -16,6 +16,6 @@ export default function Products() {
         <ProductList/>
     </div>
     </div>
-   </AppLayout>
+ 
   );
 }

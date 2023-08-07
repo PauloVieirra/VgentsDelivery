@@ -4,13 +4,14 @@ import './style.css';
 export default function ClienteHome() {
  return (
   <div className='clienthome'>
-    <p>HOME CLIENTE</p>
-    <p>HOME CLIENTE</p>
-    <p>HOME CLIENTE</p>
-    <p>HOME CLIENTE</p>
-    <p>HOME CLIENTE</p>
-    <p>HOME CLIENTE</p>
-    <p>HOME CLIENTE</p>
+    <div>HOME</div>
+    <div>HOME</div>
+    <div>HOME</div>
+    <div>HOME</div>
+    <div>HOME</div>
+    <div>HOME</div>
+
+    
   </div>
   );
 }

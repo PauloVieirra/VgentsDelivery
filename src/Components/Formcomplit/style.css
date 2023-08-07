@@ -1,0 +1,78 @@
+/* style.css */
+.food-sales-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .food-sales-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .food-sales-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .food-sales-container form div {
+    margin-bottom: 15px;
+  }
+  
+  .food-sales-container label {
+    font-weight: bold;
+  }
+  
+  .food-sales-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .food-sales-container button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .food-sales-container button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .food-sales-container p {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .food-sales-container h2.success {
+    color: green;
+  }
+  
+  .food-sales-container h2.error {
+    color: red;
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Ensure the modal is on top of other elements */
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 101; /* Ensure the modal content is on top of the overlay */
+  }

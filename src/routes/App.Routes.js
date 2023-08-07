@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
+import { AuthProvider } from '../Context/AuthContext';
 import firebase from '../config/firebaseConfig';
 import 'firebase/database';
 
@@ -16,6 +17,7 @@ import CadastroLoja from '../screens/CadastroLoja/Index';
 import Dashboard from '../screens/Dashboard/Index';
 import LogistaHome from '../screens/LogistaHome/Index';
 import ClienteHome from '../screens/ClienteHome/Index';
+import UpdateProfileForm from '../Components/Formcomplit/Index';
 
 
 const AppRoutes = () => {
@@ -50,7 +52,9 @@ const AppRoutes = () => {
   }, []);
 
   return (
+  
     <div>
+       
       <AuthenticatedMenu userType={userType} />
       <Routes>
 
@@ -81,14 +85,15 @@ const AppRoutes = () => {
         <>
         <Route path="/" element={<Store />} />
          <Route path="/ClienteHome" element={<ClienteHome />} />
+         <Route path="/UpdateProfileForm" element={<UpdateProfileForm />} />
+
       
         </>
          }
-       
-
-        
       </Routes>
+      
     </div>
+   
   );
 };
 

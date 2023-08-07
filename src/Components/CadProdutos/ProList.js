@@ -182,15 +182,15 @@ setIsModalOpen(false);
         {updateStatus}
       </div>
     )}
-    <div className='contcadgrid'>
-        <div className='contgridlist'>
+    <div className='contcadgridpro'>
+        <div className='contgridlistpro'>
           {filteredProducts.map((product) => {
             // Faz a renderização condicional baseada no estado showInactiveItems
             if (showInactiveItems || product.isActive) {
               return (
-                <div key={product.id} className='product-card'>
-                  <button className='btneditecard' onClick={() => handleOpenModal(product)}>
-                    <img src={product.imageUrl} alt={product.title} className='contimg' />
+                <div key={product.id} className='product-cardpro'>
+                  <button className='btneditecardpro' onClick={() => handleOpenModal(product)}>
+                    <img src={product.imageUrl} alt={product.title} className='contimgpro' />
                     <h3 style={{ color: '#000' }}>{product.title}</h3>
                     <p>{product.description}</p>
                     <p>Preço: R$ {product.price}</p>

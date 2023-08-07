@@ -5,7 +5,12 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  
+  const [products, setProducts] = useState([]);
+  const [updateStatus, setUpdateStatus] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showActiveItems, setShowActiveItems] = useState(false);
+  const [showInactiveItems, setShowInactiveItems] = useState(true);
+ 
   
 
 
@@ -62,7 +67,7 @@ const AuthProvider = ({ children }) => {
   
   
 
-  const signUpWithEmailAndPassword = async (email, password, name, tipo) => {
+  const signUpWithEmailAndPassword = async (email, password, name, tipo, formulario) => {
     try {
       const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
       const { user } = userCredential;
@@ -75,6 +80,7 @@ const AuthProvider = ({ children }) => {
         ROLE: {
           tipo: tipo,
         },
+        formulario: formulario,
       });
   
       // Salvar os dados no Storage (localStorage)
@@ -137,16 +143,45 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const getProductsByUserId = (userId) => {
+    const productsRef = firebase.database().ref(`users/${userId}/products`);
+    const productsListener = productsRef.on('value', (snapshot) => {
+      const productsData = snapshot.val();
+      if (productsData) {
+        const inactiveProducts = Object.values(productsData).filter(product => !product.isActive);
+        setProducts(inactiveProducts);
+        localStorage.setItem('products', JSON.stringify(inactiveProducts));
+      } else {
+        setProducts([]);
+        localStorage.removeItem('products');
+      }
+    });
+
+    // Unsubscribe the listener after setting the products in the state
+    return () => {
+      productsRef.off('value', productsListener);
+    };
+  };
+
+  useEffect(() => {
+    if (user) {
+      const unsubscribeProducts = getProductsByUserId(user.uid);
+      return () => {
+        unsubscribeProducts();
+      };
+    }
+  }, [user]);
 
   const value = {
     user,
-    isAuthenticated: !!user, // Verifica se o usuário está autenticado
+    isAuthenticated: !!user,
+    products,
     signInWithEmailAndPassword,
     signUpWithEmailAndPassword,
     signOut,
     createNewStore,
+    getProductsByUserId,
   };
-  
 
   return (
     <AuthContext.Provider value={value}>

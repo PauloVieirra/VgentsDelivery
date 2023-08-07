@@ -30,11 +30,11 @@ const SignUp = () => {
     }
 
     const tipo = 'cliente'; // Substitua 'cliente' pelo valor do tipo de usuário desejado
+    const formulario = false;
 
     try {
-      await signUpWithEmailAndPassword(email, password, name, tipo);
-      // O cadastro foi bem-sucedido, redirecione para a rota desejada (por exemplo, a página inicial)
-      navigate('/');
+      await signUpWithEmailAndPassword(email, password, name, tipo, formulario);
+      navigate('/UpdateProfileForm');
     } catch (error) {
       if (error.code === 'auth/weak-password') {
         showErrorAlert('Senha fraca. A senha deve conter pelo menos 6 caracteres com letras e números.');
