@@ -40,28 +40,26 @@ const ProductList = () => {
 
   // ...
 
-const handleSearch = () => {
-  const filtered = products.filter((product) => {
-    const titleIncludesSearchTerm = product.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const categoryIncludesSearchTerm = product.category.toLowerCase().includes(searchTerm.toLowerCase());
-    const isActive = product.isActive;
-
-    if (showActiveItems && !showInactiveItems) {
-      return (titleIncludesSearchTerm || categoryIncludesSearchTerm) && isActive;
-    } else if (!showActiveItems && showInactiveItems) {
-      return (titleIncludesSearchTerm || categoryIncludesSearchTerm) && !isActive;
-    } else if (!showActiveItems && !showInactiveItems) {
-      return false; // Não mostrar nenhum produto
-    } else {
-      return titleIncludesSearchTerm || categoryIncludesSearchTerm;
-    }
-  });
-
-  setFilteredProducts(filtered);
-};
-
-// ...
-
+  const handleSearch = () => {
+    const filtered = products.filter((product) => {
+      const titleIncludesSearchTerm = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const categoryIncludesSearchTerm = product.category.toLowerCase().includes(searchTerm.toLowerCase());
+      const isActive = product.isActive;
+  
+      if (showActiveItems && !showInactiveItems) {
+        return isActive && (titleIncludesSearchTerm || categoryIncludesSearchTerm);
+      } else if (!showActiveItems && showInactiveItems) {
+        return !isActive && (titleIncludesSearchTerm || categoryIncludesSearchTerm);
+      } else if (!showActiveItems && !showInactiveItems) {
+        return false; // Não mostrar nenhum produto
+      } else {
+        return isActive && (titleIncludesSearchTerm || categoryIncludesSearchTerm);
+      }
+    });
+  
+    setFilteredProducts(filtered);
+  };
+  
 
   const handleUpdateProducts = async () => {
     try {
