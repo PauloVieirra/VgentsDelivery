@@ -1,535 +1,319 @@
-.contstore {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: calc(100vh - 100px);
-    }
-    .contclient{
-      display: flex;
-      width: 100%;
-      height: 100vh;
-      margin-top: 60px;
-      flex-direction: row;
-      background-color: #84f39e1c;
-    }
-    .contleft{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 50%;
-      height: 320px;
-      
-    }
-   
-    .texttittle{
-      display: flex;
-      position: absolute;
-      font-family: 'Poppins', sans-serif;
-      font-size: 3rem;
-      font-weight: 600;
-      line-height: 1.4;
-      color: #daa300;
-      border-radius: 10px;
-      text-align: center;
-    }
-    
-    
-    .cliensearshbar {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      position: relative;
-      background-color: #32ca441c;
-    }
-    
-    .cliensearshbar input {
-      width: 40%;
-      height: 42px;
-      padding: 10px;
-      margin: 20px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      outline: none;
-    }
-   
-    .contclientbanner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      align-items: center;
-      width: 50%;
-      height: 100%;
-      
-    }
-    
-    .cliensearshbar button {
-      background-color: #ff8c00;
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      margin-left: 10px;
-      cursor: pointer;
-      outline: none;
-    }
-    
-    /* Estilizando o botão quando o cursor estiver sobre ele */
-    .cliensearshbar button:hover {
-      background-color: #ff6b00;
-    }
-    
-    .contright {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      width: 50%;
-      height: 100%;
-      overflow: hidden;
-      position: relative;
-      padding-right: 50px;
-    }
-    
-    .food-image {
-      position: absolute;
-      width: 72%; /* Ajuste o tamanho conforme necessário */
-      max-width: 400px;
-      top: 80;
-      left: calc(0% - -28px); /* Centralizando horizontalmente */
-
-      animation: fallFromTop 1s ease-in-out;
-    }
-    
-    @keyframes fallFromTop {
-      0% {
-        top: -40px; /* Ponto de saída */
-      }
-      100% {
-        top: calc(8% - 46px); /* Ponto de chegada */
-      }
-    }
-    
-    .contmolhos {
-      display: flex;
-      position: absolute;
-      width: 80px;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .contmolho3 {
-      width: 80px;
-      height: 80px; /* Ajuste a altura conforme necessário */
-      margin-top: 4px; /* Ponto de saída */
-      animation: fallAndRotate 1s ease-in-out;
-    }
-    @keyframes fallAndRotate {
-      0% {
-        transform: translateY(-100px) rotate(0deg); /* Ponto de saída */
-      }
-      100% {
-        transform: translateY(calc(64% - 48px)) rotate(360deg); /* Ponto de chegada */
-      }
-    }
-    .contmolho2 {
-      width: 80px;
-      height: 80px; /* Ajuste a altura conforme necessário */
-      margin-top: 4px; /* Ponto de saída */
-      animation: fallAndRotate 1.5s ease-in-out;
-    }
-    @keyframes fallAndRotate {
-      0% {
-        transform: translateY(-100px) rotate(0deg); /* Ponto de saída */
-      }
-      100% {
-        transform: translateY(calc(64% - 48px)) rotate(360deg); /* Ponto de chegada */
-      }
-    }
-    .contmolho1 {
-      width: 80px;
-      height: 80px; /* Ajuste a altura conforme necessário */
-      margin-top: 4px; /* Ponto de saída */
-      animation: fallAndRotate 2.2s ease-in-out;
-    }
-    @keyframes fallAndRotate {
-      0% {
-        transform: translateY(-100px) rotate(0deg); /* Ponto de saída */
-      }
-      100% {
-        transform: translateY(calc(64% - 48px)) rotate(360deg); /* Ponto de chegada */
-      }
-    }
-    
-    .contprodclient{
-      display: flex;
-      width: 100%;
-      height: 100vh;
-      margin-top: 40px;
-    }
- /* CSS para a tela de vitrine de produtos */
-
-/* Estilo do container principal */
-.food-sales-container {
-  width: 100%;
-  height: calc(100vh - 100px);
-  overflow-y: auto;
-  max-width: 800px;
-  margin: 0 auto;
-  padding-top: 120px;
-  background-color: #d41f1f;
-  border-radius: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo do título da tela */
-.food-sales-container h1 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 20px;
-}
-
-/* Estilo da lista de produtos */
-.product-list {
-  
-}
-
-/* Estilo dos cartões de produto */
-.product-card {
-  max-width: 230px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo do título do produto */
-.product-card h3 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 10px;
-}
-
-/* Estilo da descrição do produto */
-.product-card p {
-  font-size: 14px;
-  color: #666666;
-  margin-bottom: 15px;
-}
-
-/* Estilo do preço do produto */
-.product-card p:last-child {
-  font-size: 16px;
-  font-weight: bold;
-  color: #33a33a;
-  margin-bottom: 10px;
-}
-
-/* Estilo do botão "Add to Cart" */
-.product-card button {
-  padding: 10px 15px;
-  background-color: #33a33a00;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.product-card button:hover {
-  background-color: #dddddd81;
-}
-
-.contcardlist {
+  .contstore {
     display: flex;
-    width: 100%;
     flex-direction: column;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    justify-content: flex-end;
-  }
-  
-  .contcadgrid {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .contgridlist {
-    display: flex;
-    justify-content: flex-start; /* Modificamos para flex-start para que os produtos fiquem à esquerda */
-    flex-wrap: wrap; /* Para quebrem para a próxima linha quando não couberem mais */
-    gap:16px;
-  }
-  
-  .product-card {
-    width: 190px;
-    height:412px;
-    min-height: 300px;
-    background-color: #e4e4e470;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .product-image {
     width: 100%;
-    height: 180px;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
+    height: calc(100vh - 100px);
+      }
+      .contclient{
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        margin-top: 60px;
+        flex-direction: row;
+        background-color: #84f39e1c;
+      }
+      .contleft{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 320px;
+        
+      }
+      .texttittle{
+        display: flex;
+        position: absolute;
+        font-family: 'Poppins', sans-serif;
+        font-size: 3rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #daa300;
+        border-radius: 10px;
+        text-align: center;
+      }
+      .cliensearshbar {
+        width: 100%;
+        height: 100%;
+        max-height: 100px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        background-color: #32ca441c;
+      }
+      .cliensearshbar input {
+        width: 40%;
+        height: 42px;
+        padding: 10px;
+        margin: 20px;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        outline: none;
+      }
+      .contclientbanner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+        
+      }
+      
+      .contright {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+      
+      .food-image {
+        position: absolute;
+        width: 72%; /* Ajuste o tamanho conforme necessário */
+        max-width: 400px;
+        top: 80;
+        left: calc(0% - -28px); /* Centralizando horizontalmente */
+        animation: fallFromTop 1s ease-in-out;
+      }
+      
+      @keyframes fallFromTop {
+        0% {
+          top: -40px; /* Ponto de saída */
+        }
+        100% {
+          top: calc(8% - 46px); /* Ponto de chegada */
+        }
+      }
+      
+      .contmolhos {
+        display: flex;
+        position: absolute;
+        width: 80px;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .contmolho3 {
+        width: 80px;
+        height: 80px; /* Ajuste a altura conforme necessário */
+        margin-top: 4px; /* Ponto de saída */
+        animation: fallAndRotate 1s ease-in-out;
+      }
+      @keyframes fallAndRotate {
+        0% {
+          transform: translateY(-100px) rotate(0deg); /* Ponto de saída */
+        }
+        100% {
+          transform: translateY(calc(64% - 48px)) rotate(360deg); /* Ponto de chegada */
+        }
+      }
+      .contmolho2 {
+        width: 80px;
+        height: 80px; /* Ajuste a altura conforme necessário */
+        margin-top: 4px; /* Ponto de saída */
+        animation: fallAndRotate 1.5s ease-in-out;
+      }
+      @keyframes fallAndRotate {
+        0% {
+          transform: translateY(-100px) rotate(0deg); /* Ponto de saída */
+        }
+        100% {
+          transform: translateY(calc(64% - 48px)) rotate(360deg); /* Ponto de chegada */
+        }
+      }
+      .contmolho1 {
+        width: 80px;
+        height: 80px; /* Ajuste a altura conforme necessário */
+        margin-top: 4px; /* Ponto de saída */
+        animation: fallAndRotate 2.2s ease-in-out;
+      }
+      @keyframes fallAndRotate {
+        0% {
+          transform: translateY(-100px) rotate(0deg); /* Ponto de saída */
+        }
+        100% {
+          transform: translateY(calc(64% - 48px)) rotate(360deg); /* Ponto de chegada */
+        }
+      }
+      
+    .food-sales-container {
+      width: 100%;
+      height: calc(100vh - 100px);
+      overflow-y: auto;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: 120px;
+      background-color: #d41f1f;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .food-sales-container h1 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 20px;
+    }
+    .product-card {
+      width: 260px;
+      height:412px;
+      min-height: 300px;
+      background-color: #c0c0c03b;
+      align-items: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      margin-bottom: 20px;
+      margin-left: 20px;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      background-color: #c0c0c053;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
   .product-card h3 {
     font-size: 20px;
-    margin-top: 10px;
-  }
-  .contimg{
-    width: 100%;
-  }
-  
-  .product-card p {
-    font-size: 16px;
-    margin-top: 5px;
-  }
-  
-  .product-card p:last-child {
     font-weight: bold;
-    color: #007bff;
-    margin-top: 15px;
+    color: #333333;
+    margin-bottom: 10px;
   }
-  
-  .conttitles {
-    display: flex;
-    width: 100vr;
-    justify-content: space-between;
-    margin-left: 20px;
-    margin-right: 30px;
+  .product-card p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 15px;
   }
-  .btnupdate{
-    height: 52px;
-    background-color: #e9a847;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  .product-card p:last-child {
+    font-size: 16px;
+    font-weight: bold;
+    color: #33a33a;
+    margin-bottom: 10px;
   }
-  /* styles.css */
-.update-status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #dff0d8;
-  color: #3c763d;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-}
-
-.update-status.success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.update-status.error {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-/* styles.css */
-
-/* Container da barra de busca */
-.search-bar {
-  display: flex;
-  align-items:flex-start;
-  padding: 10px;
-  padding-left: 20px;
-  background-color: #f8f8f8;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo do campo de input */
-.search-input {
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  outline: none;
-  font-size: 16px;
-}
-
-/* Estilo do campo de input quando em foco */
-.search-input:focus {
-  border: 2px solid #007bff;
-}
-
-/* Estilo do ícone de busca (opcional, se você tiver um ícone de busca) */
-.search-icon {
-  margin-right: 8px;
-}
-
-/* Estilo para o botão de atualizar (você pode ajustar conforme necessário) */
-.btnupdate {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.btneditecard{
-  width: 100%;
-  height: 100%;
-  border-radius: 2;
-  background-color: #dff0d800;
-}
-.btneditecard:hover{
-  width: 100%;
-  height: 100%;
-  border-radius: 12;
-  background-color: #9494941c;
-}
-
-/* Estilo para a mensagem de atualização (opcional, para mostrar o status da atualização) */
-.update-status {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  margin-top: 10px;
-  color: #fff;
-  border-radius: 5px;
-}
-
-/* Estilo para a mensagem de sucesso */
-.update-status.success {
-  background-color: #28a745;
-}
-
-/* Estilo para a mensagem de erro */
-.update-status.error {
-  background-color: #dc3545;
-}
-
-
-.contmodalmood{
-  background-color: #fff;
-  max-width: 80%;
-  width: 80%;
-  height: 80%;
-  max-height: 80%;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.tittlemodal{
-  display: flex;
-  width: 100%;
-  height: 60px;
-  justify-content: center;
-  align-items: center;
-  color: #303030;
-  font-size: 22px;
-  margin-bottom: 60px;
-}
-.contmodalright{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  max-height: 380px;
-  padding: 20px;
-  padding-top: 20px;
-}
-.contbtnsavemodal{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 60px;
-  margin-top: 60px;
-  margin-top: 100px;
-}
-
-
-
-/* styles.css */
-
-.contprodclient {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.product-card {
-  width: 80%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.btneditecard {
-  background-color: #f5f5f5;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  text-align: left;
-}
-
-.contimg {
-  width: 100%;
-  height: auto;
-}
-
-h3 {
-  margin: 10px 0;
-}
-
-p {
-  margin: 5px 0;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
+  .product-card button {
+    padding: 10px 15px;
+    background-color: #33a33a00;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .product-card button:hover {
+    background-color: #dddddd81;
+  }
+  .contcardlist {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      justify-content: flex-end;
+    }
+    .contcadgrid {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contgridlist {
+      display: flex;
+      justify-content: flex-start; /* Modificamos para flex-start para que os produtos fiquem à esquerda */
+      flex-wrap: wrap; /* Para quebrem para a próxima linha quando não couberem mais */
+      gap:16px;
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .product-card h3 {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+    
+    
+    .product-card p {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    
+    .product-card p:last-child {
+      font-weight: bold;
+      color: #007bff;
+      margin-top: 15px;
+    }
+    
+    .conttitles {
+      display: flex;
+      width: 100vr;
+      justify-content: space-between;
+      margin-left: 20px;
+      margin-right: 30px;
+    }
+    
+    
   .contprodclient {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: grid;
+    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    
   }
-}
 
-@media (max-width: 480px) {
-  .contprodclient {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  .contimg {
+    width: 100%;
+    height: 60%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-}
+
+  h3 {
+    margin: 10px 0;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+
+  @media (max-width: 768px) {
+    .contprodclient {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contprodclient {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+  }
 
 
 
+    
+
+
+    
   
-
-
-  
- 
-  
+    
 

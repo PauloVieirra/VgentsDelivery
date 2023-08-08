@@ -76,12 +76,15 @@ const Store = () => {
       <div className='contprodclient' >
         {filteredProducts.map((product) => (
           <div key={product.id} className='product-card'>
-            <button className='btneditecard'>
+           
               <img src={product.imageUrl} alt={product.title} className='contimg' />
-              <h3 style={{ color: '#000' }}>{product.title}</h3>
+              <div style={{margin:'10px'}}>
+                <h3 style={{ color: '#000' }}>{product.title}</h3>
               <p>{product.description}</p>
               <p>Preço: R$ {product.price}</p>
-            </button>
+              </div>
+              
+          
           </div>
         ))}
       </div>
