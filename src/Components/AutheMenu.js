@@ -45,7 +45,7 @@ const AuthenticatedMenu = ({ userType }) => {
           <Link to="/">Inicio</Link>
           </li>
           <li>
-          <Link to="/ClienteHome">Historico</Link>
+          <Link to="/MeusPedidos">Historico</Link>
           </li>
           </>
         )}

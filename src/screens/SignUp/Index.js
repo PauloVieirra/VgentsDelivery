@@ -33,8 +33,16 @@ const SignUp = () => {
     const formulario = false;
 
     try {
-      await signUpWithEmailAndPassword(email, password, name, tipo, formulario);
-      navigate('/UpdateProfileForm');
+      const storedCartItems = localStorage.getItem('cartItems');
+      const cartItems = JSON.parse(storedCartItems || '[]');
+
+      const signUpResult = await signUpWithEmailAndPassword(email, password, name, tipo, formulario, cartItems);
+
+      if (signUpResult.redirectToConfirmation) {
+        navigate('/ConfirmationPage', { state: { cartItems,tipo,formulario } });
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       if (error.code === 'auth/weak-password') {
         showErrorAlert('Senha fraca. A senha deve conter pelo menos 6 caracteres com letras e números.');
@@ -47,11 +55,10 @@ const SignUp = () => {
     }
   };
 
-
-return (
-  <div>
-    <h2>Tela de Cadastro</h2>
-    <form onSubmit={handleSubmit}>
+  return (
+    <div>
+      <h2>Tela de Cadastro</h2>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Nome:</label>
           <input
@@ -81,9 +88,9 @@ return (
         </div>
         <button type="submit">Cadastrar</button>
         </form>
-    <p>Já tem uma conta? <Link to="/">Faça o login aqui</Link></p>
-  </div>
-);
+      <p>Já tem uma conta? <Link to="/">Faça o login aqui</Link></p>
+    </div>
+  );
 };
 
 export default SignUp;

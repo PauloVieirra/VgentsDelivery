@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const signInWithEmailAndPassword = async (email, password) => {
+  const signInWithEmailAndPassword = async (email, password, cartItems) => {
     try {
       const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
       const { user } = userCredential;
@@ -58,7 +58,13 @@ const AuthProvider = ({ children }) => {
         }
       });
   
-      return user;
+      if (cartItems.length === 0) {
+        // Caso não haja itens, retornar o usuário
+        return user;
+      } else {
+        // Caso haja itens, retornar uma flag indicando que deve ser redirecionado para a página de confirmação
+        return { user, redirectToConfirmation: true };
+      }
     } catch (error) {
       setUser(null);
       throw error;
@@ -67,7 +73,7 @@ const AuthProvider = ({ children }) => {
   
   
 
-  const signUpWithEmailAndPassword = async (email, password, name, tipo, formulario) => {
+  const signUpWithEmailAndPassword = async (email, password, name, tipo, formulario, cartItems) => {
     try {
       const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
       const { user } = userCredential;
@@ -86,11 +92,20 @@ const AuthProvider = ({ children }) => {
       // Salvar os dados no Storage (localStorage)
       const userDataWithTipo = { name, email, tipo };
       localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
+  
+      if (cartItems.length === 0) {
+        // Caso não haja itens, retornar o usuário
+        return user;
+      } else {
+        // Caso haja itens, retornar uma flag indicando que deve ser redirecionado para a página de confirmação
+        return { user, redirectToConfirmation: true };
+      }
     } catch (error) {
       setUser(null);
       throw error;
     }
   };
+  
   
 
   const signOut = () => {
@@ -163,6 +178,45 @@ const AuthProvider = ({ children }) => {
     };
   };
 
+  const getStoreIdByProductId = async (productId) => {
+    try {
+      const productRef = firebase.database().ref(`products/${productId}`);
+      const snapshot = await productRef.once('value');
+      const productData = snapshot.val();
+      if (productData) {
+        return productData.storeId;
+      }
+      return null;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const createOrder = async (userId, orderDetails) => {
+    try {
+      const ordersRef = firebase.database().ref(`users/${userId}/orders`);
+      const newOrderRef = ordersRef.push();
+  
+      // Gere uma chave aleatória única para o pedido
+      const orderId = newOrderRef.key;
+  
+      // Salvar os detalhes do pedido no Realtime Database
+      await newOrderRef.set({
+        orderId: orderId,
+        ...orderDetails,
+      });
+  
+      const order = {
+        orderId: orderId,
+        ...orderDetails,
+      };
+  
+      return order;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     if (user) {
       const unsubscribeProducts = getProductsByUserId(user.uid);
@@ -181,6 +235,8 @@ const AuthProvider = ({ children }) => {
     signOut,
     createNewStore,
     getProductsByUserId,
+    getStoreIdByProductId,
+    createOrder,
   };
 
   return (
@@ -189,6 +245,9 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+
+
 
 const useAuth = () => {
   const context = useContext(AuthContext);

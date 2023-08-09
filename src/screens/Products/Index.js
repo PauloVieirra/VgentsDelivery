@@ -1,5 +1,4 @@
 import React from 'react';
-import AppLayout from '../../Components/AppLayoutMenu';
 import ProductForm from '../../Components/CadProdutos/cadProductForm';
 import ProductList from '../../Components/CadProdutos/ProList';
 import './style.css';

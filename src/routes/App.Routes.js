@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useAuth } from '../Context/AuthContext';
 import { AuthProvider } from '../Context/AuthContext';
 import firebase from '../config/firebaseConfig';
 import 'firebase/database';
@@ -16,13 +15,14 @@ import Store from '../screens/Stored/Index';
 import CadastroLoja from '../screens/CadastroLoja/Index';
 import Dashboard from '../screens/Dashboard/Index';
 import LogistaHome from '../screens/LogistaHome/Index';
-import ClienteHome from '../screens/ClienteHome/Index';
+import MeusPedidos from '../screens/MeusPedidos/Index';
 import UpdateProfileForm from '../Components/Formcomplit/Index';
+import ConfirmationPage from '../screens/DeliveryConfirm/Index';
 
 
 const AppRoutes = () => {
   const [userType, setUserType] = useState(null);
-  const { user } = useAuth();
+
 
   useEffect(() => {
     const fetchUserType = async (user) => {
@@ -54,7 +54,7 @@ const AppRoutes = () => {
   return (
   
     <div>
-       
+       <AuthProvider>
       <AuthenticatedMenu userType={userType} />
       <Routes>
 
@@ -84,14 +84,17 @@ const AppRoutes = () => {
         {userType === 'cliente' && 
         <>
         <Route path="/" element={<Store />} />
-         <Route path="/ClienteHome" element={<ClienteHome />} />
+        <Route path="/:lojistaId" element={<Store />} />
+         <Route path="/MeusPedidos" element={<MeusPedidos />} />
+         <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
          <Route path="/UpdateProfileForm" element={<UpdateProfileForm />} />
 
       
         </>
          }
+         
       </Routes>
-      
+      </AuthProvider>
     </div>
    
   );

@@ -2,7 +2,6 @@ import React from 'react';
 import LogoutButton from '../../Components/Logout';
 import './style.css';
 import { useAuth } from '../../Context/AuthContext';
-import AppLayout from '../../Components/AppLayoutMenu';
 
 const Home = () => {
   const { user } = useAuth();

@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate  } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 
 const SignIn = () => {
   const { signInWithEmailAndPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  const navigate = useNavigate();
 
- 
- 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await signInWithEmailAndPassword(email, password);
-      if (user) {
-        navigate('/');
+      const signInResult = await signInWithEmailAndPassword(email, password, []);
+
+      if (signInResult.redirectToConfirmation) {
+        // Redirecionar para a página de confirmação
+        navigate('/', { state: { cartItems: [] } });
       } else {
-        console.error('Credenciais inválidas: usuário não encontrado.');
+        const storedCartItems = localStorage.getItem('cartItems');
+        const cartItems = JSON.parse(storedCartItems || '[]');
+
+        navigate('/ConfirmationPage', { state: { cartItems } });
       }
     } catch (error) {
       console.error('Erro no login:', error.message);
-    } 
-  
+    }
+  };
+
+  const handleSignUp = () => {
+    const storedCartItems = localStorage.getItem('cartItems');
+    const cartItems = JSON.parse(storedCartItems || '[]');
+    console.log(cartItems);
+    navigate('/SignUp', { state: { cartItems } });
   };
 
   return (
@@ -52,7 +60,8 @@ const SignIn = () => {
         <button type="submit">Entrar</button>
       </form>
       <p>
-        Ainda não tem uma conta? <Link to="/SignUp">Cadastre-se aqui</Link>
+        <button onClick={handleSignUp}> Criar conta </button>
+        
       </p>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
-import './style.css';
 
-export default function ClienteHome() {
+
+export default function MeusPedidos() {
  return (
   <div className='clienthome'>
     <div>HOME</div>
