@@ -217,6 +217,43 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+
+
+  const saveFormToFirebase = (complemento) => {
+    const userUid = user.uid;
+  
+    const userRef = firebase.database().ref(`users/${userUid}`);
+  
+    // Salvar os dados do complemento
+    userRef.child('complemento').set(complemento)
+    .then(() => {
+      console.log('Dados de complemento gravados com sucesso!');
+
+      // Salvar os dados no localStorage
+      localStorage.setItem('complementoData', JSON.stringify(complemento));
+      
+      // Atualizar a propriedade 'formulario' para true
+      userRef.update({
+        formulario: true
+      })
+      .then(() => {
+        console.log('Propriedade "formulario" atualizada para true.');
+      })
+      .catch((error) => {
+        console.error('Erro ao atualizar a propriedade "formulario":', error);
+      });
+    })
+    .catch((error) => {
+      console.error('Erro ao gravar dados de complemento:', error);
+    });
+};
+
+
+
+
+
+
+
   useEffect(() => {
     if (user) {
       const unsubscribeProducts = getProductsByUserId(user.uid);
@@ -237,6 +274,7 @@ const AuthProvider = ({ children }) => {
     getProductsByUserId,
     getStoreIdByProductId,
     createOrder,
+    saveFormToFirebase,
   };
 
   return (

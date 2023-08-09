@@ -18,6 +18,7 @@ import LogistaHome from '../screens/LogistaHome/Index';
 import MeusPedidos from '../screens/MeusPedidos/Index';
 import UpdateProfileForm from '../Components/Formcomplit/Index';
 import ConfirmationPage from '../screens/DeliveryConfirm/Index';
+import FormularioComplemento from '../Components/Formcomplit/Index';
 
 
 const AppRoutes = () => {
@@ -88,6 +89,8 @@ const AppRoutes = () => {
          <Route path="/MeusPedidos" element={<MeusPedidos />} />
          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
          <Route path="/UpdateProfileForm" element={<UpdateProfileForm />} />
+         <Route path="/FormularioComplemento" element={<FormularioComplemento />} />
+
 
       
         </>
