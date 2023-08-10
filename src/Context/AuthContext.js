@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showActiveItems, setShowActiveItems] = useState(false);
   const [showInactiveItems, setShowInactiveItems] = useState(true);
+  const [userOrders, setUserOrders] = useState([]);
  
   
 
@@ -217,8 +218,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-
-
   const saveFormToFirebase = (complemento) => {
     const userUid = user.uid;
   
@@ -248,6 +247,25 @@ const AuthProvider = ({ children }) => {
     });
 };
 
+const fetchUserOrders = async (uid) => {
+  try {
+    const ordersRef = firebase.database().ref('orders');
+    const userOrdersSnapshot = await ordersRef.child(uid).once('value');
+
+    if (userOrdersSnapshot.exists()) {
+      const ordersData = userOrdersSnapshot.val();
+      const ordersArray = Object.values(ordersData);
+      setUserOrders(ordersArray);
+    } else {
+      setUserOrders([]);
+    }
+  } catch (error) {
+    console.error('Erro ao buscar pedidos:', error);
+  }
+};
+
+
+
 
 
 
@@ -267,6 +285,8 @@ const AuthProvider = ({ children }) => {
     user,
     isAuthenticated: !!user,
     products,
+    userOrders,
+    fetchUserOrders,
     signInWithEmailAndPassword,
     signUpWithEmailAndPassword,
     signOut,

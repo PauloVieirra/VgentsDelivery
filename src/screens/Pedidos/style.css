@@ -1,6 +1,41 @@
-.contconta{
+.contpedidos {
     width: 100%;
+    min-height: 100vh; /* Garante que a div roxa ocupe pelo menos toda a altura da tela */
+    background-color: rgb(59, 214, 21);
+    display: flex; /* Adicionado para permitir estender além da tela no sentido vertical */
+    flex-direction: row; /* Para que os itens dentro dela se estendam verticalmente */
+    padding-top: 160px;
 }
-.teste{
-    margin-top: 80px;
+
+.contcentralpedid {
+    width: 100%;
+    max-width: 1200px; 
+}
+
+.cardpedido {
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 8px;
+    background-color: rgb(238, 238, 238);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+}
+.contdashpedido{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin: 6px;
+    background-color: antiquewhite;
+    border-radius: 12px;
+}
+.contleftpedido{
+    display: flex;
+    width: 26%;
+    height: 100vh;
+    background-color: aquamarine;
+}
+.contrightpedido{
+    width:100% ;
+    background-color: rgb(207, 59, 26);
 }

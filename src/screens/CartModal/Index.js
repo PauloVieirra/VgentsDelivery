@@ -4,18 +4,18 @@ import './style.css';
 
 const CartModal = ({ cartItems, removeFromCart, onClose, userIsAuthenticated }) => {
   const navigate = useNavigate();
-   
   const handleFinalizeOrder = () => {
     
     onClose();
     if (userIsAuthenticated ) {
       // Se o usuário estiver autenticado, vá para a tela de confirmação
       navigate('/ConfirmationPage', { state: { cartItems } });
+     
     } else {
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
       // Se não estiver autenticado, vá para a tela de login
       navigate('/SignIn', { state: { cartItems } });
-    }
+    } console.log(cartItems);
    
   };
 

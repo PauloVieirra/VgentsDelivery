@@ -16,7 +16,14 @@ const ConfirmationPage = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(null);
   const [lastAddressData, setLastAddressData] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  console.log(selectedAddress);
+  const [isAddressButtonVisible, setIsAddressButtonVisible] = useState(true);
+
+  const handleUseAddressClick = () => {
+    setSelectedAddress(lastAddressData);
+    setIsAddressButtonVisible(false);
+  };
+
+  
   useEffect(() => {
     if (state && state.cartItems) {
       setIsFormSubmitted(state.formulario || false);
@@ -53,34 +60,47 @@ const ConfirmationPage = () => {
     const db = firebase.database();
     const ordersRef = db.ref('orders');
   
-    const logistaOrdersMap = {};
+    const userUid = user?.uid; // Use optional chaining to avoid errors if user is not available
   
-    cartItems.forEach((item) => {
-      const { logistaUid, id, quantity, totalPrice } = item;
-  
-      if (!logistaOrdersMap[logistaUid]) {
-        logistaOrdersMap[logistaUid] = {
-          logistaId: logistaUid,
-          products: [],
-          timestamp: firebase.database.ServerValue.TIMESTAMP,
-          selectedAddress: selectedAddress, // Include selected address here
-        };
-      }
-  
-      logistaOrdersMap[logistaUid].products.push({ id, quantity, totalPrice });
-    });
-  
-    const promises = Object.values(logistaOrdersMap).map(async (logistaOrder) => {
-      const newLogistaOrderRef = ordersRef.child(logistaOrder.logistaId).push();
-  
-      return newLogistaOrderRef.set(logistaOrder);
-    });
+    if (!userUid) {
+      console.error('Usuário não logado');
+      setIsSending(false);
+      return;
+    }
   
     try {
+      const newOrderRef = ordersRef.child(userUid).push(); // Gere uma chave única para o pedido
+      const orderId = newOrderRef.key; // Obtenha a chave gerada
+  
+      const logistaOrdersMap = {};
+  
+      cartItems.forEach((item) => {
+        const { logistaUid, id, quantity, totalPrice, title } = item;
+  
+        if (!logistaOrdersMap[logistaUid]) {
+          logistaOrdersMap[logistaUid] = {};
+        }
+  
+        if (!logistaOrdersMap[logistaUid][orderId]) {
+          logistaOrdersMap[logistaUid][orderId] = {
+            selectedAddress: selectedAddress,
+            products: [],
+          };
+        }
+  
+        logistaOrdersMap[logistaUid][orderId].products.push({ id, quantity, totalPrice, title });
+      });
+  
+      const promises = Object.keys(logistaOrdersMap).map(async (logistaUid) => {
+        const logistaOrderRef = ordersRef.child(logistaUid);
+  
+        return logistaOrderRef.update(logistaOrdersMap[logistaUid]);
+      });
+  
       await Promise.all(promises);
       setIsSending(false);
       setIsSent(true);
-      setIsFormSubmitted(true); // Set isFormSubmitted to true after successful order submission
+      setIsFormSubmitted(true);
   
       setTimeout(() => {
         navigate('/');
@@ -89,6 +109,17 @@ const ConfirmationPage = () => {
       console.error('Erro ao gravar pedidos:', error);
       setIsSending(false);
     }
+  };
+  
+  
+  
+
+  
+
+  const handleAddressChange = (newAddressData) => {
+    setSelectedAddress(newAddressData); // Atualize o estado com os novos dados de endereço
+    setLastAddressData(newAddressData); // Atualize os últimos dados de endereço exibidos
+   
   };
 
   return (
@@ -103,7 +134,7 @@ const ConfirmationPage = () => {
           <ul>
             {cartItems.map((item) => (
               <li key={item.id}>
-                {item.title} - Quantidade: {item.quantity} - Valor: R$ {item.totalPrice.toFixed(2)}
+            Quantidade: { item.quantity} - {item.title} - Valor: R$ {item.totalPrice.toFixed(2)}
               </li>
             ))}
           </ul>
@@ -127,12 +158,10 @@ const ConfirmationPage = () => {
                 </div>
               ))}
               
-              {/* Botão ou div para selecionar o endereço */}
-              <button onClick={() => setSelectedAddress(lastAddressData)}>Usar este Endereço</button>
-              
-              <button onClick={saveOrderToFirebase} disabled={isSending}>
-                {isSending ? 'Enviando...' : 'Confirmar Pedido'}
-              </button>
+              {isAddressButtonVisible && (
+                <button onClick={handleUseAddressClick}>Usar este Endereço</button>
+              )}
+             
             </div>
           )}
 
@@ -147,11 +176,20 @@ const ConfirmationPage = () => {
               
             </div>
           )}
+
+  
+        {  lastAddressData  &&
           <button onClick={saveOrderToFirebase} disabled={isSending}>
-            {isSending ? 'Enviando...' : 'Confirmar Pedido'}
+            {isSending ? 'Enviando...' : 'Confirmar Pedido '}
           </button>
+        }
+
+
         </div>
       )}
+       {!isFormSubmitted === true && lastAddressData === null  && (
+          <div><FormularioComplemento onSubmit={handleAddressChange} />  </div>
+        )}
     </div>
   );
 };

@@ -1,142 +1,167 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
 import { useAuth } from '../../Context/AuthContext';
-import firebase from '../../config/firebaseConfig';
-import { useNavigate } from 'react-router-dom';
-import FormularioComplemento from '../../Components/Formcomplit/Index';
-import './style.css';
 
-const ConfirmationPage = () => {
-  const location = useLocation();
-  const { state } = location;
+function FormularioComplemento() {
   const { user, saveFormToFirebase } = useAuth();
-  const navigate = useNavigate();
-  const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(null);
-  const [lastAddressData, setLastAddressData] = useState(null);
-  const [selectedAddress, setSelectedAddress] = useState(null); // Added state to hold selected address
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
-  useEffect(() => {
-    if (state && state.cartItems) {
-      setIsFormSubmitted(state.formulario || false);
+  // Estado para controlar os campos do formulário
+  const [complemento, setComplemento] = useState({
+    enderecoEntrega: '',
+    configuracaoPadrao: '',
+    cidade: '',
+    bairro: '',
+    rua: '',
+    numero: '',
+    telefoneContato: '',
+    formaPagamento: '',
+    troco: '',
+  });
+
+  // Estado para controlar erros de validação
+  const [formErrors, setFormErrors] = useState({});
+
+  // Estado para controlar se o formulário foi enviado com sucesso
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+  // Função para lidar com as mudanças nos campos do formulário
+  const handleComplementoChange = (event) => {
+    const { name, value } = event.target;
+    setComplemento((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  // Função para validar o formulário
+  const validateForm = () => {
+    const errors = {};
+    if (!complemento.enderecoEntrega) {
+      errors.enderecoEntrega = 'Endereço de entrega é obrigatório.';
     }
-  }, [state]);
+    // Adicione outras validações conforme necessário
 
-  useEffect(() => {
-    const savedIsFormSubmitted = localStorage.getItem('isFormSubmitted');
-    setIsFormSubmitted(savedIsFormSubmitted === 'true');
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
-    const userUid = user.uid;
-    const userRef = firebase.database().ref(`users/${userUid}`);
-    userRef.child('complemento').once('value', (snapshot) => {
-      const data = snapshot.val();
-      setLastAddressData(data);
+  
+  // Função para lidar com o envio do formulário
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-      if (data && data.formulario) {
-        localStorage.setItem('isFormSubmitted', 'true');
-      }
-    });
-  }, [user]);
-
-  if (!state || !state.cartItems) {
-    return <div>Nenhum dado de carrinho encontrado.</div>;
-  }
-
-  const { cartItems, tipo } = state;
-
-  const saveOrderToFirebase = async () => {
-    setIsSending(true);
-    const db = firebase.database();
-    const ordersRef = db.ref('orders');
-
-    const logistaOrdersMap = {};
-
-    cartItems.forEach((item) => {
-      const { logistaUid, id, quantity, totalPrice } = item;
-
-      if (!logistaOrdersMap[logistaUid]) {
-        logistaOrdersMap[logistaUid] = {
-          logistaId: logistaUid,
-          products: [],
-          timestamp: firebase.database.ServerValue.TIMESTAMP,
-        };
-      }
-
-      // Include selectedAddress in the order
-      logistaOrdersMap[logistaUid].products.push({ id, quantity, totalPrice, selectedAddress });
-    });
-
-    const promises = Object.values(logistaOrdersMap).map(async (logistaOrder) => {
-      const newLogistaOrderRef = ordersRef.child(logistaOrder.logistaId).push();
-
-      // Store the selectedAddress under the order's node
-      return newLogistaOrderRef.set({ ...logistaOrder, selectedAddress });
-    });
-
-    try {
-      await Promise.all(promises);
-      setIsSending(false);
-      setIsSent(true);
+    if (validateForm()) {
+      saveFormToFirebase(complemento); // Chame a função do contexto para enviar os dados
       setIsFormSubmitted(true);
-
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
-    } catch (error) {
-      console.error('Erro ao gravar pedidos:', error);
-      setIsSending(false);
     }
   };
 
   return (
-    <div className='containerconfirm'>
-      {isSent ? (
+    <div>
+      {!isFormSubmitted ? (
         <div>
-          <p>Pedido enviado, obrigado!</p>
-          <p>Você será redirecionado para a página principal em breve...</p>
+          <div>
+      <h2>Formulário de Complemento</h2>
+      <form onSubmit={handleSubmit}> 
+        <div className='form-field'>
+          <label htmlFor='enderecoEntrega'>Endereço de Entrega:</label>
+          <input
+            type='text'
+            id='enderecoEntrega'
+            name='enderecoEntrega'
+            value={complemento.enderecoEntrega}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='configuracaoPadrao'>Configuração Padrão:</label>
+          <input
+            type='text'
+            id='configuracaoPadrao'
+            name='configuracaoPadrao'
+            value={complemento.configuracaoPadrao}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='cidade'>Cidade:</label>
+          <input
+            type='text'
+            id='cidade'
+            name='cidade'
+            value={complemento.cidade}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='bairro'>Bairro:</label>
+          <input
+            type='text'
+            id='bairro'
+            name='bairro'
+            value={complemento.bairro}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='rua'>Rua:</label>
+          <input
+            type='text'
+            id='rua'
+            name='rua'
+            value={complemento.rua}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='numero'>Número:</label>
+          <input
+            type='text'
+            id='numero'
+            name='numero'
+            value={complemento.numero}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='telefoneContato'>Telefone de Contato:</label>
+          <input
+            type='text'
+            id='telefoneContato'
+            name='telefoneContato'
+            value={complemento.telefoneContato}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='formaPagamento'>Forma de Pagamento:</label>
+          <input
+            type='text'
+            id='formaPagamento'
+            name='formaPagamento'
+            value={complemento.formaPagamento}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <div className='form-field'>
+          <label htmlFor='troco'>Troco:</label>
+          <input
+            type='text'
+            id='troco'
+            name='troco'
+            value={complemento.troco}
+            onChange={handleComplementoChange}
+          />
+        </div>
+        <button type='submit'>Enviar</button>
+      </form>
+    </div>
         </div>
       ) : (
-        <div>
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.id}>
-                {item.title} - Quantidade: {item.quantity} - Valor: R$ {item.totalPrice.toFixed(2)}
-              </li>
-            ))}
-          </ul>
-          {isFormSubmitted === false && lastAddressData && user.complemento && (
-            <div>
-              <h3>Endereço de Complemento:</h3>
-              <p>Endereço: {lastAddressData.enderecoEntrega}</p>
-              <p>Cidade: {lastAddressData.cidade}</p>
-              <p>Bairro: {lastAddressData.bairro}</p>
-              {/* Add more fields as needed */}
-
-              <h3>Selecione o Endereço:</h3>
-              {Object.keys(user.complemento).map((key) => (
-                <div key={key}>
-                  <input
-                    type='radio'
-                    id={key}
-                    name='addressSelection'
-                    value={key}
-                    onChange={() => setSelectedAddress(user.complemento[key])}
-                  />
-                  <label htmlFor={key}>
-                    {user.complemento[key].enderecoEntrega}, {user.complemento[key].cidade}, {user.complemento[key].bairro}
-                  </label>
-                </div>
-              ))}
-            </div>
-          )}
-          <button onClick={saveOrderToFirebase} disabled={isSending}>
-            {isSending ? 'Enviando...' : 'Confirmar Pedido'}
-          </button>
-        </div>
+        <p>Formulário enviado com sucesso!</p>
       )}
     </div>
   );
-};
+}
 
-export default ConfirmationPage;
+export default FormularioComplemento;
