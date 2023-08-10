@@ -4,6 +4,7 @@ import { useAuth } from '../../Context/AuthContext';
 import firebase from '../../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import FormularioComplemento from '../../Components/Formcomplit/Index';
+import { v4 as uuidv4 } from 'uuid';
 import './styles.css';
 
 const ConfirmationPage = () => {
@@ -59,9 +60,9 @@ const ConfirmationPage = () => {
     setIsSending(true);
     const db = firebase.database();
     const ordersRef = db.ref('orders');
-  
+    
     const userUid = user?.uid; // Use optional chaining to avoid errors if user is not available
-  
+    
     if (!userUid) {
       console.error('Usuário não logado');
       setIsSending(false);
@@ -69,8 +70,7 @@ const ConfirmationPage = () => {
     }
   
     try {
-      const newOrderRef = ordersRef.child(userUid).push(); // Gere uma chave única para o pedido
-      const orderId = newOrderRef.key; // Obtenha a chave gerada
+      const orderId = uuidv4().substr(0, 4); // Generate a unique 4-digit code for the order
   
       const logistaOrdersMap = {};
   

@@ -19,35 +19,45 @@ export default function Pedidos() {
             12121
           </div>
       </div>
+      
       <div className='contrightpedido'>
         <div className='contcentralpedid'>
-              {userOrders.map((order) => (
-                <div className='cardpedido' key={order.orderId}>
-                  <div>
-                  <p> {order.products[0].title}</p>
-                  <p>Quantidade: {order.products[0].quantity}</p>
-                  <p>Total: {order.products[0].totalPrice}</p>
-                  {order.totalPrice !== undefined && (
-                    <p>Total: R$ {order.totalPrice.toFixed(2)}</p>
-                  )}
+        {userOrders.map((order) => (
+            <div className='cardpedido' key={order.orderId}>
+              <div>
+                {/* Renderize a imagem do pedido aqui */}
+              </div>
+              <div className='contmincards'>
+                {order.products.map((product) => (
+                  <div className='mincard'>
+                  <div key={product.id}>
+                    <p>{product.title}</p>
+                    <p>Quantidade: {product.quantity}</p></div>
+                    <p>Valor: {product.totalPrice}</p>
                   </div>
-                  {/* Renderize mais detalhes do pedido conforme necessário */}
-
-                  <h4>Endereço</h4>
-                  {order.selectedAddress && (
-                    <div>
-                      <p>Endereço: {order.selectedAddress.enderecoEntrega}</p>
-                      <p>Cidade: {order.selectedAddress.cidade}</p>
-                      <p>Bairro: {order.selectedAddress.bairro}</p>
-                      {/* Renderize mais detalhes do endereço conforme necessário */}
-                    </div>
-                  )}
-                </div>
-              ))}
-          
+                ))}
+                {order.totalPrice !== undefined && (
+                  <p>Total: R$ {order.totalPrice.toFixed(2)}</p>
+                )}
+              </div>
+              <div className='contcomplementar'>
+                <h4 className='texttitlepedidos'>Endereço</h4>
+                {order.selectedAddress && (
+                  <div className='textspedidos'>
+                    <p>Endereço: {order.selectedAddress.enderecoEntrega}</p>
+                    <p>Cidade: {order.selectedAddress.cidade}</p>
+                    <p>Bairro: {order.selectedAddress.bairro}</p>
+                   
+                    <h4 className='texttitlepedidos'>Observação</h4>
+                  </div>
+                )}
+              </div>
+              <div>
+               
+              </div>
             </div>
-
-
+          ))}
+            </div>
       </div>
    
     </div>
