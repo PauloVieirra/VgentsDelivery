@@ -5,13 +5,13 @@ import 'firebase/compat/database';
 import 'firebase/compat/storage';
 
 let firebaseConfig = {
-    apiKey: "AIzaSyCRRZVDHhox5OoXkox1yOgoz-3WkgxItzw",
-  authDomain: "west-bfcd4.firebaseapp.com",
-  databaseURL: "https://west-bfcd4-default-rtdb.firebaseio.com",
-  projectId: "west-bfcd4",
-  storageBucket: "west-bfcd4.appspot.com",
-  messagingSenderId: "321747926649",
-  appId: "1:321747926649:web:806260240e4c218cfd5ea8"
+   apiKey: "AIzaSyAC_JjPiEU6bm8XyCKLDga4-JjZvvO5VhE",
+  authDomain: "listed-df752.firebaseapp.com",
+  databaseURL: "https://listed-df752-default-rtdb.firebaseio.com",
+  projectId: "listed-df752",
+  storageBucket: "listed-df752.appspot.com",
+  messagingSenderId: "944923824864",
+  appId: "1:944923824864:web:967311bfea10cf6d9f3685"
   };
 
  if(!firebase.apps.length){
@@ -19,5 +19,3 @@ let firebaseConfig = {
  }
 
  export default firebase;
-
-
