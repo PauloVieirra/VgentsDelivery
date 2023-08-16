@@ -16,7 +16,7 @@ code {
 
 /* Estilizando a barra de rolagem */
 ::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem */
+  width: 1px; /* Largura da barra de rolagem */
 }
 
 /* Estilizando o indicador (bolinha) da barra de rolagem */

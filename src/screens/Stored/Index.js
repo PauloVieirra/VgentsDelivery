@@ -3,13 +3,17 @@ import './style.css';
 import LogoutButton from '../../Components/Logout';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
-import food from '../../images/lanchedef.png';
-import molhosone from '../../images/molho1.png';
-import molhosthow from '../../images/molho2.png';
-import molhosthree from '../../images/molho3.png';
+import icons1 from '../../images/icon1.png';
+import icons2 from '../../images/icon2.png';
+import icons3 from '../../images/icon3.png';
+import icons4 from '../../images/icon4.png';
+import icons5 from '../../images/icon5.png';
+import icons6 from '../../images/icon6.png';
+import icons7 from '../../images/icon7.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartModal from '../CartModal/Index';
+import BannersCarousel from '../../Components/Banners/BnnerLoja';
 import ProductDetailsModal from '../../Components/DetailsModalProduct';
 
 const Store = () => {
@@ -18,29 +22,49 @@ const Store = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const resultsSectionRef = useRef(null);
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     const unsubscribe = getProductsByUserId(lojistaId);
-  
-     // Carrega os itens do carrinho do localStorage quando o componente é montado
-     const storedCartItems = localStorage.getItem('cartItems');
-     if (storedCartItems) {
-       setCartItems(JSON.parse(storedCartItems));
-     }
- 
-     return () => {
-       unsubscribe();
-     };
-   }, [lojistaId, getProductsByUserId]);
-   
- 
-   useEffect(() => {
-     // Salva os itens do carrinho no localStorage sempre que o carrinho é alterado
-     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-   }, [cartItems]);
 
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+
+    const storedCategory = localStorage.getItem('selectedCategory');
+    if (storedCategory) {
+      setSelectedCategory(storedCategory);
+    }
+
+    return () => {
+      unsubscribe();
+    };
+  }, [lojistaId, getProductsByUserId]);
+
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const handleIconClick = (category) => {
+    setSearchTerm('');
+    setSelectedCategory(category);
+    localStorage.setItem('selectedCategory', category);
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const lowerCasedSearchTerm = searchTerm.toLowerCase();
+    const lowerCasedCategory = selectedCategory.toLowerCase(); // Converta a categoria selecionada para minúsculas
+
+    return (
+      (product.title.toLowerCase().includes(lowerCasedSearchTerm) ||
+        product.description.toLowerCase().includes(lowerCasedSearchTerm)) &&
+      (!selectedCategory || product.category.toLowerCase().includes(lowerCasedCategory)) // Compare com a categoria do produto em minúsculas
+    );
+  });
 
   const openProductDetails = (product) => {
     setSelectedProduct({ product, selectedQuantity: 1 });
@@ -50,29 +74,17 @@ const Store = () => {
     setSelectedProduct(null);
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const filteredProducts = products.filter((product) => {
-    const lowerCasedSearchTerm = searchTerm.toLowerCase();
-    return (
-      product.title.toLowerCase().includes(lowerCasedSearchTerm) ||
-      product.description.toLowerCase().includes(lowerCasedSearchTerm)
-    );
-  });
-
-  const resultsSectionRef = useRef(null);
-  const searchInputRef = useRef(null);
-
-
-  const handleSearchFocus = () => {
-    const scrollPosition = resultsSectionRef.current.offsetTop - 160; // Subtrai 60px da posição
+  const handleSearchFocus = (category) => {
+   
+    const scrollPosition = resultsSectionRef.current.offsetTop - 280;
     window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+     setSelectedCategory('');
   };
 
   const addToCart = (product, selectedQuantity) => {
     const existingItem = cartItems.find(item => item.id === product.id);
-  
+
     if (existingItem) {
-      // Update the quantity and total price of the existing item
       const updatedCart = cartItems.map(item =>
         item.id === existingItem.id
           ? {
@@ -84,11 +96,9 @@ const Store = () => {
       );
       setCartItems(updatedCart);
     } else {
-      // Add a new item to the cart
-      setCartItems([...cartItems, { ...product, quantity: selectedQuantity, totalPrice: product.price * selectedQuantity,logistaUid: lojistaId }]);
+      setCartItems([...cartItems, { ...product, quantity: selectedQuantity, totalPrice: product.price * selectedQuantity, logistaUid: lojistaId }]);
     }
-  
-    // Close the product details modal
+
     closeProductDetails();
   };
 
@@ -100,43 +110,62 @@ const Store = () => {
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
-  
-  
+
 
   return (
     <div className="contstore">
       <div className="cart-icon" onClick={toggleCart}>
-      <FontAwesomeIcon icon={faShoppingCart} style={{color:'#fff'}} />
-        <span className="cart-count">{cartItems.length}</span>
+  <FontAwesomeIcon icon={faShoppingCart} style={{color:'#131313'}} />
+  <span className={`cart-count ${cartItems.length !== 0 ? 'non-zero' : ''}`}>
+      {cartItems.length}
+      </span>
+  </div>
+  <div className='contclient'>
+     <BannersCarousel/>
       </div>
-      <div className='contclient'>
-        <div className='contleft'>
-          <div className='texttittle'>
-            Mais que comida,
-            <br/>é experiência,
+       <div className='divsearchbarr'>
+            <div className='cliensearshbar'> 
+            <input
+              type='text'
+              placeholder='Pesquisar..'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={handleSearchFocus}
+              ref={searchInputRef}
+            />
+             </div>
+         <div className='divbarricons'>
+         <div className={`conticonsear ${selectedCategory === 'Shopp' ? 'selected' : ''}`} onClick={() => handleIconClick('Shopp')}>
+              <img src={icons7} alt="" className='conticonsearsh' />
+              Shopp
             </div>
-        </div>
-        <div className='contright'>
-          <div className='contclientbanner'>
-            <img src={food} alt="" className='food-image'/>
-          </div>
-          <div className='contmolhos'>
-            <div> <img src={molhosthree} alt="" className='contmolho1' /> </div>
-            <div> <img src={molhosthow} alt=""  className='contmolho2'/> </div>
-            <div> <img src={molhosone} alt=""  className='contmolho3'/> </div>
-          </div>
-        </div>
-      </div>
-      <div className='cliensearshbar'> 
-        <input
-          type='text'
-          placeholder='Pesquisar..'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onFocus={handleSearchFocus}
-          ref={searchInputRef}
-        />
-      </div>
+            <div className={`conticonsear ${selectedCategory === 'Bebida' ? 'selected' : ''}`} onClick={() => handleIconClick('Bebida')}>
+              <img src={icons1} alt="" className='conticonsearsh' />
+              Drink
+            </div>
+            <div className='conticonsear'>
+            <img src={icons2} alt=""className='conticonsearsh'/>
+              Combo
+            </div>
+            <div className='conticonsear'>
+            <img src={icons3} alt=""className='conticonsearsh'/>
+              Petisco
+            </div>
+            <div className='conticonsear'>
+            <img src={icons4} alt=""className='conticonsearsh'/>
+              Prato
+            </div>
+            <div className='conticonsear'>
+            <img src={icons5} alt="" className='conticonsearsh'/>
+              Vinho
+            </div>
+            <div className='conticonsear'>
+            <img src={icons6} alt="" className='conticonsearsh'/>
+              Doces
+            </div>
+         </div>
+       
+       </div>
       <div ref={resultsSectionRef}></div>
       <div className='contprodclient' >
         {filteredProducts.map((product) => (

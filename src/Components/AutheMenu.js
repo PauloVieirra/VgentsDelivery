@@ -1,16 +1,35 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
+import LogoutButton from './Logout';
+import LoginButton from './Login';
 import './styles.css';
 
 const AuthenticatedMenu = ({ userType }) => {
+
+  const [activeButton, setActiveButton] = useState(null);
+
+   console.log(activeButton);
+
+  const handleButtonClick = (Inicio) => {
+    setActiveButton(Inicio);
+  };
+
+  const isButtonActive = (Inicio) => {
+
+    return activeButton === Inicio ? 'btnmenu active' : 'btnmenu';
+  };
+
   return (
+    
+    
+    
     <div className='contmenu'>
-      <ul>
+      <div className='contresolution'>
         {userType === 'adm' && (
           <> 
-            <li>
+            <div>
             <Link to="/">Início</Link>
-            </li>
+            </div>
             <li>
               <Link to="/Products">Produto</Link>
             </li>
@@ -22,6 +41,9 @@ const AuthenticatedMenu = ({ userType }) => {
             </li>
             <li>
               <Link to="/Dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/Dashboard">A Vgents</Link>
             </li>
             
           </>
@@ -35,7 +57,7 @@ const AuthenticatedMenu = ({ userType }) => {
               <Link to="/Products">Produtos</Link>
             </li>
             <li>
-              <Link to="/Pedidos">Pedidos</Link>
+              <Link to="#">Pedidos</Link>
             </li>
           </>
         )}
@@ -47,17 +69,60 @@ const AuthenticatedMenu = ({ userType }) => {
           <li>
           <Link to="/MeusPedidos">Historico</Link>
           </li>
+          <li>
+              <Link to="#">A Vgents</Link>
+          </li>
+          
+          <LogoutButton/>
           </>
         )}
-        {!userType && (
-          <>
-            <li>
-              <Link to="/SignIn">Entrar</Link>
-            </li>
-          </>
-        )}
-      </ul>
+         {!userType && (
+        <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
+          <div style={{width:'18%'}}> 
+            
+          </div>
+          <div  style={{
+            display:'flex',
+            flexDirection:'row',
+            width:'64%',
+            alignItems:'center',
+            justifyContent:'center',
+            
+            }}>
+             
+             <div>
+              <Link to="#" className={isButtonActive('Inicio')} onClick={() => handleButtonClick('Inicio')}>
+                Inicio
+              </Link>
+            </div>
+            <div>
+              <Link to="#" className={isButtonActive('Sobre')} onClick={() => handleButtonClick('Sobre')}>
+                Sobre
+              </Link>
+            </div>
+            <div>
+              <Link to="#" className={isButtonActive('Assinar')} onClick={() => handleButtonClick('Assinar')}>
+                Assinar
+              </Link>
+            </div>
+            <div>
+              <Link to="#" className={isButtonActive('SAC')} onClick={() => handleButtonClick('SAC')}>
+                SAC
+              </Link>
+            </div>
+            
+            </div>
+       
+            <div  style={{display:'flex', width:'18%',justifyContent:'center', alignItems:'center'}}>
+            <LoginButton/>
+          </div>
+        </div>
+        
+      )}
+      </div>
     </div>
+   
+  
   );
 };
 

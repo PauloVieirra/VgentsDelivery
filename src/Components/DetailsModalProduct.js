@@ -17,27 +17,41 @@ const ProductDetailsModal = ({ product, onClose, addToCart }) => {
       <div className="product-details-modal">
         <div className="modal-content">
           <button className="close-button" onClick={onClose}>
-            Close
+            Fechar
           </button>
           <div>
-          <img src={product.imageUrl} alt={product.title} className="product-image" />
+          <img src={product.imageUrl} alt={product.title} className="product-ig" />
           </div>
-          <div>
 
-         
+          <div className='contdatadtls'>
+
           <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <p>Preço: R$ {product.price}</p>
+          <div className='contdescriptiondtls'>
+             <p>{product.description}</p>
+          </div>
+         
+          <div className='contpricedtls'>
+            <p>Preço: R$ {product.price}</p>
+          </div>
+          
+          
           <label htmlFor="quantity">Quantidade:</label>
+
           <input
             type="number"
             id="quantity"
             value={selectedQuantity}
             onChange={handleQuantityChange}
             min="1"
-          />
-          <p>Total: R$ {totalPrice.toFixed(2)}</p>
-          <button onClick={() => addToCart(product, selectedQuantity)}>Adicionar ao Carrinho</button>
+          />  <p>Total: R$ {totalPrice.toFixed(2)}</p>
+
+          
+           <div className='contbtnaddcart'>
+          
+             <button onClick={() => addToCart(product, selectedQuantity)}>Adicionar ao Carrinho</button>
+           </div>
+         
+
           </div>
         </div>
       </div>

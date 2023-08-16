@@ -1,0 +1,13 @@
+.contbtnlogin{
+   font-size: 12px;
+    width: 80px;
+    height: 32px;
+    border-radius: 100px;
+    background-image: linear-gradient(200deg, rgb(235, 152, 44),rgb(232, 128, 25));
+}
+.contbtnlogin:hover{
+    width: 80px;
+    height: 32px;
+    border-radius: 100px;
+    background-image: linear-gradient(200deg, rgb(235, 152, 44),rgb(209, 115, 22));
+}
