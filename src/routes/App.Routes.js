@@ -19,6 +19,7 @@ import MeusPedidos from '../screens/MeusPedidos/Index';
 import UpdateProfileForm from '../Components/Formcomplit/Index';
 import ConfirmationPage from '../screens/DeliveryConfirm/Index';
 import FormularioComplemento from '../Components/Formcomplit/Index';
+import CartModal from '../screens/CartModal/Index';
 
 
 const AppRoutes = () => {
@@ -58,6 +59,7 @@ const AppRoutes = () => {
        <AuthProvider>
       <AuthenticatedMenu userType={userType} />
       <Routes>
+        
 
        
        
@@ -84,6 +86,7 @@ const AppRoutes = () => {
 
         {userType === 'cliente' && 
         <>
+        
         <Route path="/" element={<Store />} />
         <Route path="/:lojistaId" element={<Store />} />
          <Route path="/MeusPedidos" element={<MeusPedidos />} />

@@ -18,7 +18,7 @@ import ProductDetailsModal from '../../Components/DetailsModalProduct';
 
 const Store = () => {
   const { lojistaId } = useParams();
-  const { products, getProductsByUserId, isAuthenticated } = useAuth();
+  const { products, getProductsByUserId, isAuthenticated, openCartModal } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -137,7 +137,7 @@ const Store = () => {
          <div className='divbarricons'>
          <div className={`conticonsear ${selectedCategory === 'Shopp' ? 'selected' : ''}`} onClick={() => handleIconClick('Shopp')}>
               <img src={icons7} alt="" className='conticonsearsh' />
-              Shopp
+              Chopp
             </div>
             <div className={`conticonsear ${selectedCategory === 'Bebida' ? 'selected' : ''}`} onClick={() => handleIconClick('Bebida')}>
               <img src={icons1} alt="" className='conticonsearsh' />
@@ -187,8 +187,7 @@ const Store = () => {
 
       </div>
       <div className="product-list">
-        <LogoutButton />
-        <Link to={`/${lojistaId}`}>Acessar Loja</Link>
+      
       </div>
       {selectedProduct && (
   <ProductDetailsModal
@@ -196,8 +195,7 @@ const Store = () => {
     onClose={closeProductDetails}
     addToCart={(product, quantity) => addToCart(product, quantity)}
   />
-)}
-
+      )}
       {isCartOpen && (
         <CartModal cartItems={cartItems} removeFromCart={removeFromCart} onClose={toggleCart} userIsAuthenticated={isAuthenticated} />
       )}

@@ -1,14 +1,3 @@
-/* Adicione esses estilos ao seu arquivo de estilo (style.css) */
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    background-color: #ccc;
-    border: none;
-    cursor: pointer;
-  }
   .cart-modal {
     display: flex;
     position: fixed;
@@ -19,13 +8,86 @@
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1001;
+    padding: 20px;
     overflow-y: auto; /* Adiciona rolagem vertical quando o conteúdo excede a altura */
   }
-  
   .cart-modal-content {
     max-height: calc(100vh - 100px); /* Ajusta a altura máxima para o modal não ultrapassar */
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
   }
+  .contleftmodalcart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+  }
+  .contrightmodalcart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    background-color: rgba(226, 226, 226, 0.499);
+  }
+  .contbtns{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+
+  }
+  .conttotalcart{
+
+  }
+  .contlineitemcart{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 120px;
+    padding: 6px;
+    margin-top: 12px;
+    border-radius: 20px;
+    background-color: rgb(245, 245, 245);
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    
+  }
+  .contdatacart{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 8px;
+    width: 80%;
+  }
+  .contimgcartitem{
+    width: 120px;
+    height: 100%;
+    border-radius: 16px;
+    background-color: black;
+  }
+  .divdataintcart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 120px;
+  }
+  .tittlecart{
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .contcartvalor{
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(61, 61, 61);
+  }
+  .contcarttittle{
+    
+  }
+  
   

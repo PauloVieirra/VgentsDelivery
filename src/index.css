@@ -29,4 +29,19 @@ code {
 ::-webkit-scrollbar-track {
   background-color: transparent; /* Cor da área da barra de rolagem não ocupada pelo indicador */
 }
-
+.btnconfirmar{
+  width: 76%;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  background-color: rgb(135, 143, 255);
+}
+.btnclosemodal{
+  width: 76%;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  background-color: rgb(255, 142, 142);
+}
+.btnremove{
+  height: 36px;
+  background-color: rgb(89, 152, 255);
+}

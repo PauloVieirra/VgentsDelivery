@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import LogoutButton from './Logout';
 import LoginButton from './Login';
+import CartModal from '../screens/CartModal/Index';
 import './styles.css';
 
 const AuthenticatedMenu = ({ userType }) => {
@@ -57,24 +58,38 @@ const AuthenticatedMenu = ({ userType }) => {
               <Link to="/Products">Produtos</Link>
             </li>
             <li>
-              <Link to="#">Pedidos</Link>
+              <Link to="/Pedidos">Pedidos</Link>
             </li>
           </>
         )}
         {userType === 'cliente' && (
-          <>
-          <li>
-          <Link to="/">Inicio</Link>
-          </li>
-          <li>
-          <Link to="/MeusPedidos">Historico</Link>
-          </li>
-          <li>
-              <Link to="#">A Vgents</Link>
-          </li>
-          
-          <LogoutButton/>
-          </>
+            <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
+               <div style={{width:'18%'}}> 
+            
+            </div>
+            <div  style={{
+            display:'flex',
+            flexDirection:'row',
+            width:'64%',
+            alignItems:'center',
+            justifyContent:'center',
+            
+            }}>
+             
+            <div>
+              <Link to="/" className={isButtonActive('Inicio')} onClick={() => handleButtonClick('Inicio')}>
+                Inicio
+              </Link>
+            </div>
+            <div>
+            <Link to="/MeusPedidos" className={isButtonActive('Historico')} onClick={() => handleButtonClick('Historico')}>
+                Historico
+              </Link>
+            </div>
+             
+           
+          </div>
+          </div>
         )}
          {!userType && (
         <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
