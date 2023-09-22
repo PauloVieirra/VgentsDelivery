@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-width: 1420px;
     height: calc(100vh - 100px);
+
       }
       .contclient{
         display: flex;
@@ -383,7 +385,7 @@
   position: fixed;
   z-index: 1000;
   top: 17px;
-  right: 200px;
+  right: 380px;
   border-radius: 100px;
   padding: 10px;
   cursor: pointer;
@@ -392,8 +394,7 @@
   position: fixed;
   z-index: 1000;
   top: 17px;
-  right: 30px;
-  right: 200px;
+  right: 380px;
   background-color: #e6ac3f46;
   border-radius: 100px;
   padding: 10px;

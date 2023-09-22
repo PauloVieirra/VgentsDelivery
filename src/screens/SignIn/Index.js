@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
+import './style.css';
 
 const SignIn = () => {
   const { signInWithEmailAndPassword } = useAuth();
@@ -36,8 +37,8 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <h2>Tela de Login</h2>
+    <div className='container'>
+      <div  className='divform'>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email:</label>
@@ -57,12 +58,13 @@ const SignIn = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+     
         <button type="submit">Entrar</button>
-      </form>
-      <p>
-        <button onClick={handleSignUp}> Criar conta </button>
-        
-      </p>
+          </form> 
+          <div>
+           <button onClick={handleSignUp}> Criar conta </button>
+           </div>
+        </div>
     </div>
   );
 };

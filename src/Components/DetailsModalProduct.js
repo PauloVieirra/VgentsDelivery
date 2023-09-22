@@ -16,9 +16,7 @@ const ProductDetailsModal = ({ product, onClose, addToCart }) => {
     return (
       <div className="product-details-modal">
         <div className="modal-content">
-          <button className="close-button" onClick={onClose}>
-            Fechar
-          </button>
+         
           <div>
           <img src={product.imageUrl} alt={product.title} className="product-ig" />
           </div>
@@ -53,6 +51,9 @@ const ProductDetailsModal = ({ product, onClose, addToCart }) => {
          
 
           </div>
+          <button className="close-button" onClick={onClose}>
+            Fechar
+          </button>
         </div>
       </div>
     );

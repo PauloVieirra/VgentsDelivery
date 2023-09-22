@@ -2,14 +2,16 @@ import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import LogoutButton from './Logout';
 import LoginButton from './Login';
-import CartModal from '../screens/CartModal/Index';
+import { useAuth } from '../../src/Context/AuthContext';
 import './styles.css';
+
+
 
 const AuthenticatedMenu = ({ userType }) => {
 
   const [activeButton, setActiveButton] = useState(null);
 
-   console.log(activeButton);
+  const { user } = useAuth();
 
   const handleButtonClick = (Inicio) => {
     setActiveButton(Inicio);
@@ -19,6 +21,7 @@ const AuthenticatedMenu = ({ userType }) => {
 
     return activeButton === Inicio ? 'btnmenu active' : 'btnmenu';
   };
+  
 
   return (
     
@@ -27,7 +30,18 @@ const AuthenticatedMenu = ({ userType }) => {
     <div className='contmenu'>
       <div className='contresolution'>
         {userType === 'adm' && (
-          <> 
+          <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
+          <div style={{width:'18%'}}> 
+            
+          </div>
+          <div  style={{
+            display:'flex',
+            flexDirection:'row',
+            width:'64%',
+            alignItems:'center',
+            justifyContent:'center',
+            
+            }}>
             <div>
             <Link to="/">Início</Link>
             </div>
@@ -47,10 +61,22 @@ const AuthenticatedMenu = ({ userType }) => {
               <Link to="/Dashboard">A Vgents</Link>
             </li>
             
-          </>
+          </div>+
+          </div>
         )}
         {userType === 'logista' && (
-          <>
+          <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
+          <div style={{width:'18%'}}> 
+            
+          </div>
+          <div  style={{
+            display:'flex',
+            flexDirection:'row',
+            width:'64%',
+            alignItems:'center',
+            justifyContent:'center',
+            
+            }}>
             <li>
               <Link to="/">Inicio</Link>
             </li>
@@ -60,21 +86,24 @@ const AuthenticatedMenu = ({ userType }) => {
             <li>
               <Link to="/Pedidos">Pedidos</Link>
             </li>
-          </>
+            <div className='dataperson'>
+            {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
+            <p/>
+            {user.email}
+          </div>
+          </div></div>
         )}
         {userType === 'cliente' && (
             <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
-               <div style={{width:'18%'}}> 
-            
+            <div style={{width:'18%'}}> 
+              
             </div>
             <div  style={{
-            display:'flex',
-            flexDirection:'row',
-            width:'64%',
-            alignItems:'center',
-            justifyContent:'center',
-            
-            }}>
+              display:'flex',
+              flexDirection:'row',
+              width:'64%',
+              
+              }}>
              
             <div>
               <Link to="/" className={isButtonActive('Inicio')} onClick={() => handleButtonClick('Inicio')}>
@@ -88,6 +117,11 @@ const AuthenticatedMenu = ({ userType }) => {
             </div>
              
            
+          </div>
+          <div className='dataperson'>
+            {user.email}
+            <p/>
+            {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
           </div>
           </div>
         )}
@@ -125,12 +159,21 @@ const AuthenticatedMenu = ({ userType }) => {
                 SAC
               </Link>
             </div>
+
+             <div  style={{
+              display:'flex', 
+              width:'100%',
+              height:'100%',
+              justifyContent:'flex-end', 
+              alignItems:'center', 
+              paddingRight:'30px',
+              }}>
+               <LoginButton/>
+             </div>
             
             </div>
        
-            <div  style={{display:'flex', width:'18%',justifyContent:'center', alignItems:'center'}}>
-            <LoginButton/>
-          </div>
+           
         </div>
         
       )}

@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
   const [showInactiveItems, setShowInactiveItems] = useState(true);
   const [userOrders, setUserOrders] = useState([]);
  
-  
 
 
   useEffect(() => {
@@ -93,7 +92,7 @@ const AuthProvider = ({ children }) => {
       // Salvar os dados no Storage (localStorage)
       const userDataWithTipo = { name, email, tipo };
       localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
-  
+     
       if (cartItems.length === 0) {
         // Caso não haja itens, retornar o usuário
         return user;
@@ -105,6 +104,7 @@ const AuthProvider = ({ children }) => {
       setUser(null);
       throw error;
     }
+    
   };
   
   
@@ -220,9 +220,8 @@ const AuthProvider = ({ children }) => {
 
   const saveFormToFirebase = (complemento) => {
     const userUid = user.uid;
-  
     const userRef = firebase.database().ref(`users/${userUid}`);
-  
+    
     // Salvar os dados do complemento
     userRef.child('complemento').set(complemento)
     .then(() => {
@@ -314,5 +313,8 @@ const useAuth = () => {
   }
   return context;
 };
+
+  
+
 
 export { AuthProvider, useAuth };

@@ -12,33 +12,28 @@ const ProductForm = () => {
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
   const [imageUrl, setImageUrl] = useState(null);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(''); // Estado para armazenar a categoria selecionada
   const [isActive, setIsActive] = useState(true);
 
-  
+  const categories = ['Cerveja', 'Drink', 'Lanche', 'Petisco', 'Prato', 'Vinho','Sobremesa']; // Opções de categoria
 
- 
-const handleImageChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    
-   
-setIsImageUploaded(false);
+    setIsImageUploaded(false);
   };
 
   const handleImageUpload = async () => {
     try {
       if (!image) {
-        
-       
-throw new Error('Selecione uma imagem antes de enviar.');
+        throw new Error('Selecione uma imagem antes de enviar.');
       }
 
       const imageRef = firebase.storage().ref(`users/${user.uid}/products/${image.name}`);
       await imageRef.put(image);
       const imageUrl = await imageRef.getDownloadURL();
       setIsImageUploaded(true);
-      setUploadMessage('Tudo certo! clique em cadastrar');
+      setUploadMessage('Tudo certo! Clique em cadastrar.');
       setImageUrl(imageUrl);
     } catch (error) {
       setIsImageUploaded(false);
@@ -64,14 +59,12 @@ throw new Error('Selecione uma imagem antes de enviar.');
         price,
         description,
         imageUrl,
-        category,
+        category, // Salvar a categoria selecionada
         isActive,
       });
 
       // Limpar os campos após o envio
-      
-     
-setTitle('');
+      setTitle('');
       setPrice('');
       setDescription('');
       setImage(null);
@@ -79,7 +72,7 @@ setTitle('');
       setUploadMessage('');
       setImageUrl(null);
       setCategory('');
-      setIsActive(true); // Definir o valor padrão do checkbox como true
+      setIsActive(true);
 
       alert('Produto cadastrado com sucesso!');
     } catch (error) {
@@ -90,11 +83,9 @@ setTitle('');
 
   return (
     <div className='contcardcad'>
-       <div className='h2n'>
-           <h2>Cadastrar Produto</h2>
-       </div>
-     
-      
+      <div className='h2n'>
+        <h2>Cadastrar Produto</h2>
+      </div>
       
       <form onSubmit={handleSubmit}>
         <div className='continput'>
@@ -128,15 +119,20 @@ setTitle('');
         </div>
         <div className='continput'>
           <label htmlFor="category">Categoria:</label>
-          <input
-            type="text"
+          <select
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required
-          />
+          >
+            <option value="">Selecione uma categoria</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
         </div>
-        
         <div className='continput'>
           <label htmlFor="isActive">Cadastrar sem publicar:</label>
           <input
@@ -146,7 +142,6 @@ setTitle('');
             onChange={(e) => setIsActive(e.target.checked)}
           />
         </div>
-        
         <div className='continput'>
           <label htmlFor="image" className="custom-file-input">
             {image ? (
