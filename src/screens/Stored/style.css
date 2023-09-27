@@ -1,42 +1,181 @@
-  .contstore {
+ 
+    .contstore {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 425px;
+    }
+    .contgridlist {
+      display: flex;
+      justify-content: flex-start; /* Modificamos para flex-start para que os produtos fiquem à esquerda */
+      flex-wrap: wrap; /* Para quebrem para a próxima linha quando não couberem mais */
+      gap:1px;
+    }
+    .contprodclient {
+      display: grid;
+      margin-top: 20px;
+      grid-template-columns: repeat(2, 1fr); /* Mostrar 2 itens por linha */
+      gap:0px;
+    }
+  
+    .product-card {
+      
+        width: auto;
+        height:auto;
+        background-color: #c0c0c03b;
+        align-items: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease;
+        cursor: pointer;
+        margin-bottom: 20px;
+        margin: 6px;
+    }
+    .contimg {
+      width: 100%;
+      height: 50%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+  
+    .product-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+    }
+  
+    .product-card h3 {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  
+    .product-card p {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+  
+    .product-card p:last-child {
+      font-weight: bold;
+      color: #007bff;
+      margin-top: 15px;
+    }
+    .contbaricons{
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+    .divbarricons {
+      display: flex;
+      flex-direction: row;
+      overflow-y: hidden;
+      overflow-x: auto;
+      max-width: 425px;
+      height: auto;
+      padding-left: 20px;
+    }
+    .divbarricons::-webkit-scrollbar {
+      display: none; /* Oculta a barra de rolagem no Chrome e navegadores baseados no WebKit */
+    }
+    .conticonsear {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 8px;
+    }
+    
+    .conticonsear img {
+      width: 46px;
+      height: 46px;
+    }
+    
+    .selected {
+      background-color: #9cfaa72d;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+    .divsearchbarr{
+      display:'flex';
+      flex-direction: column;
+      width: 100%;
+      padding-top: 40px;
+     }
+     .cliensearshbar {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .cliensearshbar input {
+      width: 80%;
+      height: 28px;
+      padding: 10px;
+      padding-left: 30px;
+      margin: 6px;
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 100px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      outline: none;
+    }
+    .contclient{
+      display: none;
+    }
+    .cart-icon {
+      display: flex;
+      position: absolute;
+      z-index: 2000;
+      top: 6px;
+      right:100px;
+    }
+    .cart-icon:hover {
+      display: flex;
+      position: absolute;
+      z-index: 2000;
+      top: 6px;
+      right:100px;
+    }   
+
+
+ 
+  @media (min-width: 425px) {
+    .contstore {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 1420px;
+    margin: 0 auto;
     height: calc(100vh - 100px);
-
-      }
-      .contclient{
+  }
+   .contclient{
         display: flex;
         width: 100%;
         height: 320px;
         margin-top: 60px;
         flex-direction: row;
         background-color: #84f39ef4;
-      }
-      .slider-container {
-        width: 100%;
-        
-        overflow: hidden;
-      }
+  }
       
-      .slider {
+  .slider {
         display: flex;
         height: 320px;
         transition: transform 1.5s ease-in-out;
-      }
+  }
       
       
-      .contleft{
+  .contleft{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 50%;
         height: 320px;
-        
-      }
-      .texttittle{
+  }
+  .texttittle{
         display: flex;
         font-family: 'Poppins', sans-serif;
         font-size: 3rem;
@@ -45,7 +184,7 @@
         color: #454545b2;
         border-radius: 10px;
         text-align: center;
-      }
+  }
       
       .clienident{
         width: 100%;
@@ -57,10 +196,7 @@
         position: relative;
       }
 
-      .slider-container {
-        width: 100%;
-        overflow: hidden;
-      }
+      
       
       .slider {
         display: flex;
@@ -141,15 +277,7 @@
         
       }
       
-      .contright {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 50%;
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-      }
+      
       
       .food-image {
         position: absolute;
@@ -353,16 +481,24 @@
     border-top-right-radius: 10px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .contbaricons{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
   }
   .divbarricons {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0; /* Adicione algum espaçamento superior e inferior para melhorar a aparência */
-    white-space: nowrap; /* Evita que os elementos quebrem para a próxima linha */
+      flex-direction: row;
+      justify-content: center;
+      overflow-y: hidden;
+      overflow-x: auto;
+      width: 100%;
+      max-width: 1424px;
+      height: auto;
+      padding-left: 20px;
   }
   .divsearchbarr{
    display:'flex';
@@ -384,8 +520,8 @@
 .cart-icon {
   position: fixed;
   z-index: 1000;
-  top: 17px;
-  right: 380px;
+  top: 20px;
+  right: 260px;
   border-radius: 100px;
   padding: 10px;
   cursor: pointer;
@@ -393,8 +529,8 @@
 .cart-icon:hover {
   position: fixed;
   z-index: 1000;
-  top: 17px;
-  right: 380px;
+  top: 20px;
+  right: 260px;
   background-color: #e6ac3f46;
   border-radius: 100px;
   padding: 10px;
@@ -423,139 +559,6 @@
 .cart-count.non-zero {
   background-color: #6cca3dda; 
 }
-
-
- 
-  @media (max-width: 425px) {
-    .contstore {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      max-width: 425px;
-    }
-    .contgridlist {
-      display: flex;
-      justify-content: flex-start; /* Modificamos para flex-start para que os produtos fiquem à esquerda */
-      flex-wrap: wrap; /* Para quebrem para a próxima linha quando não couberem mais */
-      gap:1px;
-    }
-    .contprodclient {
-      display: grid;
-      margin-top: 40px;
-      grid-template-columns: repeat(2, 1fr); /* Mostrar 2 itens por linha */
-      gap:0px;
-    }
-  
-    .product-card {
-      
-        width: 180px;
-        height:180px;
-        min-height: 300px;
-        background-color: #c0c0c03b;
-        align-items: center;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        transition: transform 0.2s ease;
-        cursor: pointer;
-        margin-bottom: 20px;
-        margin-left: 20px;
-    }
-    
-  
-    .product-image {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px 10px 0 0;
-      overflow: hidden;
-    }
-  
-    .product-card h3 {
-      font-size: 20px;
-      margin-top: 10px;
-    }
-  
-    .product-card p {
-      font-size: 16px;
-      margin-top: 5px;
-    }
-  
-    .product-card p:last-child {
-      font-weight: bold;
-      color: #007bff;
-      margin-top: 15px;
-    }
-    .divbarricons {
-      display: flex;
-      flex-direction: row;
-      overflow-y: hidden;
-      overflow-x: auto;
-      max-width: 425px;
-      height: auto;
-      background-color: #33333300;
-      padding-left: 120px;
-    }
-    .divbarricons::-webkit-scrollbar {
-      display: none; /* Oculta a barra de rolagem no Chrome e navegadores baseados no WebKit */
-    }
-    .conticonsear {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-left: 8px;
-    }
-    
-    .conticonsear img {
-      width: 46px;
-      height: 46px;
-    }
-    
-    .selected {
-      background-color: #9cfaa72d;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      border-radius: 15px;
-    }
-    .divsearchbarr{
-      display:'flex';
-      flex-direction: column;
-      width: 100%;
-      padding-top: 40px;
-     }
-     .cliensearshbar {
-      width: 100%;
-      display: flex;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-    .cliensearshbar input {
-      width: 80%;
-      height: 32px;
-      padding: 10px;
-      padding-left: 30px;
-      margin: 6px;
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      border-radius: 100px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      outline: none;
-    }
-    .contclient{
-      display: none;
-    }
-    .cart-icon {
-      display: flex;
-      position: absolute;
-      z-index: 2000;
-      top: 6px;
-      right:100px;
-    }
-    .cart-icon:hover {
-      display: flex;
-      position: absolute;
-      z-index: 2000;
-      top: 6px;
-      right:100px;
-    }
-   
   }
   
   

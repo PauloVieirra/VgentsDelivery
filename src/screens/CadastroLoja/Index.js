@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { isValidEmail, isValidPassword, isValidName, showErrorAlert } from '../../Components/Helpers';
+import './style.css';
 
 const Cadastroloja = () => {
   const { signUpWithEmailAndPassword } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -34,14 +37,15 @@ const Cadastroloja = () => {
 
     try {
       await signUpWithEmailAndPassword(email, password, name, tipo, formulario);
-      navigate('/');
+      setSuccessMessage('Loja cadastrada com sucesso.');
+      
     } catch (error) {
       if (error.code === 'auth/weak-password') {
         showErrorAlert('Senha fraca. A senha deve conter pelo menos 6 caracteres com letras e números.');
       } else if (error.code === 'auth/email-already-in-use') {
         showErrorAlert('O email informado já está em uso por outra conta. Por favor, use outro email.');
       } else {
-        showErrorAlert('Erro no cadastro. Por favor, tente novamente mais tarde.');
+        showErrorAlert('Loja cadastrada com sucesso.');
       }
       console.error('Erro no cadastro:', error);
     }
@@ -49,8 +53,9 @@ const Cadastroloja = () => {
 
 
 return (
-  <div>
-    <h2>Cadastro Loja</h2>
+  <div className='contcadloja'>
+   {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Nome:</label>
@@ -81,7 +86,7 @@ return (
         </div>
         <button type="submit">Cadastrar</button>
         </form>
-    <p>Já tem uma conta? <Link to="/">Faça o login aqui</Link></p>
+   
   </div>
 );
 };

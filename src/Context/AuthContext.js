@@ -72,7 +72,6 @@ const AuthProvider = ({ children }) => {
   };
   
   
-
   const signUpWithEmailAndPassword = async (email, password, name, tipo, formulario, cartItems) => {
     try {
       const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -89,10 +88,13 @@ const AuthProvider = ({ children }) => {
         formulario: formulario,
       });
   
-      // Salvar os dados no Storage (localStorage)
-      const userDataWithTipo = { name, email, tipo };
-      localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
-     
+      if (tipo !== 'vazio') {
+        // Salvar os dados no Storage (localStorage) apenas se não for um "logista"
+        const userDataWithTipo = { name, email, tipo };
+        localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
+        
+      }
+  
       if (cartItems.length === 0) {
         // Caso não haja itens, retornar o usuário
         return user;
@@ -104,10 +106,9 @@ const AuthProvider = ({ children }) => {
       setUser(null);
       throw error;
     }
-    
   };
   
-  
+
 
   const signOut = () => {
     return firebase
@@ -221,7 +222,7 @@ const AuthProvider = ({ children }) => {
   const saveFormToFirebase = (complemento) => {
     const userUid = user.uid;
     const userRef = firebase.database().ref(`users/${userUid}`);
-    
+
     // Salvar os dados do complemento
     userRef.child('complemento').set(complemento)
     .then(() => {
@@ -244,6 +245,34 @@ const AuthProvider = ({ children }) => {
     .catch((error) => {
       console.error('Erro ao gravar dados de complemento:', error);
     });
+};
+
+const saveLogistaFormToFirebase = (complemento) => {
+  const userUid = user.uid;
+  const userRef = firebase.database().ref(`users/${userUid}`);
+
+  // Salvar os dados do complemento
+  userRef.child('complemento').set(complemento)
+  .then(() => {
+    console.log('Dados de complemento gravados com sucesso!');
+
+    // Salvar os dados no localStorage
+    localStorage.setItem('complementoData', JSON.stringify(complemento));
+    
+    // Atualizar a propriedade 'formulario' para true
+    userRef.update({
+      formulario: true
+    })
+    .then(() => {
+      console.log('Propriedade "formulario" atualizada para true.');
+    })
+    .catch((error) => {
+      console.error('Erro ao atualizar a propriedade "formulario":', error);
+    });
+  })
+  .catch((error) => {
+    console.error('Erro ao gravar dados de complemento:', error);
+  });
 };
 
 const fetchUserOrders = async (uid) => {
@@ -294,6 +323,7 @@ const fetchUserOrders = async (uid) => {
     getStoreIdByProductId,
     createOrder,
     saveFormToFirebase,
+    saveLogistaFormToFirebase,
   };
 
   return (

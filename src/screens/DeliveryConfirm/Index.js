@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import firebase from '../../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import FormularioComplemento from '../../Components/Formcomplit/Index';
+import FormularioComplementoLogista from '../../Components/FormcomplitLogista/Index';
 import { v4 as uuidv4 } from 'uuid';
 import './styles.css';
 
@@ -18,13 +19,14 @@ const ConfirmationPage = () => {
   const [lastAddressData, setLastAddressData] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isAddressButtonVisible, setIsAddressButtonVisible] = useState(true);
-
+  
+ 
   const handleUseAddressClick = () => {
     setSelectedAddress(lastAddressData);
     setIsAddressButtonVisible(false);
   };
-
   
+  //Continuar onfigurando o complemento do formulario do logista
   useEffect(() => {
     if (state && state.cartItems) {
       setIsFormSubmitted(state.formulario || false);
@@ -35,7 +37,7 @@ const ConfirmationPage = () => {
     const savedIsFormSubmitted = localStorage.getItem('isFormSubmitted');
     setIsFormSubmitted(savedIsFormSubmitted === 'true');
 
-    const userUid = user?.uid; // Use optional chaining to avoid errors if user is not available
+    const userUid = user?.uid;
     if (userUid) {
       const userRef = firebase.database().ref(`users/${userUid}`);
       userRef.child('complemento').once('value', (snapshot) => {
@@ -43,10 +45,11 @@ const ConfirmationPage = () => {
         setLastAddressData(data);
 
         if (data && data.formulario) {
-          setIsFormSubmitted(true); // Set isFormSubmitted to true if complemento.formulario is true
+          setIsFormSubmitted(true);
           localStorage.setItem('isFormSubmitted', 'true');
         }
       });
+      
     }
   }, [user]);
 
@@ -111,17 +114,11 @@ const ConfirmationPage = () => {
     }
   };
   
-  
-  
-
-  
-
   const handleAddressChange = (newAddressData) => {
     setSelectedAddress(newAddressData); // Atualize o estado com os novos dados de endereço
     setLastAddressData(newAddressData); // Atualize os últimos dados de endereço exibidos
-   
   };
-
+ 
   return (
     <div className='containerconfirm'>
       {isSent ? (
@@ -187,9 +184,14 @@ const ConfirmationPage = () => {
 
         </div>
       )}
-       {!isFormSubmitted === true && lastAddressData === null  && (
-          <div><FormularioComplemento onSubmit={handleAddressChange} />  </div>
+
+      {!isFormSubmitted === true && lastAddressData === null  && (
+          <div>
+            <FormularioComplemento onSubmit={handleAddressChange} />
+         </div>
         )}
+         <div>
+    </div>
     </div>
   );
 };

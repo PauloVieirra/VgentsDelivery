@@ -8,8 +8,8 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartModal from '../CartModal/Index';
 import BannersCarousel from '../../Components/Banners/BnnerLoja';
 import ProductDetailsModal from '../../Components/DetailsModalProduct';
+import CitySelection from '../../Components/SearchCyty';
 
-// Importe suas imagens de ícone aqui
 import icons1 from '../../images/icon1.png';
 import icons2 from '../../images/icon2.png';
 import icons3 from '../../images/icon3.png';
@@ -26,12 +26,14 @@ const Store = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
   const resultsSectionRef = useRef(null);
   const searchInputRef = useRef(null);
+  const [showCitySelection, setShowCitySelection] = useState(!lojistaId);
+  const {user} = useAuth();
 
   useEffect(() => {
     const unsubscribe = getProductsByUserId(lojistaId);
-
     const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
@@ -42,17 +44,18 @@ const Store = () => {
       setSelectedCategory(storedCategory);
     }
 
+    setShowCitySelection(!lojistaId);
+
     return () => {
       unsubscribe();
     };
-  }, [lojistaId, getProductsByUserId]);
+    }, [lojistaId, getProductsByUserId]);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
   const handleIconClick = (category) => {
-    // Define a categoria selecionada e redefine a pesquisa
     setSelectedCategory(category);
     setSearchTerm('');
     localStorage.setItem('selectedCategory', category);
@@ -114,8 +117,17 @@ const Store = () => {
     setIsCartOpen(!isCartOpen);
   };
 
+  
+  // Função para selecionar uma cidade
+  const handleSelectCity = (city) => {
+    setSelectedCity(city);
+    // Aqui você pode fazer a busca de vendedores com base na cidade selecionada
+  };
+
+
   return (
     <div className="contstore">
+     
       <div className="cart-icon" onClick={toggleCart}>
         <FontAwesomeIcon icon={faShoppingCart} style={{ color: '#131313' }} />
         <span className={`cart-count ${cartItems.length !== 0 ? 'non-zero' : ''}`}>
@@ -123,8 +135,11 @@ const Store = () => {
         </span>
       </div>
       <div className='contclient'>
-        <BannersCarousel/>
-      </div>
+       
+      </div> 
+      {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true
+        <CitySelection onSelectCity={handleSelectCity} />
+      ) : (
       <div className='divsearchbarr'>
         <div className='cliensearshbar'>
           <input
@@ -136,7 +151,8 @@ const Store = () => {
             ref={searchInputRef}
           />
         </div>
-        <div className='divbarricons'>
+        <div className='contbaricons'>
+          <div className='divbarricons'>
           <div className={`conticonsear ${selectedCategory === 'Cerveja' ? 'selected' : ''}`} onClick={() => handleIconClick('Cerveja')}>
             <img src={icons7} alt="" className='conticonsearsh' />
             Cervejas
@@ -166,12 +182,16 @@ const Store = () => {
             Doces
           </div>
         </div>
+        </div>
       </div>
+      )}
       <div ref={resultsSectionRef}></div>
       <div className='contprodclient' >
         {filteredProducts.map((product) => (
           <div key={product.id} className='product-card' onClick={() => openProductDetails(product)}>
+            
             <img src={product.imageUrl} alt={product.title} className='contimg' />
+            
             <div style={{ margin: '10px' }}>
               <h3 style={{ color: '#000' }}>{product.title}</h3>
               <p>{product.description}</p>

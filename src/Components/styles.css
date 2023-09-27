@@ -1,4 +1,82 @@
 .contmenu {
+  display: none;
+}
+.menumobile{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  z-index: 9000;
+  top: 0;
+  margin-top: 6px;
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+ }
+ .imguserinit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  max-width: 80px;
+  border-radius: 100px;
+  background-color: #8b8b8b96;
+ }
+ .mobidata{
+  display: flex;
+  width: 50%;
+  align-items: center;
+ }
+ .contmobimenus{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+  width: 50%;
+ }
+ .iconmenu{
+  width: 32px;
+ }
+ .iconmenuclose{
+  position: absolute;
+  top: 24px;
+  right: 34px;
+  width: 24px;
+ }
+ .menu-lateral {
+  position: fixed; /* Fixa o menu na tela */
+  top: 0px;
+  right: -0px; /* Começa fora da tela à direita */
+  width: 260px; /* Largura do menu */
+  height: 100%; /* Altura total da tela */
+  background-color: #fff; /* Cor de fundo do menu */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra para o menu */
+  transition: right 1s ease; /* Efeito de transição */
+  z-index: 9000; /* Z-index alto para sobrepor outros elementos */
+}
+
+.menu-lateral ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-lateral li {
+  padding: 10px;
+  text-align: center;
+}
+
+/* CSS para mostrar o menu quando aberto */
+.menu-lateral.aberto {
+  right: 0; /* Move o menu para a posição visível */
+}
+
+@media (min-width: 425px) {
+ .menumobile{
+  display: none;
+ }
+ .contmenu {
   display: flex;
   width: 100%;
   height: 75px; 
@@ -161,170 +239,6 @@
   justify-content: center;
   align-items: center;
 }
-
-@media (max-width: 425px) {
-
-  .contmenu {
-    display: none;
-    width: 52px;
-    height: 52px;
-    background-color: #f0f0f0;
-    position: absolute;
-    z-index: 2001;
-    top: 0px;
-    right: 20px;
-  }
-  .contresolution{
-    display: none;
-  }
-  .active {
-    background-color: #e6b94818; 
-    color: #3c3c3c; 
-    border-top: 2px solid #3c3c3c; 
-    margin-top: -2px;
-  }
-  .btnmenu {
-    display: flex;
-    align-items:flex-end ;
-    padding-bottom: 4px;
-    justify-content: center;
-    text-decoration: none;
-    background-color: transparent; 
-    border: none;
-    color: #3c3c3c;
-    width: 60px;
-    height: 40px;
-    margin: 10px;
-  }
-  
-  .btnmenu:hover {
-    border-top: none; 
-    border-bottom: 2px solid #3c3c3c57;
-    border-left: none;
-    border-right: none;
-  }
-  
-  .product-details-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    display: flex;
-    flex-direction: row;
-    background-color: #fff;
-    width: 90%;
-    height: 80%;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-   
-  }
-  .contimgdtls{
-    display: flex;
-    width: auto;
-    background-color: #007bff;
-  }
-  .contdatadtls{
-    width: 70%;
-    padding: 20px;
-  }
-  
-  .close-button {
-    align-self: flex-end;
-    background: none;
-    margin-top: 50px;
-    margin-right: 50px;
-    border: none;
-  
-    cursor: pointer;
-    color: #3c3c3c;
-  }
-  
-  .product-details-content {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .product-ig {
-   width: 100px;
-  }
-  
-  .product-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  .product-info {
-    flex-grow: 1;
-  }
-  
-  .product-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .product-description {
-    margin-bottom: 15px;
-  }
-  
-  .product-ingredients {
-    font-style: italic;
-    margin-bottom: 15px;
-  }
-  
-  .product-validity {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 15px;
-  }
-  
-  .product-price {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .contdescriptiondtls{
-    width: 100%;
-    height: 100px;
-  }
-  .contpricedtls{
-    font-size: 24px;
-    font-weight: 700;
-    color: #0a912a;
-  }
-  .contbtnaddcart{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 40px;
-  }
-  .contresolution{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background-color: #ecf6ee;
-  }
-  .contintmenu{
-    background-color: #007bff;
-  }
-  .dataperson{
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    height: '100%';
-    justify-content: center;
-    align-items: center;
-  }
   
 
 
