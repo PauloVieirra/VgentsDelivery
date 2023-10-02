@@ -28,6 +28,7 @@ const { user, productsProm } = useAuth();
     <div className="card-list">
     {productsProm.map(card => (
   <div key={card.id} className='card'>
+    <img src={card.imageUrl} alt="" className='imgprom'/>
     <p>Title: {card.title}</p>
     <p>Description: {card.description}</p>
     <p>Price: {card.price}</p>
@@ -43,8 +44,6 @@ const { user, productsProm } = useAuth();
         </div>
       ))}
     </div>
-
-    
     </>
   );
 };

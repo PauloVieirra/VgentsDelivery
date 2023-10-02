@@ -16,14 +16,17 @@
   }
   
   .card {
-    flex: 0 0 28%; /* 2/5 de cada card */
+    flex: 0 0 34%; /* 2/5 de cada card */
     margin: 0 1px; /* Espaçamento entre os cards */
     margin-left: 14px;
     margin-top: 8px;
-    padding: 20px;
+    padding: 6px;
     border-radius: 12px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
+  }
+  .imgprom{
+    width :100% !important ;
   }
   .card-vert {
     display: flex;

@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchProductsProm = async () => {
       try {
-        const productsRef = firebase.database().ref('productprom');
+        const productsRef = firebase.database().ref('promotedProducts');
   
         // Utilizando once para pegar os dados uma vez
         const snapshot = await productsRef.once('value');
