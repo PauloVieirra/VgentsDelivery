@@ -33,7 +33,7 @@
   justify-content: flex-end;
   align-items: center;
   padding-right: 20px;
-  width: 50%;
+  width: 100%;
  }
  .iconmenu{
   width: 32px;
@@ -51,7 +51,7 @@
   width: 260px; /* Largura do menu */
   height: 100%; /* Altura total da tela */
   background-color: #fff; /* Cor de fundo do menu */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra para o menu */
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.6); /* Sombra para o menu */
   transition: right 1s ease; /* Efeito de transição */
   z-index: 9000; /* Z-index alto para sobrepor outros elementos */
 }
@@ -72,7 +72,7 @@
   right: 0; /* Move o menu para a posição visível */
 }
 
-@media (min-width: 425px) {
+@media (min-width: 500px) {
  .menumobile{
   display: none;
  }

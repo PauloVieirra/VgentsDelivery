@@ -1,0 +1,23 @@
+.containerfooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: fixed; /* Mudança para fixed */
+    z-index: 9000;
+    bottom: 0px;
+    width: 100%;
+    height: 48px;
+    max-height: 48px;
+    background-color: rgb(221, 221, 221);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.501); /* Sombra para o menu */
+  }
+  
+  .btnmenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: rgb(246, 246, 246);
+  }
+  

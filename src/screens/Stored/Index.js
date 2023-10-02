@@ -6,10 +6,10 @@ import { useAuth } from '../../Context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartModal from '../CartModal/Index';
-import BannersCarousel from '../../Components/Banners/BnnerLoja';
 import ProductDetailsModal from '../../Components/DetailsModalProduct';
 import CitySelection from '../../Components/SearchCyty';
-
+import Banners from '../../Components/Banners/BannerImpussion';
+import CardList from '../../Components/ItensImpullss';
 import icons1 from '../../images/icon1.png';
 import icons2 from '../../images/icon2.png';
 import icons3 from '../../images/icon3.png';
@@ -134,11 +134,13 @@ const Store = () => {
           {cartItems.length}
         </span>
       </div>
-      <div className='contclient'>
-       
-      </div> 
+      <Banners/>
       {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true
-        <CitySelection onSelectCity={handleSelectCity} />
+      
+       <div className='divsearchbarr'>
+        
+       <CitySelection onSelectCity={handleSelectCity} /> </div>
+      
       ) : (
       <div className='divsearchbarr'>
         <div className='cliensearshbar'>
@@ -150,9 +152,9 @@ const Store = () => {
             onFocus={handleSearchFocus}
             ref={searchInputRef}
           />
-        </div>
-        <div className='contbaricons'>
-          <div className='divbarricons'>
+      </div>
+      <div className='contbaricons'>
+        <div className='divbarricons'>
           <div className={`conticonsear ${selectedCategory === 'Cerveja' ? 'selected' : ''}`} onClick={() => handleIconClick('Cerveja')}>
             <img src={icons7} alt="" className='conticonsearsh' />
             Cervejas
@@ -181,24 +183,24 @@ const Store = () => {
             <img src={icons6} alt="" className='conticonsearsh'/>
             Doces
           </div>
-        </div>
+         </div>
         </div>
       </div>
       )}
+
       <div ref={resultsSectionRef}></div>
       <div className='contprodclient' >
         {filteredProducts.map((product) => (
           <div key={product.id} className='product-card' onClick={() => openProductDetails(product)}>
-            
             <img src={product.imageUrl} alt={product.title} className='contimg' />
-            
-            <div style={{ margin: '10px' }}>
+          <div style={{ margin: '10px' }}>
               <h3 style={{ color: '#000' }}>{product.title}</h3>
               <p>{product.description}</p>
               <p>Preço: R$ {product.price}</p>
-            </div>
+          </div>
           </div>
         ))}
+      
       </div>
       <div className="product-list"></div>
       {selectedProduct && (

@@ -19,12 +19,27 @@ const ConfirmationPage = () => {
   const [lastAddressData, setLastAddressData] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isAddressButtonVisible, setIsAddressButtonVisible] = useState(true);
+  const [isUserForm, setIsUserForm] = useState('');
+
+  const isFormSented = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).formulario;
+  const saveUserType = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).tipo;
+
   
  
   const handleUseAddressClick = () => {
     setSelectedAddress(lastAddressData);
     setIsAddressButtonVisible(false);
   };
+
+   useEffect(() => {
+    if (isFormSented === true) {
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }else{
+      return;
+    }
+  }, [state, isFormSented, navigate]);
   
   //Continuar onfigurando o complemento do formulario do logista
   useEffect(() => {
@@ -32,6 +47,9 @@ const ConfirmationPage = () => {
       setIsFormSubmitted(state.formulario || false);
     }
   }, [state]);
+
+
+
 
   useEffect(() => {
     const savedIsFormSubmitted = localStorage.getItem('isFormSubmitted');
@@ -118,6 +136,7 @@ const ConfirmationPage = () => {
     setSelectedAddress(newAddressData); // Atualize o estado com os novos dados de endereço
     setLastAddressData(newAddressData); // Atualize os últimos dados de endereço exibidos
   };
+
  
   return (
     <div className='containerconfirm'>
@@ -185,11 +204,18 @@ const ConfirmationPage = () => {
         </div>
       )}
 
-      {!isFormSubmitted === true && lastAddressData === null  && (
+    
           <div>
+            
+            {saveUserType === 'cliente' && isFormSubmitted === false && ( 
             <FormularioComplemento onSubmit={handleAddressChange} />
-         </div>
-        )}
+            )}
+
+             {saveUserType === 'logista' && ( 
+            <FormularioComplementoLogista onSubmit={handleAddressChange} />
+            )}
+            </div>
+        
          <div>
     </div>
     </div>

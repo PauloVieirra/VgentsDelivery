@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { isValidEmail, isValidPassword, isValidName, showErrorAlert } from '../../Components/Helpers';
+import CreateStore from '../../Components/MinScreens/StoresCreator';
 import './style.css';
 
 const Cadastroloja = () => {
@@ -86,7 +87,7 @@ return (
         </div>
         <button type="submit">Cadastrar</button>
         </form>
-   
+     
   </div>
 );
 };

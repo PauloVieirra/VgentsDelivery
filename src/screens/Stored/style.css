@@ -3,7 +3,8 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 425px;
+      max-width: 500px;
+      padding-top: 48px;
     }
     .contgridlist {
       display: flex;
@@ -101,7 +102,7 @@
       display:'flex';
       flex-direction: column;
       width: 100%;
-      padding-top: 40px;
+      height: auto;
      }
      .cliensearshbar {
       display: flex;
@@ -139,10 +140,11 @@
       top: 6px;
       right:100px;
     }   
+   
 
 
  
-  @media (min-width: 425px) {
+  @media (min-width: 500px) {
     .contstore {
     display: flex;
     flex-direction: column;
@@ -196,29 +198,12 @@
         position: relative;
       }
 
-      
-      
-      .slider {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-      }
-      
-      .slide {
-        min-width: 100%;
-        flex-shrink: 0;
-      }
-      
-      .slide img {
-        width: 100%;
-        height: auto;
-      }
       .cliensearshbar {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        background-color: #c54e2d;
       }
       .cliensearshbar input {
         width: 50%;
@@ -230,6 +215,7 @@
         border: 1px solid #ccc;
         border-radius: 100px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #33a33a;
         outline: none;
       }
       .conticonsear{

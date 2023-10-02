@@ -29,7 +29,7 @@ const SignUp = () => {
       return;
     }
 
-    const tipo = 'cliente'; // Substitua 'cliente' pelo valor do tipo de usuário desejado
+    const tipo = 'cliente'; 
     const formulario = false;
 
     try {
@@ -88,7 +88,7 @@ const SignUp = () => {
         </div>
         <button type="submit">Cadastrar</button>
         </form>
-      <p>Já tem uma conta? <Link to="/">Faça o login aqui</Link></p>
+      <p>Já tem uma conta? <Link to="/SignIn">Faça o login aqui</Link></p>
     </div>
   );
 };

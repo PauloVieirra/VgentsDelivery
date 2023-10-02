@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext,useEffect } from 'react';
 import firebase from '../config/firebaseConfig';
 
+
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -11,7 +12,9 @@ const AuthProvider = ({ children }) => {
   const [showActiveItems, setShowActiveItems] = useState(false);
   const [showInactiveItems, setShowInactiveItems] = useState(true);
   const [userOrders, setUserOrders] = useState([]);
+  const [productsProm, setProductsProm] = useState([]);
  
+  
 
 
   useEffect(() => {
@@ -26,6 +29,32 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  
+  useEffect(() => {
+    const fetchProductsProm = async () => {
+      try {
+        const productsRef = firebase.database().ref('productprom');
+  
+        // Utilizando once para pegar os dados uma vez
+        const snapshot = await productsRef.once('value');
+  
+        if (snapshot.val()) {
+          const productArray = Object.entries(snapshot.val()).map(([key, value]) => ({
+            id: key,
+            ...value,  // Incluindo todos os dados dentro de cada ID
+          }));
+  
+          setProductsProm(productArray);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+      }
+    };
+  
+    fetchProductsProm();
+  }, []);
+  
+
 
 
   useEffect(() => {
@@ -37,6 +66,9 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
+ 
+  
+  
   const signInWithEmailAndPassword = async (email, password, cartItems) => {
     try {
       const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -88,9 +120,9 @@ const AuthProvider = ({ children }) => {
         formulario: formulario,
       });
   
-      if (tipo !== 'vazio') {
-        // Salvar os dados no Storage (localStorage) apenas se não for um "logista"
-        const userDataWithTipo = { name, email, tipo };
+      if (tipo !== '') {
+        
+        const userDataWithTipo = { name, email, tipo, formulario };
         localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
         
       }
@@ -107,9 +139,8 @@ const AuthProvider = ({ children }) => {
       throw error;
     }
   };
+
   
-
-
   const signOut = () => {
     return firebase
       .auth()
@@ -127,21 +158,21 @@ const AuthProvider = ({ children }) => {
       if (!user) {
         throw new Error('Usuário não está logado. Faça o login primeiro.');
       }
-
+  
       // Obter o ID do usuário logado
       const userId = user.uid;
-
-      // Criar uma nova loja com um ID único
-      const newStoreRef = firebase.database().ref('stores').push();
+  
+      // Criar uma nova loja com um ID único no nó "loja"
+      const newStoreRef = firebase.database().ref('loja').push();
       const newStoreId = newStoreRef.key;
-
+  
       // Salvar os dados da nova loja no Realtime Database
       await newStoreRef.set({
         storeId: newStoreId,
         userId: userId,
         storeName: storeName,
       });
-
+  
       // Atualizar o estado do usuário com a nova loja
       setUser((prevUser) => ({
         ...prevUser,
@@ -153,12 +184,13 @@ const AuthProvider = ({ children }) => {
           },
         },
       }));
-
+  
       return newStoreId;
     } catch (error) {
       throw error;
     }
   };
+  
 
   const getProductsByUserId = (userId) => {
     const productsRef = firebase.database().ref(`users/${userId}/products`);
@@ -179,6 +211,8 @@ const AuthProvider = ({ children }) => {
       productsRef.off('value', productsListener);
     };
   };
+
+  
 
   const getStoreIdByProductId = async (productId) => {
     try {
@@ -261,7 +295,7 @@ const saveLogistaFormToFirebase = (complemento) => {
     
     // Atualizar a propriedade 'formulario' para true
     userRef.update({
-      formulario: true
+      formulario: false
     })
     .then(() => {
       console.log('Propriedade "formulario" atualizada para true.');
@@ -293,13 +327,6 @@ const fetchUserOrders = async (uid) => {
 };
 
 
-
-
-
-
-
-
-
   useEffect(() => {
     if (user) {
       const unsubscribeProducts = getProductsByUserId(user.uid);
@@ -314,6 +341,7 @@ const fetchUserOrders = async (uid) => {
     isAuthenticated: !!user,
     products,
     userOrders,
+    productsProm,
     fetchUserOrders,
     signInWithEmailAndPassword,
     signUpWithEmailAndPassword,

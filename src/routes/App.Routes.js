@@ -18,8 +18,10 @@ import LogistaHome from '../screens/LogistaHome/Index';
 import MeusPedidos from '../screens/MeusPedidos/Index';
 import UpdateProfileForm from '../Components/Formcomplit/Index';
 import ConfirmationPage from '../screens/DeliveryConfirm/Index';
+import ConfirmationLogista from '../screens/LogistaConfirm';
 import FormularioComplemento from '../Components/Formcomplit/Index';
-import CartModal from '../screens/CartModal/Index';
+import FormularioComplementoLogista from '../Components/FormcomplitLogista/Index';
+import FooterNavigation from '../Components/Footer';
 
 
 const AppRoutes = () => {
@@ -57,12 +59,9 @@ const AppRoutes = () => {
   
     <div>
        <AuthProvider>
+      <FooterNavigation/>
       <AuthenticatedMenu userType={userType} />
       <Routes>
-        
-
-       
-       
         {userType === 'adm' && 
         <>
         <Route path="/" element={<Home />} />
@@ -73,7 +72,6 @@ const AppRoutes = () => {
         <Route path='/CadastroLoja' element={<CadastroLoja/>}/>
         <Route path='/Dashboard' element={<Dashboard/>}/>
         </>
-        
         }
         {userType === 'logista' && 
         <>
@@ -81,28 +79,24 @@ const AppRoutes = () => {
         <Route path="/Products" element={<Products />} />
         <Route path="/Suporte" element={<Suporte />} />
         <Route path="/Pedidos" element={<Pedidos />} />
+        <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
+        <Route path="/FormularioComplementoLogista" element={<FormularioComplementoLogista />} />
         </>
         }
 
         {userType === 'cliente' && 
         <>
-        
         <Route path="/" element={<Store />} />
         <Route path="/:lojistaId" element={<Store />} />
          <Route path="/MeusPedidos" element={<MeusPedidos />} />
          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
          <Route path="/UpdateProfileForm" element={<UpdateProfileForm />} />
          <Route path="/FormularioComplemento" element={<FormularioComplemento />} />
-
-
-      
         </>
          }
-         
       </Routes>
       </AuthProvider>
     </div>
-   
   );
 };
 

@@ -1,9 +1,23 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../Loading';
 
 function FormularioComplemento() {
   const { user, saveFormToFirebase } = useAuth();
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulando uma carga assíncrona (pode ser uma chamada à API, etc.)
+    const fetchData = async () => {
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simula uma espera de 2 segundos
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []); 
 
   // Estado para controlar os campos do formulário
   const [complemento, setComplemento] = useState({
@@ -47,14 +61,19 @@ function FormularioComplemento() {
 
   
   // Função para lidar com o envio do formulário
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    if (validateForm()) {
-      saveFormToFirebase(complemento); // Chame a função do contexto para enviar os dados
-      setIsFormSubmitted(true);
-    }
-  };
+  if (validateForm()) {
+    saveFormToFirebase(complemento);
+    setIsFormSubmitted(true);
+
+    // Recarregue a página após um pequeno atraso
+    setTimeout(() => {
+      navigate('/');
+    }, 3000);
+  }
+};
 
   return (
     <div>
@@ -158,7 +177,9 @@ function FormularioComplemento() {
     </div>
         </div>
       ) : (
-        <p>Formulário enviado com sucesso!</p>
+        <div>
+           <LoadingSpinner />
+        </div>
       )}
     </div>
   );

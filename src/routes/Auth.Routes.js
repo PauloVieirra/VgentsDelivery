@@ -12,7 +12,8 @@ const AuthRoutes = () => {
   return (
     <div>
       <AuthProvider>
-      <AuthenticatedMenu />
+      
+         <AuthenticatedMenu />
       <Routes>
         <Route path="/" element={<Store />} />
         <Route path="/:lojistaId" element={<Store />} />
@@ -22,7 +23,7 @@ const AuthRoutes = () => {
          
         
        
-      </Routes>
+      </Routes> 
       </AuthProvider>
     </div>
   );

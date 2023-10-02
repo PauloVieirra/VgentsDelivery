@@ -3,7 +3,7 @@
     width: 80px;
     height: 32px;
     border-radius: 100px;
-    background-image: linear-gradient(200deg, rgb(235, 152, 44),rgb(232, 128, 25));
+    background-image: linear-gradient(200deg, rgba(235, 152, 44, 0.052),rgba(232, 129, 25, 0.161));
 }
 .contbtnlogin:hover{
     width: 80px;

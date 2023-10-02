@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect} from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoutButton from './Logout';
 import LoginButton from './Login';
 import { useAuth } from '../../src/Context/AuthContext';
 import iconbarmenu from '../images/menuicon.png';
 import iconbarmenuclose from '../images/closemenu.png';
 import './styles.css';
+import SignIn from '../screens/SignIn/Index';
+import SignUp from '../screens/SignUp/Index';
 
 const AuthenticatedMenu = ({ userType }) => {
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState(null);
   const { user } = useAuth();
   const [userLocalStorage, setUserLocalStorage] = useState(null);
@@ -34,14 +37,48 @@ const AuthenticatedMenu = ({ userType }) => {
     setIsMenuOpen(!isMenuOpen); // Inverter o estado do menu ao clicar no ícone do menu
   };
 
+  const location = useLocation();
+
+ 
+
+  const handleVoltar = () => {
+    // Verifica se há uma página anterior no histórico do navegador
+    if (location.state && location.state.from) {
+      navigate(location.state.from);
+    } else {
+      // Verifica se há um estado definido e se é uma instância de SignIn ou SignUp
+      if (location.state && location.state === SignIn) {
+        navigate('/');
+      } else if (location.state && location.state === SignUp) {
+        navigate('SignIn');
+      } else {
+        // Caso contrário, vá para a página inicial
+        navigate('/');
+      }
+    }
+  };
+
+
   return (
     <>
       <div className='menumobile'>
         <div className='mobidata'>
-          <div style={{ paddingLeft: '16px' }}>Logo da loja</div>
+        
+        <>
+        {user &&(
+        <div>
+          <p>Logo da loja</p>
+        </div>
+        )}
+         {location.pathname !== '/' && !user && (
+        <div onClick={handleVoltar}>
+          Voltar
+        </div>
+        )}
+       </>
         </div>
         <div className='contmobimenus'>
-          {!user && <button className='buttonmobile'> <Link to="/SignIn" style={{textDecoration:'none', color:'#fff'}}>Login</Link></button>}
+          {!user && <div className='buttonmobile'> <Link to="/SignIn" style={{textDecoration:'none', color:'#303030'}}>Login</Link></div>}
           {user && (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
              
