@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import './style.css';
 import logobtn from '../../images/google-icon.png';
+import motodriver from '../../images/mototax.gif';
 
 const ConnectionStatusModal = () => {
   return (
@@ -112,10 +113,14 @@ const SignIn = () => {
 
   return (
     <div className='containerlogin'>
-      <div className='conttitle'>
+      <div className='contleft'>
       {connectError && <ConnectionStatusModal />}
+     
+      <img src={motodriver} alt="" className='imgdriver' />
       </div>
+      
       <div className='divform'>
+      <div className='conttittle'> </div>
         <form onSubmit={handleSubmit}>
           <div className='continput'>
             {emailError && <div style={{ color: 'red', marginTop: '10px' }}>{emailError}</div>}

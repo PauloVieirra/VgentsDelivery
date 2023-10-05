@@ -217,7 +217,7 @@ const AuthenticatedMenu = ({ userType }) => {
             
             }}>
              
-             <div>
+             <div className='btn'>
               <Link to="/" className={isButtonActive('Inicio')} onClick={() => handleButtonClick('Inicio')}>
                 Inicio
               </Link>

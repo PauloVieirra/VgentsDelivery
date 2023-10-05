@@ -113,7 +113,6 @@ button[type="submit"]:hover {
   height: auto;
   min-height: 70px;
   margin-top: 1px;
-  
 }
 .no-pointer-events {
   pointer-events: none;

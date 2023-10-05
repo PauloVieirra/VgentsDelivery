@@ -56,7 +56,7 @@ const { user, productsProm } = useAuth();
 
 );
 } else {
-  return null; // Ignora os cards de outras categorias
+  return null; 
 }
 })}
     </div>
@@ -66,6 +66,7 @@ const { user, productsProm } = useAuth();
   // Adicione a verificação da categoria aqui
   if (card.category === 'Happy Hour') {
     return (
+     
       <div key={card.id} className="card-vert"  onClick={() => handleUserCardClick(card.isUrl)}>
         <div className='divimgout-vert'>
           <img src={card.imageUrl} alt="" className='imgprom'/>
@@ -77,9 +78,10 @@ const { user, productsProm } = useAuth();
           <p>{card.content}</p>
         </div>
       </div>
+   
     );
   } else {
-    return null; // Ignora os cards de outras categorias
+    return null; 
   }
 })}
     </div>

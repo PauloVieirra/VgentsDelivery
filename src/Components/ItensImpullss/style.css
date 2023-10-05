@@ -70,12 +70,15 @@
     padding: 10px;
   }
   .card-list-vert {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas com largura igual */
+    gap: 16px; /* Espaçamento entre os cards */
     flex-direction: column;
     overflow-y: auto;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type:  mandatory;
     -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
-    padding: 10px; 
+    padding: 10px;
+    max-width: 1400px; 
   }
   
   .card {
@@ -89,10 +92,15 @@
     box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
     background-color: #fff;
   }
+  .card-vert-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas com largura igual */
+    gap: 16px; /* Espaçamento entre os cards */
+  }
+  
   .card-vert {
-    flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
-    margin: 0 1%; /* Espaçamento entre os cards */
-    margin-top: 8px;
+    flex: 0 0 30%; 
+    margin: 0 1%;
     padding: 10px;
     height: auto;
     max-height: 300px;
