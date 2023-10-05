@@ -16,6 +16,16 @@ const AuthProvider = ({ children }) => {
  
   
 
+  const signInWithGoogle = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      setUser(result.user);
+    } catch (error) {
+      console.error('Erro ao fazer login com o Google:', error);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((currentUser) => {
@@ -66,7 +76,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
- 
+  
   
   
   const signInWithEmailAndPassword = async (email, password, cartItems) => {
@@ -141,16 +151,15 @@ const AuthProvider = ({ children }) => {
   };
 
   
-  const signOut = () => {
-    return firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        setUser(null);
-      })
-      .catch((error) => {
-        throw error;
-      });
+  const signOut = async () => {
+    try {
+      await firebase
+        .auth()
+        .signOut();
+      setUser(null);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const createNewStore = async (storeName) => {
@@ -326,6 +335,22 @@ const fetchUserOrders = async (uid) => {
   }
 };
 
+const getFriendlyErrorMessage = (errorCode) => {
+  switch (errorCode) {
+    case 'auth/user-not-found':
+      return 'Email não encontrado. Verifique se o email está correto ou crie uma conta.';
+    case 'auth/wrong-password':
+      return 'Senha incorreta. Verifique se a senha está correta.';
+    case 'auth/network-request-failed':
+      return 'Erro de conexão. Verifique sua conexão com a internet e tente novamente.';
+    case 'auth/popup-closed-by-user':
+      return 'O pop-up de login foi fechado antes de concluir. Tente novamente.';
+    // Adicione mais casos conforme necessário
+    default:
+      return 'Erro no login. Tente novamente mais tarde.';
+  }
+};
+
 
   useEffect(() => {
     if (user) {
@@ -352,6 +377,8 @@ const fetchUserOrders = async (uid) => {
     createOrder,
     saveFormToFirebase,
     saveLogistaFormToFirebase,
+    signInWithGoogle,
+    getFriendlyErrorMessage,
   };
 
   return (

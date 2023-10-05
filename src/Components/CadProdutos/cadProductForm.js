@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from '../../config/firebaseConfig';
 import { useAuth } from '../../Context/AuthContext';
 import './stylesCad.css';
@@ -14,8 +14,16 @@ const ProductForm = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [category, setCategory] = useState(''); // Estado para armazenar a categoria selecionada
   const [isActive, setIsActive] = useState(true);
+  const [isUrl, setIsUrl] = useState('');
+ 
 
-  const categories = ['Cerveja', 'Drink', 'Lanche', 'Petisco', 'Prato', 'Vinho','Sobremesa']; // Opções de categoria
+  const categories = ['Cerveja', 'Drink', 'Lanche', 'Petisco', 'Prato', 'Vinho','Sobremesa', 'Happy Hour', 'Combo']; // Opções de categoria
+  
+  const userlink = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).url;
+  
+  useEffect(() => {
+    setIsUrl(userlink);
+  }, [user]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -59,8 +67,9 @@ const ProductForm = () => {
         price,
         description,
         imageUrl,
-        category, // Salvar a categoria selecionada
+        category, 
         isActive,
+        isUrl,
       });
 
       // Limpar os campos após o envio

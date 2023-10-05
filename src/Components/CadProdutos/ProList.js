@@ -100,6 +100,7 @@ const ProductList = () => {
           description: editedProduct.description,
           price: editedProduct.price,
           isActive: editedProduct.isActive,
+          url: editedProduct.uid,
         });
 
         setIsModalOpen(false);

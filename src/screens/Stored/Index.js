@@ -124,10 +124,12 @@ const Store = () => {
     // Aqui você pode fazer a busca de vendedores com base na cidade selecionada
   };
 
+  
+
 
   return (
     <div className="contstore">
-     
+    
       <div className="cart-icon" onClick={toggleCart}>
         <FontAwesomeIcon icon={faShoppingCart} style={{ color: '#131313' }} />
         <span className={`cart-count ${cartItems.length !== 0 ? 'non-zero' : ''}`}>
@@ -135,6 +137,7 @@ const Store = () => {
         </span>
       </div>
       <Banners/>
+      
       {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true
       
        <div className='divsearchbarr'>
@@ -143,6 +146,7 @@ const Store = () => {
       
       ) : (
       <div className='divsearchbarr'>
+       
         <div className='cliensearshbar'>
           <input
             type='text'

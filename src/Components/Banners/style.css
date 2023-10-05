@@ -18,3 +18,25 @@
     height: 120px;
     border-radius: 12px;
 }
+
+@media (min-width: 500px) {
+    .contimpon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100px;
+        margin-top: 30px;
+    }
+    .contbanner{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100px;
+    }
+    .imgbanner{
+        width: 100%;
+        height: 100%;
+    }
+}

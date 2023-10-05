@@ -1,54 +1,125 @@
-/* CardList.css */
+/* style.css */
 
 .card-list {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
+  padding: 10px; /* Adiciona um pequeno espaçamento nas extremidades */
+}
+.card-list-vert {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
+  padding: 10px; /* Adiciona um pequeno espaçamento nas extremidades */
+}
+
+.card {
+  flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
+  margin: 0 1%; /* Espaçamento entre os cards */
+  margin-top: 8px;
+  padding: 10px;
+  height: auto;
+  max-height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
+  background-color: #fff;
+}
+.card-vert {
+  flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
+  margin: 0 1%; /* Espaçamento entre os cards */
+  margin-top: 8px;
+  padding: 10px;
+  height: auto;
+  max-height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
+  background-color: #fff;
+}
+
+.divimgout {
+  overflow: hidden;
+  border-radius: 8px;
+  height: 150px;
+}
+.divimgout-vert {
+  overflow: hidden;
+  border-radius: 8px;
+  height: 150px;
+}
+
+.imgprom {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-description {
+  margin-top: 10px;
+}
+
+@media (min-width: 426px) {
+
+  .card-list {
     display: flex;
-    padding: 10px;
     overflow-x: auto;
-    margin-top: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
+    padding: 10px;
   }
   .card-list-vert {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    overflow-x: auto;
-    margin-top: 14px;
-    padding-bottom: 20px;
+    overflow-y: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
+    padding: 10px; 
   }
   
   .card {
-    flex: 0 0 34%; /* 2/5 de cada card */
-    margin: 0 1px; /* Espaçamento entre os cards */
-    margin-left: 14px;
+    flex: 0 0 15%; 
+    margin: 0 1%; 
     margin-top: 8px;
-    padding: 6px;
+    padding: 10px;
+    height: auto;
+    max-height: 300px;
     border-radius: 12px;
-    border: 1px solid #ccc;
     box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
-  }
-  .imgprom{
-    width :100% !important ;
+    background-color: #fff;
   }
   .card-vert {
-    display: flex;
-    width: 80%;
-    margin-left: 20px;
-    margin-right: 20px;
+    flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
+    margin: 0 1%; /* Espaçamento entre os cards */
     margin-top: 8px;
-    padding: 20px;
+    padding: 10px;
+    height: auto;
+    max-height: 300px;
     border-radius: 12px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(71, 71, 71, 0.24);
+    box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
+    background-color: #fff;
   }
   
-  .contpromotittle{
-    display: flex;
-    align-items: flex-end;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
+  .divimgout {
+    overflow: hidden;
+    border-radius: 8px;
+    height: 150px;
+  }
+  .divimgout-vert {
+    overflow: hidden;
+    border-radius: 8px;
+    height: 150px;
+  }
+  
+  .imgprom {
     width: 100%;
-    height: 32px;
+    height: 100%;
+    object-fit: cover;
   }
   
+  .card-description {
+    margin-top: 10px;
+  }
   
-  
+}

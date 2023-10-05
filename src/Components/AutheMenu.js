@@ -71,14 +71,14 @@ const AuthenticatedMenu = ({ userType }) => {
         </div>
         )}
          {location.pathname !== '/' && !user && (
-        <div onClick={handleVoltar}>
+        <div  className='buttonmobile' onClick={handleVoltar}>
           Voltar
         </div>
         )}
        </>
         </div>
         <div className='contmobimenus'>
-          {!user && <div className='buttonmobile'> <Link to="/SignIn" style={{textDecoration:'none', color:'#303030'}}>Login</Link></div>}
+          {location.pathname !== '/SignIn' && location.pathname !== '/SignUp' &&  !user && <div className='buttonmobile'> <Link to="/SignIn" style={{textDecoration:'none', color:'#303030'}}>Login</Link></div>}
           {user && (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
              

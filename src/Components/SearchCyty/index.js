@@ -10,6 +10,7 @@ const CitySelection = ({ onSelectCity }) => {
   const [selectedUserUid, setSelectedUserUid] = useState('');
   const [isCitySelectFocused, setIsCitySelectFocused] = useState(false);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const loadFromLocalStorage = () => {
@@ -17,7 +18,10 @@ const CitySelection = ({ onSelectCity }) => {
       if (storedData) {
         setLogistaUsers(JSON.parse(storedData));
       }
+
     };
+
+
   
     loadFromLocalStorage();
   
@@ -64,6 +68,11 @@ const CitySelection = ({ onSelectCity }) => {
     setSelectedCity("");
   }
 
+  
+
+  
+
+
   const filteredUsers = logistaUsers.filter((user) => user.cidade === selectedCity);
 
   return (
@@ -88,21 +97,21 @@ const CitySelection = ({ onSelectCity }) => {
 
      
 
-<div className='user-grid'>
-  {filteredUsers.map((user) => (
-    <Link to={`/${user.url}`}>
-    <div key={user.userId} className='user-card' onClick={() => handleUserCardClick(user.userId)}>
-     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100px', height: '100px', backgroundColor: '#fafafe' }}>
-        image
-      </div>
-      <div style={{width:'224px'}}>
-        <p>{user.name}</p>
-        <p>{user.email}</p>
-      </div>
-     </div>
-    </Link>
-  ))}
-  </div>
+    <div className='user-grid'>
+      {filteredUsers.map((user) => (
+        <Link key={user.userId} to={`/${user.url}`}>
+          <div className='user-card' onClick={() => handleUserCardClick(user.userId)}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100px', height: '100px', backgroundColor: '#fafafe' }}>
+              image
+            </div>
+            <div style={{ width: '224px' }}>
+              <p>{user.name}</p>
+              <p>{user.email}</p>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
   </div>
   {selectedCity === '' && (
     <CardList />
