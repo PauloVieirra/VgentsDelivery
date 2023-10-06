@@ -7,6 +7,9 @@
     justify-content: center;
     background-color: #ffffff;
   }
+  .contleft{
+    display: none;
+  }
   .divform{
     display: flex;
     flex-direction: column;
@@ -47,6 +50,9 @@
     width: 50%;
     height: auto;
   }
+  .divtitlelogindesk{
+    display: none;
+  }
 
   
   @media (min-width: 500px) {
@@ -62,7 +68,7 @@
       .contleft{
         display: flex;
         width: 50%;
-        height: 100vh;
+        height:100vh;
         justify-content: center;
         align-items: center;
       }
@@ -79,28 +85,26 @@
         border-radius: 5px;
        align-items: center;
        justify-content: center;
-       padding-bottom: 120px;
+       padding-bottom: 60px;
       }
       form {
         width: 70%;
         height: 60%;
+        padding-top: 14px;
         flex-direction: column;
       }
-      
-    
       label {
       font-weight: bold;
       margin-bottom: 5px;
       }
-      
       input[type="email"],
       input[type="password"] {
       padding: 10px;
       margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-        height: 38px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      height: 38px;
       }
       .conttittle{
         display: flex;
@@ -119,5 +123,38 @@
         min-height: 70px;
         margin-top: 1px;
       }
+      .divtitlelogindesk{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 70%;
+        height: 100px;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 700;
+        margin-top: 40px;
+      }
+      .divtextmaster{
+        text-align: start;
+      }
+
+      @keyframes slideIn {
+        0% {
+          opacity: 0;
+          transform: translateX(-50px); /* Movimento inicial para cima */
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0); /* Sem movimento final */
+        }
+      }
+      
+      .divtextmaster {
+        font-size: 30px;
+        text-align: center;
+        animation: slideIn 1.5s ease-in-out; /* Tempo da animação e curva de aceleração */
+      }
+      
+      
   }
   

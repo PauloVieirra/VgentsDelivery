@@ -203,58 +203,7 @@ const AuthenticatedMenu = ({ userType }) => {
           </div>
           </div>
         )}
-         {!userType && (
-        <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
-          <div style={{width:'18%'}}> 
-            
-          </div>
-          <div  style={{
-            display:'flex',
-            flexDirection:'row',
-            width:'64%',
-            alignItems:'center',
-            justifyContent:'center',
-            
-            }}>
-             
-             <div className='btn'>
-              <Link to="/" className={isButtonActive('Inicio')} onClick={() => handleButtonClick('Inicio')}>
-                Inicio
-              </Link>
-            </div>
-            <div>
-              <Link to="#" className={isButtonActive('Sobre')} onClick={() => handleButtonClick('Sobre')}>
-                Sobre
-              </Link>
-            </div>
-            <div>
-              <Link to="#" className={isButtonActive('Assinar')} onClick={() => handleButtonClick('Assinar')}>
-                Assinar
-              </Link>
-            </div>
-            <div>
-              <Link to="#" className={isButtonActive('SAC')} onClick={() => handleButtonClick('SAC')}>
-                SAC
-              </Link>
-            </div>
-
-             <div  style={{
-              display:'flex', 
-              width:'100%',
-              height:'100%',
-              justifyContent:'flex-end', 
-              alignItems:'center', 
-              paddingRight:'30px',
-              }}>
-               <LoginButton/>
-             </div>
-            
-            </div>
-       
-           
-        </div>
-        
-      )}
+         
       </div>
     </div>
    </>

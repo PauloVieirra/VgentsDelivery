@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
 import LogoutButton from '../../Components/Logout';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +18,8 @@ import icons5 from '../../images/icon5.png';
 import icons6 from '../../images/icon6.png';
 import icons7 from '../../images/icon7.png';
 
+
+
 const Store = () => {
   const { lojistaId } = useParams();
   const { products, getProductsByUserId, isAuthenticated, openCartModal } = useAuth();
@@ -31,6 +33,8 @@ const Store = () => {
   const searchInputRef = useRef(null);
   const [showCitySelection, setShowCitySelection] = useState(!lojistaId);
   const {user} = useAuth();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = getProductsByUserId(lojistaId);
@@ -124,12 +128,16 @@ const Store = () => {
     // Aqui você pode fazer a busca de vendedores com base na cidade selecionada
   };
 
-  
+  const handlenavegue = () => {
+    navigate('Signin');
+  };
 
 
   return (
     <div className="contstore">
-    
+       {!user && (
+        <button className='btnbackgo' onClick={handlenavegue}>Login</button>
+       )}
       <div className="cart-icon" onClick={toggleCart}>
         <FontAwesomeIcon icon={faShoppingCart} style={{ color: '#131313' }} />
         <span className={`cart-count ${cartItems.length !== 0 ? 'non-zero' : ''}`}>
