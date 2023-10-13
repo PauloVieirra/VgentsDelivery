@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
+import {ThreeDots} from 'react-loader-spinner';
 import logobtn from '../../images/google-icon.png';
 import './style.css';
 
@@ -14,18 +15,21 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState(null);
   const [connectError, setConnectError] = useState(null);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-        const handleOnlineStatusChange = () => {
-        setIsOnline(navigator.onLine);
-  };
-     window.addEventListener('online', handleOnlineStatusChange);
-     window.addEventListener('offline', handleOnlineStatusChange);
- return () => {
-     window.removeEventListener('online', handleOnlineStatusChange);
-     window.removeEventListener('offline', handleOnlineStatusChange);
+    const handleOnlineStatusChange = () => {
+      setIsOnline(navigator.onLine);
+    };
+
+    window.addEventListener('online', handleOnlineStatusChange);
+    window.addEventListener('offline', handleOnlineStatusChange);
+
+    return () => {
+      window.removeEventListener('online', handleOnlineStatusChange);
+      window.removeEventListener('offline', handleOnlineStatusChange);
     };
   }, []);
 
@@ -46,44 +50,43 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  try {
-    setEmailError(null);
-    setPasswordError(null);
-    setConnectError(null);
-  if (!isOnline) {
-    setConnectError('Sem conexão com a internet');
-  return;
-  }
-
-
-  const signInResult = await signInWithEmailAndPassword(email, password, []);
-  const userType = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).tipo;
-  const userForm = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).formulario;
-
-  if (userType === 'cliente' && userForm === false) {
+    try {
+      setEmailError(null);
+      setPasswordError(null);
+      setConnectError(null);
+  
+      if (!isOnline) {
+        setConnectError('Sem conexão com a internet');
+        return;
+      }
+  
+      setIsLoading(true);
+  
+      // Agora, o tempo de espera está dentro do try para garantir que o loading apareça
+      await new Promise(resolve => setTimeout(resolve, 3000));
+  
+      const signInResult = await signInWithEmailAndPassword(email, password, []);
+      const userType = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).tipo;
+      const userForm = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).formulario;
+  
+      if (userType === 'cliente' && userForm === false) {
         navigate('/ConfirmationPage', { state: { cartItems: [] } });
-  } else if (userType === 'cliente' && userForm === true) {
+      } else if (userType === 'cliente' && userForm === true) {
         navigate('/', { state: { cartItems: [] } });
-  } else if (userType === 'logista' && userForm === false) {
-        navigate('/ConfirmationPage');  
-  } else if (userType === 'logista' && userForm === true) {
+      } else if (userType === 'logista' && userForm === false) {
+        navigate('/ConfirmationPage');
+      } else if (userType === 'logista' && userForm === true) {
         navigate('/');
-  } else {
+      } else {
         console.error('Tipo de usuário não reconhecido:', userType);
       }
-  } catch (error) {
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email') {
-        setEmailError(getFriendlyErrorMessage(error.code));
-  } else if (error.code === 'auth/wrong-password') {
-        setPasswordError(getFriendlyErrorMessage(error.code));
-  } else if (error.code === 'auth/network-request-failed') {
-        setConnectError(getFriendlyErrorMessage(error.code));
-  } else {
-        console.error('Erro no login:', error.message);
-  }
+    } catch (error) {
+      // Trate os erros, se necessário
+    } finally {
+      setIsLoading(false);
     }
   };
-
+  
   const handlenavegue = () => {
     navigate('/');
   };
@@ -95,76 +98,101 @@ const SignIn = () => {
   };
 
   const handleSignInWithGoogle = async () => {
-  try {
-  await signInWithGoogle();
-  } catch (error) {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
       console.error('Erro no login com o Google:', error.message);
     }
   };
 
   return (
-  <div className='containerlogin'>
-   <div className='divform'>
-     <button className='btnbackgo' onClick={handlenavegue}>Voltar</button>
-     <div className='divtitlelogindesk'>
-        Entre ou crie uma conta
-        <div style={{display:'flex',width:'70%',fontSize:'14px', fontWeight:'400'}}>Ao se cadastrar você confirma que leu e aceita os termos de uso e privacidade</div>
-     </div>
-   <form onSubmit={handleSubmit}>
-    <div className='continput'>
-      {emailError && <div style={{ color: 'red', marginTop: '10px' }}>{emailError}</div>}
-      {isEmailFocused && (
-        <div style={{ height: '20px' }}>
-          <label htmlFor="email" className='labeldescript'>Informe seu email:</label>
-        </div>
-      )}
-      <input
-        type="email"
-        id="email"
-        placeholder='Email'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        onFocus={() => setIsEmailFocused(true)}
-        onBlur={() => setIsEmailFocused(false)}
-        onClick={handleEmailClick}
-      />
-    </div>
-    <div className='continput'>
-        {passwordError && <div style={{ color: 'red', marginTop: '10px' }}>{passwordError}</div>}
-        {isPassFocused && (
-          <div style={{ height: '20px' }}>
-            <label htmlFor="email" className='labeldescript'>Informe sua senha:</label>
+    <div className='containerlogin'>
+        {isLoading && (
+              <div className='loading-overlay'>
+               <ThreeDots 
+                  height="80" 
+                  width="80" 
+                  radius="9"
+                  color="#4fa94d" 
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                  />
+              <div>Carregando...</div>
+              </div>
+            )}
+      <div className='divform'>
+        <button className='btnbackgoleft' onClick={handlenavegue}>
+          Voltar
+        </button>
+        <div className='divtitlelogindesk'>
+          Entre ou crie uma conta
+          <div style={{ display: 'flex', width: '70%', fontSize: '14px', fontWeight: '400' }}>
+            Ao se cadastrar você confirma que leu e aceita os termos de uso e privacidade
           </div>
-        )}
-        <input
-          type="password"
-          id="password"
-          placeholder='Senha'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onFocus={() => setIsPassFocused(true)}
-          onBlur={() => setIsPassFocused(false)}
-          onClick={handlePasswordClick}
-        />
-    </div>
-    <div style={{ marginTop: '30px' }}>
-      <button type="submit" className='buttonprimary'>Entrar</button>
-    </div>
-    <div style={{ marginTop: '10px' }}>
-      <button onClick={handleSignUp} className='buttonsecundary'> Criar conta </button>
-    </div>
-    <div className='conttitle'>Ou, use uma conta abaixo!</div>
-    <div onClick={handleSignInWithGoogle} className='google-button'>
-      <div className='google-icon'>
-        <img src={logobtn} alt="" className='google-icon-cont'/>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className='continput'>
+            {emailError && <div style={{ color: 'red', marginTop: '10px' }}>{emailError}</div>}
+            {isEmailFocused && (
+              <div style={{ height: '20px' }}>
+                <label htmlFor='email' className='labeldescript'>
+                  Informe seu email:
+                </label>
+              </div>
+            )}
+            <input
+              type='email'
+              id='email'
+              placeholder='Email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setIsEmailFocused(true)}
+              onBlur={() => setIsEmailFocused(false)}
+              onClick={handleEmailClick}
+            />
+          </div>
+          <div className='continput'>
+            {passwordError && <div style={{ color: 'red', marginTop: '10px' }}>{passwordError}</div>}
+            {isPassFocused && (
+              <div style={{ height: '20px' }}>
+                <label htmlFor='email' className='labeldescript'>
+                  Informe sua senha:
+                </label>
+              </div>
+            )}
+            <input
+              type='password'
+              id='password'
+              placeholder='Senha'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setIsPassFocused(true)}
+              onBlur={() => setIsPassFocused(false)}
+              onClick={handlePasswordClick}
+            />
+          </div>
+          <div style={{ marginTop: '30px' }}>
+            <button type='submit' className='buttonprimary'>
+              Entrar
+            </button>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <button onClick={handleSignUp} className='buttonsecundary'>
+              Criar conta
+            </button>
+          </div>
+          <div className='conttitle'>Ou, use uma conta abaixo!</div>
+          <div onClick={handleSignInWithGoogle} className='google-button'>
+            <div className='google-icon'>
+              <img src={logobtn} alt='' className='google-icon-cont' />
+            </div>
+            <div className='google-text'>Entrar com o Google</div>
+          </div>
+        </form>
       </div>
-      <div className='google-text'>
-        Entrar com o Google
-      </div>
     </div>
-   </form>
-  </div>
-  </div>
   );
 };
 

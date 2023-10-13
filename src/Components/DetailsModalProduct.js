@@ -1,6 +1,6 @@
 
 import React,{useState} from 'react';
-import './styles.css';
+import './styledetail.css';
 
 
 const ProductDetailsModal = ({ product, onClose, addToCart }) => {
@@ -41,19 +41,20 @@ const ProductDetailsModal = ({ product, onClose, addToCart }) => {
             value={selectedQuantity}
             onChange={handleQuantityChange}
             min="1"
-          />  <p>Total: R$ {totalPrice.toFixed(2)}</p>
+          />  <p className='inputtotaly'>Total: R$ {totalPrice.toFixed(2)}</p>
 
           
            <div className='contbtnaddcart'>
+             <div> <button onClick={() => addToCart(product, selectedQuantity)}>Adicionar ao Carrinho</button></div>
+             <div> <button className="closebutton" onClick={onClose}>Fechar</button></div>
+            
+             
           
-             <button onClick={() => addToCart(product, selectedQuantity)}>Adicionar ao Carrinho</button>
            </div>
          
 
           </div>
-          <button className="close-button" onClick={onClose}>
-            Fechar
-          </button>
+         
         </div>
       </div>
     );

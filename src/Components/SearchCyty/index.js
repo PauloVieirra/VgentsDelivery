@@ -9,8 +9,8 @@ const CitySelection = ({ onSelectCity }) => {
   const [logistaUsers, setLogistaUsers] = useState([]);
   const [selectedUserUid, setSelectedUserUid] = useState('');
   const [isCitySelectFocused, setIsCitySelectFocused] = useState(false);
+  const [selectedTag, setSelectedTag] = useState('');
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     const loadFromLocalStorage = () => {
@@ -18,23 +18,28 @@ const CitySelection = ({ onSelectCity }) => {
       if (storedData) {
         setLogistaUsers(JSON.parse(storedData));
       }
-
     };
 
-
-  
     loadFromLocalStorage();
-  
+
     const logistaRef = firebase.database().ref('users');
-    logistaRef.orderByChild('ROLE/tipo').equalTo('logista').once('value')
+    logistaRef
+      .orderByChild('ROLE/tipo')
+      .equalTo('logista')
+      .once('value')
       .then((snapshot) => {
         const users = snapshot.val();
         const logistaArray = users ? Object.values(users) : [];
-        // Ajuste na estrutura para incluir o userId
-        const logistaArrayWithUid = logistaArray.map(user => ({ ...user, userId: user.uid }));
+        const logistaArrayWithUid = logistaArray.map((user) => ({
+          ...user,
+          userId: user.uid,
+        }));
         setLogistaUsers(logistaArrayWithUid);
-  
-        localStorage.setItem('logistaUsers', JSON.stringify(logistaArrayWithUid));
+
+        localStorage.setItem(
+          'logistaUsers',
+          JSON.stringify(logistaArrayWithUid)
+        );
       })
       .catch((error) => {
         console.error('Erro ao obter usuários logistas:', error);
@@ -50,77 +55,113 @@ const CitySelection = ({ onSelectCity }) => {
 
   const handleSelectChange = (e) => {
     setSelectedCity(e.target.value);
+    setSelectedTag(''); // Limpar a tag quando a cidade é alterada
     handleCitySelect();
     setSelectedUserUid(null);
   };
 
+  const handleSelectTag = (e) => {
+    setSelectedTag(e.target.value);
+  };
+
   const handleUserCardClick = (uid) => {
     if (uid) {
-      console.log("Chave única do usuário:", uid);
+      console.log('Chave única do usuário:', uid);
       navigate(`/${uid}`);
     } else {
-      console.log("Loja não encontrada");
-      // Ou você pode definir um estado para exibir uma mensagem na interface do usuário
+      console.log('Loja não encontrada');
     }
   };
 
-  const handleCleanSearsh = () => {
-    setSelectedCity("");
-  }
+  const handleCleanSearch = () => {
+    setSelectedCity('');
+    setSelectedTag('');
+  };
 
-  
+  const filteredUsers = logistaUsers.filter(
+    (user) => user.cidade === selectedCity
+  );
 
-  
+  // Função para filtrar usuários com base na tag
+  const filterUsersByTag = (users, tag) => {
+    return users.filter((user) =>
+      user.tags.some((t) => t.toLowerCase().includes(tag.toLowerCase()))
+    );
+  };
 
-
-  const filteredUsers = logistaUsers.filter((user) => user.cidade === selectedCity);
 
   return (
     <>
-    <div className='contchosse'>
-      <div className='continputcentered'>
-        <select
-          value={selectedCity}
-          onChange={handleSelectChange}
-          className='inputcitybox'
-        >
-          <option value="" disabled={!selectedCity}>
+      <div className='contchosse'>
+        <div className='conttittle'>
+          {selectedCity ? selectedCity : 'Delivery'}
+        </div>
+        <div className='continputcentered'>
+          <select
+            value={selectedCity}
+            onChange={handleSelectChange}
+            className='inputcitybox'
+          >
+            <option value="" disabled={!selectedCity}>
               {selectedCity ? 'Ver promoções' : 'Escolha uma cidade'}
             </option>
-          {[...new Set(logistaUsers.map((user) => user.cidade))].map((city) => (
-            <option key={city} value={city} >
-              {city}
-            </option>
-          ))}
-        </select>
+            {[...new Set(logistaUsers.map((user) => user.cidade))].map(
+              (city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              )
+            )}
+          </select>
+
+          {selectedCity && (
+            <input
+              value={selectedTag}
+              onChange={handleSelectTag}
+              placeholder='Pesquisar por produto...'
+              className='inputcitybox'
+            />
+          )}
+        </div>
+
+        <div className='user-grid'>
+          {selectedCity && filteredUsers.length > 0 ? (
+            filterUsersByTag(filteredUsers, selectedTag).map((user) => (
+              <Link key={user.userId} to={`/${user.url}`}>
+                <div
+                  className='user-card'
+                  onClick={() => handleUserCardClick(user.userId)}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '100px',
+                      height: '100px',
+                      backgroundColor: '#fafafe',
+                    }}
+                  >
+                    image
+                  </div>
+                  <div style={{ width: '224px' }}>
+                    <p>{user.name}</p>
+                    <p>{user.email}</p>
+                  </div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <CardList />
+          )}
+        </div>
       </div>
-
-     
-
-    <div className='user-grid'>
-      {filteredUsers.map((user) => (
-        <Link key={user.userId} to={`/${user.url}`}>
-          <div className='user-card' onClick={() => handleUserCardClick(user.userId)}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100px', height: '100px', backgroundColor: '#fafafe' }}>
-              image
-            </div>
-            <div style={{ width: '224px' }}>
-              <p>{user.name}</p>
-              <p>{user.email}</p>
-            </div>
-          </div>
-        </Link>
-      ))}
-    </div>
-  </div>
-  {selectedCity === '' && (
-    <CardList />
-  )}
-  {selectedCity !== '' && (
-  <div className='btninicioout' onClick={handleCleanSearsh}>Voltar</div>
-  )}
-  
-  </>
+      {selectedCity !== '' && (
+        <div className='btninicioout' onClick={handleCleanSearch}>
+          Voltar
+        </div>
+      )}
+    </>
   );
 };
 

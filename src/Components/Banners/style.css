@@ -4,20 +4,40 @@
     align-items: center;
     width: 100%;
     height: 140px;
-    margin-top: 30px;
+    margin-top: 60px;
 }
 .contbanner{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 86%;
-    height: 120px;
+    width: 100%;
+    height: auto;
+    
 }
 .imgbanner{
-    width: 100%;
-    height: 120px;
-    border-radius: 12px;
+    display: flex;
+    width: 86%;
+    height: 148px;
+    border-radius: 8px;
+    background-image: url('../../images/bannercurrent.png');
+    background-repeat:no-repeat ;
+    background-position:50%;
+    box-shadow: 0 2px 5px rgba(0, 4, 5, 0.1);
 }
+.iconhand{
+    /* Adicionando animação contínua */
+    animation: pulse 1s infinite alternate;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+  
 
 @media (min-width: 500px) {
     .contimpon{
@@ -36,6 +56,7 @@
         height: 100px;
     }
     .imgbanner{
+        display: none;
         width: 100%;
         height: 100%;
     }

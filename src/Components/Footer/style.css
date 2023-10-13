@@ -1,23 +1,73 @@
 .containerfooter {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    position: fixed; /* Mudança para fixed */
-    z-index: 9000;
-    bottom: 0px;
-    width: 100%;
-    height: 48px;
-    max-height: 48px;
-    background-color: rgb(221, 221, 221);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.501); /* Sombra para o menu */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f5f5f5; /* Cor de fundo suave */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.1); /* Sombra suave na parte inferior */
+}
+
+.btnmenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #555; /* Cor do ícone suave */
+  cursor: pointer;
+}
+
+.btnmenu:hover {
+  color: #000; /* Cor do ícone quando hover */
+}
+
+@media (max-width: 600px) {
+  .containerfooter {
+    height: 60px; /* Altura maior para melhor visibilidade em telas menores */
   }
-  
+
   .btnmenu {
-    display: flex;
+    font-size: 12px; /* Tamanho da fonte menor para telas menores */
+  }
+}
+
+@media (min-width: 500px){
+  .containerfooter {
+    display: none;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background-color: rgb(246, 246, 246);
+    background-color: #f5f5f5; /* Cor de fundo suave */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.1); /* Sombra suave na parte inferior */
   }
   
+.btnmenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #555; /* Cor do ícone suave */
+  cursor: pointer;
+}
+
+.btnmenu:hover {
+  color: #000; /* Cor do ícone quando hover */
+}
+
+@media (max-width: 600px) {
+  .containerfooter {
+    height: 60px; /* Altura maior para melhor visibilidade em telas menores */
+  }
+
+  .btnmenu {
+    font-size: 12px; /* Tamanho da fonte menor para telas menores */
+  }
+}
+}

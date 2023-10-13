@@ -1,0 +1,176 @@
+.product-details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  max-width: 400px; /* Defina o tamanho máximo desejado para telas maiores */
+}
+
+.product-ig {
+  margin-top: 30px;
+  width: 100%;
+  height: 300px;
+}
+
+.contdatadtls {
+  margin-top: 20px;
+}
+
+.contdescriptiondtls {
+  display: flex;
+  flex-direction: column; /* Ajusta para uma disposição vertical */
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.contdescriptiondtls p {
+  font-size: 14px; /* Tamanho ajustado para descrição */
+  font-weight: 400; /* Peso da fonte ajustado */
+}
+
+.contpricedtls {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#quantity {
+  width: 50px;
+  border: 2px solid #ffaa0091; /* Cor da borda azul (substitua pela cor desejada) */
+  border-radius: 4px; /* Borda arredondada */
+  padding: 8px; /* Espaçamento interno para melhor aparência */
+  margin-bottom: 10px; /* Adiciona um espaçamento na parte inferior */
+}
+
+.inputtotaly {
+  width: 100%; /* Altera para largura total */
+  height: auto;
+  font-size: 20px; /* Ajusta o tamanho da fonte */
+  font-weight: 700; /* Ajusta o peso da fonte */
+  margin-bottom: 20px; /* Adiciona espaçamento na parte inferior */
+}
+
+.contbtnaddcart {
+  display: flex;
+  flex-direction: row; /* Ajusta para uma disposição vertical */
+  align-items: center;
+  justify-content: space-between;
+  background-color: #0a912a00;
+}
+
+.closebutton {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+  
+  @media (min-width: 500px) {
+    .product-details-content {
+        display: flex;
+        flex-direction: row;
+      }
+      .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 1024px; /* Defina o tamanho máximo desejado para telas maiores */
+      }
+      
+      
+      .product-ig {
+       width: 300px;
+      }
+      
+      .product-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+      
+      .product-info {
+        flex-grow: 1;
+      }
+      
+      .product-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
+      .product-description {
+        margin-bottom: 15px;
+      }
+      
+      .product-ingredients {
+        font-style: italic;
+        margin-bottom: 15px;
+      }
+      
+      .product-validity {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
+      }
+      
+      .product-price {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .contdescriptiondtls{
+        width: 100%;
+        height: 100px;
+      }
+      .contpricedtls{
+        font-size: 24px;
+        font-weight: 700;
+        color: #0a912a;
+      }
+      .closebutton {
+        background-color: #545454;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .contresolution{
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+      .contintmenu{
+        background-color: #007bff;
+      }
+      .dataperson{
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        height: '100%';
+        justify-content: center;
+        align-items: center;
+      }
+      .contbtnaddcart {
+        display: flex;
+
+      }
+  }
+  

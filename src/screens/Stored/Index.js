@@ -135,15 +135,19 @@ const Store = () => {
 
   return (
     <div className="contstore">
+      <div className='cont' >
        {!user && (
         <button className='btnbackgo' onClick={handlenavegue}>Login</button>
        )}
+       </div>
+       {user && (
       <div className="cart-icon" onClick={toggleCart}>
         <FontAwesomeIcon icon={faShoppingCart} style={{ color: '#131313' }} />
         <span className={`cart-count ${cartItems.length !== 0 ? 'non-zero' : ''}`}>
           {cartItems.length}
         </span>
       </div>
+         )}
       <Banners/>
       
       {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true
@@ -203,7 +207,7 @@ const Store = () => {
       <div ref={resultsSectionRef}></div>
       <div className='contprodclient' >
         {filteredProducts.map((product) => (
-          <div key={product.id} className='product-card' onClick={() => openProductDetails(product)}>
+          <div key={product.id} className='card' onClick={() => openProductDetails(product)}>
             <img src={product.imageUrl} alt={product.title} className='contimg' />
           <div style={{ margin: '10px' }}>
               <h3 style={{ color: '#000' }}>{product.title}</h3>

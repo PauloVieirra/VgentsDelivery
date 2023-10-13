@@ -58,27 +58,46 @@ const AuthenticatedMenu = ({ userType }) => {
     }
   };
 
+  const style = {
+    display: 'flex',
+  flexDirection: 'row',
+  position: 'absolute',
+  zIndex: 9000,
+  top: 0,
+  marginTop: '6px',
+  width: '100%',
+  height: 'auto',
+  backgroundColor: '#ffffff00',
+  };
+
 
   return (
     <>
-      <div className='menumobile'>
-        <div className='mobidata'>
-        
+    
+      <div className={user ?'menumobile' : 'style'} style={user ? null : style}>
+      <div className= 'mobidata'> 
+     
         <>
-        {user &&(
-        <div>
-          <p>Logo da loja</p>
+        {user && userType === 'cliente' && (
+        <div style={{display:'flex', flexDirection:'row', alignItems:'center', marginLeft:'16px'}}>
+          <div className='imgstoreperson'> 1 </div>
+          <div style={{marginLeft:'16px', fontSize:'14px', fontWeight:'600'}}>{user.email}</div>
         </div>
         )}
-         {location.pathname !== '/' && !user && (
+        {user && userType === 'logista' && (
+        <div>
+          <p> logo da loja </p>
+        </div>
+        )}
+         {location.pathname === '/' && !user && (
         <div  className='buttonmobile' onClick={handleVoltar}>
-          Voltar
+        
         </div>
         )}
        </>
         </div>
         <div className='contmobimenus'>
-          {location.pathname !== '/SignIn' && location.pathname !== '/SignUp' &&  !user && <div className='buttonmobile'> <Link to="/SignIn" style={{textDecoration:'none', color:'#303030'}}>Login</Link></div>}
+          {location.pathname !== '/SignIn' && location.pathname !== '/SignUp' &&  !user && <div className='buttonmobile'> <Link to="/SignIn" style={{textDecoration:'none', color:'#303030'}}></Link></div>}
           {user && (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
              

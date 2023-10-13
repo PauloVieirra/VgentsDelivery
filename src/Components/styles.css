@@ -6,11 +6,10 @@
   flex-direction: row;
   position: absolute;
   z-index: 9000;
-  top: 0;
-  margin-top: 6px;
+  top: 50;
+  margin-top: 40px;
   width: 100%;
   height: auto;
-  background-color: #ffffff00;
  }
  .imguserinit{
   display: flex;
@@ -72,9 +71,17 @@
   right: 0; /* Move o menu para a posição visível */
 }
 
+
 @media (min-width: 500px) {
  .menumobile{
   display: none;
+ }
+ .contmobimenus{
+  display: none;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+  width: 100%;
  }
  .contmenu {
   display: flex;

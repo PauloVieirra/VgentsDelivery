@@ -18,7 +18,8 @@ const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-
+    provider.setCustomParameters({ tipo: 'cliente' }); // Adicione a propriedade tipo
+  
     try {
       const result = await firebase.auth().signInWithPopup(provider);
       setUser(result.user);

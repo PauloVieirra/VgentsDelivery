@@ -18,9 +18,9 @@ import LogistaHome from '../screens/LogistaHome/Index';
 import MeusPedidos from '../screens/MeusPedidos/Index';
 import UpdateProfileForm from '../Components/Formcomplit/Index';
 import ConfirmationPage from '../screens/DeliveryConfirm/Index';
-import ConfirmationLogista from '../screens/LogistaConfirm';
 import FormularioComplemento from '../Components/Formcomplit/Index';
 import FormularioComplementoLogista from '../Components/FormcomplitLogista/Index';
+import Maps from '../Components/Maps';
 import FooterNavigation from '../Components/Footer';
 
 
@@ -61,6 +61,7 @@ const AppRoutes = () => {
        <AuthProvider>
       <FooterNavigation/>
       <AuthenticatedMenu userType={userType} />
+      
       <Routes>
         {userType === 'adm' && 
         <>
@@ -86,7 +87,9 @@ const AppRoutes = () => {
 
         {userType === 'cliente' && 
         <>
+         <Route path="/Home" element={<Home />} />
         <Route path="/" element={<Store />} />
+        <Route path="/Maps" element={<Maps />} />
         <Route path="/:lojistaId" element={<Store />} />
          <Route path="/MeusPedidos" element={<MeusPedidos />} />
          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />

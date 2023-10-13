@@ -166,6 +166,18 @@ button[type="submit"]:hover {
   position:absolute;
   z-index: 9999;
   top:20px;
+  right: 20px;
+  color: #222222;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #007bff00;
+  margin-bottom: 30px;
+}
+.btnbackgoleft{
+  display:fixed;
+  position:absolute;
+  z-index: 9999;
+  top:20px;
   left: 20px;
   color: #222222;
   font-size: 18px;
@@ -185,4 +197,35 @@ button[type="submit"]:hover {
   background-color: #f1f1f100;
   margin-bottom: 30px;
 }
+
+/*Cards*/
+
+    .card {
+      flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
+      margin: 0 1%; /* Espaçamento entre os cards */
+      margin-top: 8px;
+      padding: 10px;
+      height: auto;
+      max-height: 300px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
+      background-color: #fff;
+    }
+
+    .imgprom {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /*Imagens*/
+    .imgstoreperson{
+      display: flex;
+      width: 42px;
+      height: 42px;
+      border-radius: 21px;
+      align-items: center;
+      justify-content: center;
+      background-color: #007bff;
+    }
 
