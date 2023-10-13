@@ -84,9 +84,10 @@ const CitySelection = ({ onSelectCity }) => {
 
   // Função para filtrar usuários com base na tag
   const filterUsersByTag = (users, tag) => {
-    return users.filter((user) =>
-      user.tags.some((t) => t.toLowerCase().includes(tag.toLowerCase()))
-    );
+    return users.filter((user) => {
+      const userTags = Array.isArray(user.tags) ? user.tags : [user.tags];
+      return userTags.some((t) => String(t).toLowerCase().includes(tag.toLowerCase()));
+    });
   };
 
 
