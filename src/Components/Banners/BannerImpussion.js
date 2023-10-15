@@ -17,8 +17,8 @@ const handleMaps = () => {
  return (
   <div className='contimpon'>
     <div className='contbanner'>
-      <div className='imgbanner' onClick={handleMaps}>
-       
+      <div className='imgbanner'onClick={handleMaps} >
+       <button className='buttonprimaryin'>Mostrar locais</button>
       </div>
     </div>
   

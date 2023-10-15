@@ -18,11 +18,31 @@
     display: flex;
     width: 86%;
     height: 148px;
+    justify-content: flex-end;
+    align-items: flex-end;
     border-radius: 8px;
     background-image: url('../../images/bannercurrent.png');
     background-repeat:no-repeat ;
     background-position:50%;
     box-shadow: 0 2px 5px rgba(0, 4, 5, 0.1);
+}
+
+.buttonprimaryin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 48px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 100px;
+  color: #fdfdfd;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #e18f0af9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 .iconhand{
     /* Adicionando animação contínua */

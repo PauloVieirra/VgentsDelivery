@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoutButton from './Logout';
-import LoginButton from './Login';
+import { userData, cidade,numero,endereco } from './localStorageComponent';
 import { useAuth } from '../../src/Context/AuthContext';
 import iconbarmenu from '../images/menuicon.png';
 import iconbarmenuclose from '../images/closemenu.png';
@@ -70,6 +70,8 @@ const AuthenticatedMenu = ({ userType }) => {
   backgroundColor: '#ffffff00',
   };
 
+ 
+
 
   return (
     <>
@@ -80,8 +82,9 @@ const AuthenticatedMenu = ({ userType }) => {
         <>
         {user && userType === 'cliente' && (
         <div style={{display:'flex', flexDirection:'row', alignItems:'center', marginLeft:'16px'}}>
-          <div className='imgstoreperson'> 1 </div>
-          <div style={{marginLeft:'16px', fontSize:'14px', fontWeight:'600'}}>{user.email}</div>
+          <div style={{marginLeft:'16px', fontSize:'14px', fontWeight:'600'}}>
+            {endereco}{cidade}{numero}
+            </div>
         </div>
         )}
         {user && userType === 'logista' && (

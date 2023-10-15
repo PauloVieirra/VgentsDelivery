@@ -183,8 +183,6 @@ const handlePromoteProduct = async (productId, isPromoted) => {
 };
 
 // ...
-
-
   return (
     <div className='contcardlist'>
       <div className='conttitles'>

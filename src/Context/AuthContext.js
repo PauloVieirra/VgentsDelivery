@@ -362,6 +362,7 @@ const getFriendlyErrorMessage = (errorCode) => {
     }
   }, [user]);
 
+
   const value = {
     user,
     isAuthenticated: !!user,
