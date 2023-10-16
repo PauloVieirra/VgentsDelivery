@@ -1,84 +1,310 @@
-/* style.css */
-.food-sales-container {
-   width: 100%;
-   height: 100%;
-   position: absolute;
-   z-index: 999;
-   top: 100px;
-   left: 0px;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+:root {
+  --primary-color: rgb(11, 78, 179);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.form-container {
+  font-family: Montserrat, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  position: absolute;
+  z-index: 999999;
+  width: 100%;
+  height: 100vh;
+  place-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+.containerstaps{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transition: margin-left 0.5s ease;
+}
+
+.form-container > div {
+  width: 100%;
+}
+.contbtnscomplemento{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 50px;
+  justify-content: space-between;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.next-btn{
+  margin-top: 30px;
+}
+
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  height: 50px;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.progressbar {
+  position: relative;
+  display: flex;
+  top: 0px;
+  justify-content: space-between;
+  counter-reset: step;
+  margin: 2rem 0 4rem;
+}
+
+.progressbar::before,
+.progress {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  background-color: #dcdcdc;
+  z-index: 1;
+}
+
+.progress {
+  background-color: var(--primary-color);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-step {
+  width: 2.1875rem;
+  height: 2.1875rem;
+  background-color: #dcdcdc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.progress-step::before {
+  counter-increment: step;
+  content: counter(step);
+}
+
+.progress-step::after {
+  content: attr(data-title);
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.progress-step-active {
+  background-color: var(--primary-color);
+  color: #f3f3f3;
+}
+
+.form {
+  width: clamp(320px, 30%, 430px);
+  margin: 0 auto;
+  border: none;
+  border-radius: 10px !important;
+  overflow: hidden;
+  padding: 1.5rem;
+  background-color: #fff;
+}
+
+.step-forms {
+  display: none;
+  transform-origin: top;
+  animation: animate 1s;
+}
+
+.step-forms-active {
+  display: block;
+}
+
+.group-inputs {
+  margin: 1rem 0;
+}
+
+@keyframes animate {
+  from {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+.btns-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.btn {
+  padding: 0.75rem;
+  display: block;
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: #f3f3f3;
+  text-align: center;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color);
+}
+
+.progress-step-check {
+  position: relative;
+  background-color: green !important;
+  transition: all 0.8s;
+}
+
+.progress-step-check::before {
+  position: absolute;
+  content: '\2713';
+  width: 100%;
+  height: 100%;
+  top: 8px;
+  left: 13px;
+  font-size: 12px;
+}
+
+.group-inputs {
+  position: relative;
+}
+
+.group-inputs label {
+  font-size: 13px;
+  position: absolute;
+  height: 19px;
+  padding: 4px 7px;
+  top: -14px;
+  left: 10px;
+  color: #a2a2a2;
+  background-color: white;
+}
+
+.welcome {
+  height: 450px;
+  width: 350px;
+  background-color: #fff;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome .content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}
+
+@media (min-width: 500px) {
+  .containerstaps {
+    display: flex;
+    max-width: 740px;
+    margin-left: 25%;
+    grid-template-columns: repeat(3, 1fr); /* Defina o número de colunas conforme necessário */
+    gap: 20px; /* Espaçamento entre as colunas */
   }
   
-  .food-sales-container h2 {
-    text-align: center;
+  .form-field {
     margin-bottom: 20px;
   }
   
-  .food-sales-container form {
-    display: flex;
-    flex-direction: column;
+  @media (max-width: 500px) {
+    .containerstaps {
+      grid-template-columns: 1fr; /* Altera para uma única coluna em telas menores que 500px */
+    }
   }
   
-  .food-sales-container form div {
-    margin-bottom: 15px;
-  }
-  
-  .food-sales-container label {
-    font-weight: bold;
-  }
-  
-  .food-sales-container input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .food-sales-container button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  
-  .food-sales-container button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
-  .food-sales-container p {
-    text-align: center;
-    margin-top: 15px;
-  }
-  
-  .food-sales-container h2.success {
-    color: green;
-  }
-  
-  .food-sales-container h2.error {
-    color: red;
-  }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100; /* Ensure the modal is on top of other elements */
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 101; /* Ensure the modal content is on top of the overlay */
-  }
+}

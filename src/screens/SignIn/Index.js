@@ -5,6 +5,7 @@ import {ThreeDots} from 'react-loader-spinner';
 import logobtn from '../../images/google-icon.png';
 import './style.css';
 
+
 const SignIn = () => {
   const { signInWithEmailAndPassword, signInWithGoogle, getFriendlyErrorMessage } = useAuth();
   const [email, setEmail] = useState('');
@@ -54,21 +55,25 @@ const SignIn = () => {
       setEmailError(null);
       setPasswordError(null);
       setConnectError(null);
-  
+
       if (!isOnline) {
         setConnectError('Sem conexão com a internet');
         return;
       }
-  
+
       setIsLoading(true);
-  
+
       // Agora, o tempo de espera está dentro do try para garantir que o loading apareça
       await new Promise(resolve => setTimeout(resolve, 3000));
-  
+
       const signInResult = await signInWithEmailAndPassword(email, password, []);
       const userType = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).tipo;
       const userForm = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).formulario;
-  
+
+      // Adicione logs para depuração
+      console.log('Tipo de usuário:', userType);
+      console.log('Formulário do usuário:', userForm);
+
       if (userType === 'cliente' && userForm === false) {
         navigate('/ConfirmationPage', { state: { cartItems: [] } });
       } else if (userType === 'cliente' && userForm === true) {
@@ -86,7 +91,7 @@ const SignIn = () => {
       setIsLoading(false);
     }
   };
-  
+
   const handlenavegue = () => {
     navigate('/');
   };

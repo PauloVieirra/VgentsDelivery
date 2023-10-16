@@ -78,6 +78,7 @@ const ConfirmationPage = () => {
   const { cartItems, tipo } = state;
 
   const saveOrderToFirebase = async () => {
+
     setIsSending(true);
     const db = firebase.database();
     const ordersRef = db.ref('orders');
@@ -214,6 +215,7 @@ const ConfirmationPage = () => {
              {saveUserType === 'logista' && ( 
             <FormularioComplementoLogista onSubmit={handleAddressChange} />
             )}
+
             </div>
         
          <div>

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../Loading';
-import {tittleStapsOne, dialogStapOne, tittleStapsTow, dialogStapTow, tittleStapsThree, dialogStapThree, tittleStapsSix, dialogStapSix} from '../Dialogs';
-import './style.css';
 
 function FormularioComplemento() {
   const { user, saveFormToFirebase } = useAuth();
@@ -21,17 +19,19 @@ function FormularioComplemento() {
     fetchData();
   }, []); 
 
-  const totalSteps = 6; // Defina o número total de etapas do formulário
+  const totalSteps = 3; // Defina o número total de etapas do formulário
 
   // Estado para controlar os campos do formulário
   const [complemento, setComplemento] = useState({
-    
+    enderecoEntrega: '',
     configuracaoPadrao: '',
     cidade: '',
     bairro: '',
     rua: '',
     numero: '',
     telefoneContato: '',
+    formaPagamento: '',
+    troco: '',
   });
 
   // Estado para controlar erros de validação
@@ -49,8 +49,8 @@ function FormularioComplemento() {
   // Função para validar o formulário
   const validateForm = () => {
     const errors = {};
-    if (!complemento.cidade) {
-      errors.cidade = 'O campo é obrigatório.';
+    if (!complemento.enderecoEntrega) {
+      errors.enderecoEntrega = 'Endereço de entrega é obrigatório.';
     }
     // Adicione outras validações conforme necessário
 
@@ -75,45 +75,25 @@ function FormularioComplemento() {
   };
 
   return (
-    <div className='form-container'>
+    <div>
       {!loading ? (
-        <div className='containerstaps'>
-           
-         <div className='progressbar'>
-            <div className='progress' style={{ width: `${(step / totalSteps) * 100}%` }} />
-          </div>
-          <div style={{fontSize:'22px'}}>
-          {step === 1 && tittleStapsOne}
-          {step === 2 && tittleStapsTow}
-          {step === 3 && tittleStapsThree}
-          {step === 4 && tittleStapsThree}
-          {step === 6 && tittleStapsSix}
-          </div>
-          <p>
-            {step === 1 && dialogStapOne}
-            {step === 2 && dialogStapTow}
-            {step === 3 && dialogStapThree}
-            {step === 4 && 'Forneça informações de contato e pagamento.'}
-            {step === 5 && 'Confirme os detalhes do pedido.'}
-            {step === 6 && dialogStapSix}
-          </p>
-          
+        <div>
           {step === 1 && (
-            <div className='contformstep'>
-              
+            <div>
+              {/* Tela 1 */}
+              <h2>Endereço de Entrega</h2>
               <form onSubmit={(e) => { e.preventDefault(); nextStep(); }}>
                 <div className='form-field'>
-                  <label htmlFor='cidade'>Cidade:</label>
+                  <label htmlFor='enderecoEntrega'>Endereço de Entrega:</label>
                   <input
                     type='text'
-                    id='cidade'
-                    name='cidade'
-                    placeholder='ex: Cruzeiro Velho'
-                    value={complemento.cidade}
+                    id='enderecoEntrega'
+                    name='enderecoEntrega'
+                    value={complemento.enderecoEntrega}
                     onChange={handleComplementoChange}
                   />
                 </div>
-                <button className='next-btn' type="submit">Próximo</button>
+                <button type="submit">Próximo</button>
               </form>
             </div>
           )}
@@ -121,30 +101,50 @@ function FormularioComplemento() {
           {step === 2 && (
             <div>
               {/* Tela 2 */}
+              <h2>Configuração Padrão</h2>
               <form onSubmit={(e) => { e.preventDefault(); nextStep(); }}>
-              <div className='form-field'>
-                <label htmlFor='bairro'>Bairro/Quadra:</label>
-                <input
+                <div className='form-field'>
+                  <label htmlFor='configuracaoPadrao'>Configuração Padrão:</label>
+                  <input
                     type='text'
-                    id='bairro'
-                    name='bairro'
-                    placeholder='bairro ou quadra'
-                    value={complemento.bairro}
+                    id='configuracaoPadrao'
+                    name='configuracaoPadrao'
+                    value={complemento.configuracaoPadrao}
                     onChange={handleComplementoChange}
-                />
+                  />
                 </div>
                 {/* Adicione outros campos conforme necessário */}
-                <div className='contbtnscomplemento'>
                 <button type="button" onClick={prevStep}>Anterior</button>
                 <button type="submit">Próximo</button>
-                </div>
               </form>
             </div>
           )}
            {step === 3 && (
             <div>
               {/* Tela 3 */}
+              <h2>Configuração Padrão</h2>
               <form onSubmit={(e) => { e.preventDefault(); nextStep(); }}>
+                <div className='form-field'>
+                  <label htmlFor='cidade'>Configuração Padrão:</label>
+                  <input
+                    type='text'
+                    id='cidade'
+                    name='cidade'
+                    value={complemento.cidade}
+                    onChange={handleComplementoChange}
+                  />
+                </div>
+
+                <div className='form-field'>
+                <label htmlFor='bairro'>Bairro:</label>
+                <input
+                    type='text'
+                    id='bairro'
+                    name='bairro'
+                    value={complemento.bairro}
+                    onChange={handleComplementoChange}
+                />
+                </div>
                 <div className='form-field'>
                 <label htmlFor='rua'>Rua:</label>
                 <input
@@ -165,20 +165,17 @@ function FormularioComplemento() {
                     onChange={handleComplementoChange}
                 />
                 </div>
-                <div className='contbtnscomplemento'>
                 <button type="button" onClick={prevStep}>Anterior</button>
                 <button type="submit">Próximo</button>
-                </div>
               </form>
             </div>
           )}
-            {step === 4 && (
+           {step === 4 && (
             <div>
-              {/* Tela 5 */}
               <h2>Configuração Padrão</h2>
               <form onSubmit={(e) => { e.preventDefault(); nextStep(); }}>
-              <div className='form-field'>
-                  <label htmlFor='configuracaoPadrao'>Observacoes:</label>
+                <div className='form-field'>
+                  <label htmlFor='configuracaoPadrao'>Configuração Padrão:</label>
                   <input
                     type='text'
                     id='configuracaoPadrao'
@@ -186,56 +183,28 @@ function FormularioComplemento() {
                     value={complemento.configuracaoPadrao}
                     onChange={handleComplementoChange}
                   />
-                  </div>
-                <div className='contbtnscomplemento'>
+                </div>
+                {/* Adicione outros campos conforme necessário */}
                 <button type="button" onClick={prevStep}>Anterior</button>
                 <button type="submit">Próximo</button>
-                </div>
               </form>
             </div>
           )}
-           {step === 5 && (
+
+          {step === 3 && (
             <div>
-              <form onSubmit={(e) => { e.preventDefault(); nextStep(); }}>
-              <div className='form-field'>
-          <label htmlFor='telefoneContato'>Telefone de Contato:</label>
-          <input
-            type='text'
-            id='telefoneContato'
-            name='telefoneContato'
-            value={complemento.telefoneContato}
-            onChange={handleComplementoChange}
-          />
-        </div>   
-        <div className='contbtnscomplemento'>
-                <button type="button" onClick={prevStep}>Anterior</button>
-                <button type="submit">Próximo</button>
-                </div>
-              </form>
-            </div>
-          )}
-          {step === 6 && (
-            <div>
-              <div style={{marginTop:'50px'}}>
-              <p>Cidade: {complemento.cidade}</p>
-            <p>Bairro: {complemento.bairro}</p>
-            <p>Rua: {complemento.rua}</p>
-            <p>Número: {complemento.numero}</p>
-             <p>Telefone de Contato: {complemento.telefoneContato}</p>
-                </div>
+              {/* Tela 3 - Última Tela */}
+              <h2>Detalhes do Pedido</h2>
               <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                 {/* Campos de Detalhes do Pedido */}
                 {/* ... (campos do formulário) */}
-                <div className='contbtnscomplemento'>
                 <button type="button" onClick={prevStep}>Anterior</button>
                 <button type="submit">Enviar</button>
-                </div>
-                
               </form>
             </div>
           )}
         </div>
-    ) : (
+      ) : (
         <div>
           <LoadingSpinner />
         </div>
