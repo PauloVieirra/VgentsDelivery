@@ -16,6 +16,7 @@ function MapContainer() {
   const [loading, setLoading] = useState(true);
   const [userLocation, setUserLocation] = useState(null);
   const [logistaUsers, setLogistaUsers] = useState([]);
+  const [showStoreCard, setShowStoreCard] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,9 +49,22 @@ function MapContainer() {
     fetchData();
   }, []);
 
-  const handleShowStore = () => {
-    alert('Você clicou numa loja');
+  const handleShowStore = (logista) => {
+    setShowStoreCard(logista);
   };
+
+  const handleCloseStoreCard = (logista) => {
+    setShowStoreCard(false);
+  };
+  const handleNavegueURL = (url) => {
+    if (url) {
+      console.log("Chave única do usuário:", url);
+      navigate(`/${url}`);
+    } else {
+      console.log("Loja não encontrada");
+    }
+  };
+
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -89,51 +103,84 @@ function MapContainer() {
   }
 
   return isLoaded ? (
-    <div className='contmap'>
-      <GoogleMap
-        mapContainerStyle={{ width: '100%', height: '100vh' }}
-        center={userLocation}
-        zoom={14}  // Defina o zoom para 14
-        options={{
-          fullscreenControl: false,
-          disableDefaultUI: true,
-          styles: [
-            {
-              featureType: 'poi',
-              elementType: 'labels',
-              stylers: [{ visibility: 'off' }],
-            },
-          ],
-        }}
-      >
-        {userLocation && <Marker position={userLocation} title="Sua localização" />}
+  <div className='contmap'>
+    <GoogleMap
+      mapContainerStyle={{ width: '100%', height: '100vh' }}
+      center={userLocation}
+      zoom={14}
+      options={{
+        fullscreenControl: false,
+        disableDefaultUI: true,
+        styles: [
+          {
+            featureType: 'poi',
+            elementType: 'labels',
+            stylers: [{ visibility: 'off' }],
+          },
+        ],
+      }}
+    >
+      {userLocation && <Marker position={userLocation} title="Sua localização" />}
 
-        {logistaUsers.map((logista, index) => {
-          const { lat, lng, locs } = logista.ROLE.location || {};
+      {logistaUsers.map((logista, index) => {
+        const { lat, lng, locs } = logista.ROLE.location || {};
 
-          if (lat !== undefined && !isNaN(lat) && lng !== undefined && !isNaN(lng)) {
-            return (
-              <Marker
-                key={index}
-                position={{ lat: parseFloat(lat), lng: parseFloat(lng) }}
-                title={`Loja ${index + 1}: ${locs || 'Local Desconhecido'}`}
-                onClick={handleShowStore}
-                icon={{
-                  url: 'https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/7810465/map-marker-pin-clipart-md.png',
-                  scaledSize: new window.google.maps.Size(20, 30),
-                }}
+        if (lat !== undefined && !isNaN(lat) && lng !== undefined && !isNaN(lng)) {
+          return (
+            <Marker
+              key={index}
+              position={{ lat: parseFloat(lat), lng: parseFloat(lng) }}
+              title={`Loja ${index + 1}: ${locs || 'Local Desconhecido'}`}
+              onClick={() => handleShowStore(logista)}
+              icon={{
+                url: 'https://cdn-icons-png.flaticon.com/512/4813/4813391.png',
+                scaledSize: new window.google.maps.Size(52, 52),
+              }}
+            />
+          );
+        }
+
+        return null;
+      })}
+    </GoogleMap>
+    {showStoreCard && (
+      <div className="store-card-maps">
+        {showStoreCard && (
+          <div className="store-card-maps">
+            {/* Conteúdo do cartão da loja */}
+            <div className="store-card-content">
+              <img
+                className="store-card-image"
+                src={showStoreCard.image || 'caminho/para/placeholder.jpg'}
+                alt="Food Truck"
               />
-            );
-          }
+              <div className="store-card-title">{showStoreCard.name || 'Nome do Food Truck'}</div>
+              <div className="store-card-details">
+                <p>Telefone: {showStoreCard.phone || 'N/A'}</p>
+                <p>Email: {showStoreCard.email || 'N/A'}</p>
+                <p>Redes Sociais: {showStoreCard.socialMedia || 'N/A'}</p>
+              </div>
+            </div>
+            {/* Botões do cartão da loja */}
+            <div className="store-card-buttons">
+              <button className="navigate" onClick={handleCloseStoreCard}>
+                Fechar
+              </button>
+              <button className="view-menu" onClick={() => handleNavegueURL(showStoreCard.url)}>
+                Ver Cardápio
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    )}
 
-          return null;
-        })}
-      </GoogleMap>
-      <FooterNavigation />
-    </div>
-  ) : (
-    <div>Loading...</div>
-  );
+    <FooterNavigation />
+  </div>
+) : (
+  <div>Loading...</div>
+);
 }
+  
 
 export default React.memo(MapContainer);

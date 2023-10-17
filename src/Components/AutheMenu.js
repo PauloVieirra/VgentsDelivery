@@ -1,7 +1,6 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoutButton from './Logout';
-import { userData, cidade,numero,endereco } from './localStorageComponent';
 import { useAuth } from '../../src/Context/AuthContext';
 import iconbarmenu from '../images/menuicon.png';
 import iconbarmenuclose from '../images/closemenu.png';
@@ -15,7 +14,7 @@ const AuthenticatedMenu = ({ userType }) => {
   const { user } = useAuth();
   const [userLocalStorage, setUserLocalStorage] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar a exibição do menu
-
+  
   useEffect(() => {
     // Recuperar os dados do localStorage e definir o estado userLocalStorage
     const userData = localStorage.getItem('userData');
@@ -39,8 +38,6 @@ const AuthenticatedMenu = ({ userType }) => {
 
   const location = useLocation();
 
- 
-
   const handleVoltar = () => {
     // Verifica se há uma página anterior no histórico do navegador
     if (location.state && location.state.from) {
@@ -60,52 +57,51 @@ const AuthenticatedMenu = ({ userType }) => {
 
   const style = {
     display: 'flex',
-  flexDirection: 'row',
-  position: 'absolute',
-  zIndex: 9000,
-  top: 0,
-  marginTop: '6px',
-  width: '100%',
-  height: 'auto',
-  backgroundColor: '#ffffff00',
+    flexDirection: 'row',
+    position: 'absolute',
+    zIndex: 9000,
+    top: 0,
+    marginTop: '6px',
+    width: '100%',
+    height: 'auto',
+    backgroundColor: '#ffffff00',
   };
-
- 
-
 
   return (
     <>
-    
-      <div className={user ?'menumobile' : 'style'} style={user ? null : style}>
-      <div className= 'mobidata'> 
-     
-        <>
-        {user && userType === 'cliente' && (
-        <div style={{display:'flex', flexDirection:'row', alignItems:'center', marginLeft:'16px'}}>
-          <div style={{marginLeft:'16px', fontSize:'14px', fontWeight:'600'}}>
-            {endereco}{cidade}{numero}
-            </div>
+      <div className={user ? 'menumobile' : 'style'} style={user ? null : style}>
+        <div className='mobidata'>
+          <>
+          {user && userType === 'cliente' && (
+        <div style={{ display: 'flex', alignItems: 'center', marginLeft: '16px' }}>
+          <div className='textadress'>
+          {user.email}
+          </div>
         </div>
-        )}
-        {user && userType === 'logista' && (
-        <div>
-          <p> logo da loja </p>
-        </div>
-        )}
-         {location.pathname === '/' && !user && (
-        <div  className='buttonmobile' onClick={handleVoltar}>
-        
-        </div>
-        )}
-       </>
+      )}
+
+            {user && userType === 'logista' && (
+              <div>
+                <p> logo da loja </p>
+              </div>
+            )}
+            {location.pathname === '/' && !user && (
+              <div className='buttonmobile' onClick={handleVoltar}></div>
+            )}
+          </>
         </div>
         <div className='contmobimenus'>
-          {location.pathname !== '/SignIn' && location.pathname !== '/SignUp' &&  !user && <div className='buttonmobile'> <Link to="/SignIn" style={{textDecoration:'none', color:'#303030'}}></Link></div>}
+          {location.pathname !== '/SignIn' && location.pathname !== '/SignUp' && !user && (
+            <div className='buttonmobile'>
+              {' '}
+              <Link to="/SignIn" style={{ textDecoration: 'none', color: '#303030' }}></Link>
+            </div>
+          )}
           {user && (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-             
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '60px', height: '60px' }}>
-                <img src={iconbarmenu} alt="" className='iconmenu' onClick={toggleMenu} /> {/* Adicione um onClick para abrir/fechar o menu */}
+                <img src={iconbarmenu} alt="" className='iconmenu' onClick={toggleMenu} />{' '}
+                {/* Adicione um onClick para abrir/fechar o menu */}
               </div>
             </div>
           )}
@@ -114,122 +110,133 @@ const AuthenticatedMenu = ({ userType }) => {
       {/* Renderizar o menu lateral apenas se isMenuOpen for true */}
       {isMenuOpen && (
         <div className='menu-lateral'>
-          <div style={{display:'flex', width:'100%',height:'160px', alignItems:'center', justifyContent:'center', paddingTop:'20px'}}>
-          <img src={iconbarmenuclose} alt="" className='iconmenuclose' onClick={toggleMenu} />
-          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center', paddingTop:'80px'}}>
-                <div className='imguserinit'>foto</div>
-                <div style={{ fontSize: '18px', fontWeight: '600', marginTop:'8px'}}>{localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}</div>
-                <div style={{ fontSize: '14px'}}>{localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).email}</div>
+          <div
+            style={{
+              display: 'flex',
+              width: '100%',
+              height: '160px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingTop: '20px',
+            }}
+          >
+            <img src={iconbarmenuclose} alt="" className='iconmenuclose' onClick={toggleMenu} />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                alignItems: 'center',
+                paddingTop: '80px',
+              }}
+            >
+              <div className='imguserinit'>foto</div>
+              <div style={{ fontSize: '18px', fontWeight: '600', marginTop: '8px' }}>
+                {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
               </div>
+              <div style={{ fontSize: '14px' }}>{localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).email}</div>
+            </div>
           </div>
-          <div style={{display:'flex', position:'absolute', bottom:'20px', left:'20px'}}>
-             <LogoutButton />
+          <div style={{ display: 'flex', position: 'absolute', bottom: '20px', left: '20px' }}>
+            <LogoutButton />
           </div>
         </div>
       )}
-    <div className='contmenu'>
-      <div className='contresolution'>
-        {userType === 'adm' && (
-          <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
-          <div style={{width:'18%'}}> 
-            
-          </div>
-          <div  style={{
-            display:'flex',
-            flexDirection:'row',
-            width:'64%',
-            alignItems:'center',
-            justifyContent:'center',
-            
-            }}>
-            <div>
-            <Link to="/">Início</Link>
+      <div className='contmenu'>
+        <div className='contresolution'>
+          {userType === 'adm' && (
+            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
+              <div style={{ width: '18%' }}></div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '64%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <div>
+                  <Link to="/">Início</Link>
+                </div>
+                <li>
+                  <Link to="/Products">Produto</Link>
+                </li>
+                <li>
+                  <Link to="/Store">Loja</Link>
+                </li>
+                <li>
+                  <Link to="/Cadastroloja">Cadastro</Link>
+                </li>
+                <li>
+                  <Link to="/Dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <Link to="/Dashboard">A Vgents</Link>
+                </li>
+              </div>
             </div>
-            <li>
-              <Link to="/Products">Produto</Link>
-            </li>
-            <li>
-              <Link to="/Store">Loja</Link>
-            </li>
-            <li>
-              <Link to="/Cadastroloja">Cadastro</Link>
-            </li>
-            <li>
-              <Link to="/Dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/Dashboard">A Vgents</Link>
-            </li>
-            
-          </div>+
-          </div>
-        )}
-        {userType === 'logista' && (
-          <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
-          <div style={{width:'18%'}}> 
-            
-          </div>
-          <div  style={{
-            display:'flex',
-            flexDirection:'row',
-            width:'64%',
-            alignItems:'center',
-            justifyContent:'center',
-            
-            }}>
-            <li>
-              <Link to="/">Inicio</Link>
-            </li>
-            <li>
-              <Link to="/Products">Produtos</Link>
-            </li>
-            <li>
-              <Link to="/Pedidos">Pedidos</Link>
-            </li>
-            <div className='dataperson'>
-            {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
-            <p/>
-            {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).email}
-          </div>
-          </div></div>
-        )}
-        {userType === 'cliente' && (
-            <div style={{display:'flex',flexDirection:'row',width:'100%', height:'100%'}}>
-            <div style={{width:'18%'}}> 
-              
+          )}
+          {userType === 'logista' && (
+            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
+              <div style={{ width: '18%' }}></div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '64%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <li>
+                  <Link to="/">Inicio</Link>
+                </li>
+                <li>
+                  <Link to="/Products">Produtos</Link>
+                </li>
+                <li>
+                  <Link to="/Pedidos">Pedidos</Link>
+                </li>
+                <div className='dataperson'>
+                  {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
+                  <p />
+                  {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).email}
+                </div>
+              </div>
             </div>
-            <div  style={{
-              display:'flex',
-              flexDirection:'row',
-              width:'64%',
-              
-              }}>
-             
-            <div>
-              <Link to="/" className={isButtonActive('Inicio')} onClick={() => handleButtonClick('Inicio')}>
-                Inicio
-              </Link>
+          )}
+          {userType === 'cliente' && (
+            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
+              <div style={{ width: '18%' }}></div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '64%',
+                }}
+              >
+                <div>
+                  <Link to="/" className={isButtonActive('Inicio')} onClick={() => handleButtonClick('Inicio')}>
+                    Inicio
+                  </Link>
+                </div>
+                <div>
+                  <Link to="/MeusPedidos" className={isButtonActive('Historico')} onClick={() => handleButtonClick('Historico')}>
+                    Historico
+                  </Link>
+                </div>
+              </div>
+              <div className='dataperson'>
+                {user.email}
+                <p />
+                {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
+              </div>
             </div>
-            <div>
-            <Link to="/MeusPedidos" className={isButtonActive('Historico')} onClick={() => handleButtonClick('Historico')}>
-                Historico
-              </Link>
-            </div>
-             
-           
-          </div>
-          <div className='dataperson'>
-            {user.email}
-            <p/>
-            {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
-          </div>
-          </div>
-        )}
-         
+          )}
+        </div>
       </div>
-    </div>
-   </>
-  
+    </>
   );
 };
 

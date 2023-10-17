@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { isValidEmail, isValidPassword, isValidName } from '../../Components/Helpers';
@@ -18,6 +18,20 @@ const SignUp = () => {
   const [isPassFocused, setIsPassFocused] = useState(false);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null); // Novo estado
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (successMessage) {
+      const timeoutId = setTimeout(() => {
+        navigate('/'); // Redirecionar após 2 segundos
+      }, 2000);
+
+      // Limpar o timeout ao desmontar o componente
+      return () => clearTimeout(timeoutId);
+    }
+  }, [successMessage, navigate]);
 
   const handleEmailChange = (value) => {
     setEmail(value);
@@ -31,11 +45,9 @@ const SignUp = () => {
 
   const handleNameChange = (value) => {
     setName(value);
-    setIsNameFocused(true); // Ativando o foco para exibir imediatamente as mensagens de erro
+    setIsNameFocused(true);
     setEmailError(isValidName(value) ? null : 'Nome inválido. O nome deve conter apenas letras e espaços.');
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +82,7 @@ const SignUp = () => {
       if (signUpResult.redirectToConfirmation) {
         navigate('/ConfirmationPage', { state: { cartItems, tipo, formulario } });
       } else {
-        navigate('/');
+        setSuccessMessage('Cadastro feito com sucesso!');
       }
     } catch (error) {
       if (error.code === 'auth/weak-password') {
@@ -98,63 +110,64 @@ const SignUp = () => {
             Ao se cadastrar você confirma que leu e aceita os termos de uso e privacidade
           </div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className='continput'>
-          {isNameFocused && <ErrorLabel error={emailError} />}
-            {isNameFocused && (
-              <div style={{ height: '20px' }}>
-                <label htmlFor="name" className='labeldescript'>Informe seu nome:</label>
-              </div>
-            )}
-            <input
-              type="text"
-              id="name"
-              placeholder='Nome'
-              value={name}
-              onChange={(e) => handleNameChange(e.target.value)}
-              onFocus={() => setIsNameFocused(true)}
-              onBlur={() => setIsNameFocused(false)}
-            />
-           
-          </div>
-          <div className='continput'>
-          {isEmailFocused && <ErrorLabel error={emailError} />}
-            {isEmailFocused && (
-              <div style={{ height: '20px' }}>
-                <label htmlFor="email" className='labeldescript'>Informe seu email:</label>
-              </div>
-            )}
-            <input
-              type="email"
-              id="email"
-              placeholder='Email'
-              value={email}
-              onChange={(e) => handleEmailChange(e.target.value)}
-              onFocus={() => setIsEmailFocused(true)}
-              onBlur={() => setIsEmailFocused(false)}
-            />
-           
-          </div>
-          <div className='continput'>
-          {isPassFocused && <ErrorLabel error={passwordError} />}
-            {isPassFocused && (
-              <div style={{ height: '20px' }}>
-                <label htmlFor="password" className='labeldescript'>Informe sua senha:</label>
-              </div>
-            )}
-            <input
-              type="password"
-              id="password"
-              placeholder='Senha'
-              value={password}
-              onChange={(e) => handlePasswordChange(e.target.value)}
-              onFocus={() => setIsPassFocused(true)}
-              onBlur={() => setIsPassFocused(false)}
-            />
-           
-          </div>
-          <button type="submit" className='buttonprimary'>Cadastrar</button>
-        </form>
+        {successMessage ? (
+          <div style={{ color: 'green', marginTop: '10px' }}>{successMessage}</div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <div className='continput'>
+              {isNameFocused && <ErrorLabel error={emailError} />}
+              {isNameFocused && (
+                <div style={{ height: '20px' }}>
+                  <label htmlFor="name" className='labeldescript'>Informe seu nome:</label>
+                </div>
+              )}
+              <input
+                type="text"
+                id="name"
+                placeholder='Nome'
+                value={name}
+                onChange={(e) => handleNameChange(e.target.value)}
+                onFocus={() => setIsNameFocused(true)}
+                onBlur={() => setIsNameFocused(false)}
+              />
+            </div>
+            <div className='continput'>
+              {isEmailFocused && <ErrorLabel error={emailError} />}
+              {isEmailFocused && (
+                <div style={{ height: '20px' }}>
+                  <label htmlFor="email" className='labeldescript'>Informe seu email:</label>
+                </div>
+              )}
+              <input
+                type="email"
+                id="email"
+                placeholder='Email'
+                value={email}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                onFocus={() => setIsEmailFocused(true)}
+                onBlur={() => setIsEmailFocused(false)}
+              />
+            </div>
+            <div className='continput'>
+              {isPassFocused && <ErrorLabel error={passwordError} />}
+              {isPassFocused && (
+                <div style={{ height: '20px' }}>
+                  <label htmlFor="password" className='labeldescript'>Informe sua senha:</label>
+                </div>
+              )}
+              <input
+                type="password"
+                id="password"
+                placeholder='Senha'
+                value={password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                onFocus={() => setIsPassFocused(true)}
+                onBlur={() => setIsPassFocused(false)}
+              />
+            </div>
+            <button type="submit" className='buttonprimary'>Cadastrar</button>
+          </form>
+        )}
         <div>Já tem uma conta? <Link to="/SignIn">Faça o login aqui</Link></div>
       </div>
     </div>

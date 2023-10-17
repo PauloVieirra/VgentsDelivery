@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
-import LogoutButton from '../../Components/Logout';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +8,6 @@ import CartModal from '../CartModal/Index';
 import ProductDetailsModal from '../../Components/DetailsModalProduct';
 import CitySelection from '../../Components/SearchCyty';
 import Banners from '../../Components/Banners/BannerImpussion';
-import CardList from '../../Components/ItensImpullss';
 import icons1 from '../../images/icon1.png';
 import icons2 from '../../images/icon2.png';
 import icons3 from '../../images/icon3.png';

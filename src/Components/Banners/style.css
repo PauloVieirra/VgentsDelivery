@@ -16,7 +16,7 @@
 }
 .imgbanner{
     display: flex;
-    width: 86%;
+    width: 90%;
     height: 148px;
     justify-content: flex-end;
     align-items: flex-end;
@@ -41,7 +41,7 @@
   text-decoration: none;
   font-size: 16px;
   font-weight: 600;
-  background-color: #e18f0af9;
+  background-color: #4b4b4bf4;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 .iconhand{

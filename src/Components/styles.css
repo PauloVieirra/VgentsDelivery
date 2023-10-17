@@ -24,8 +24,8 @@
  }
  .mobidata{
   display: flex;
-  width: 50%;
-  align-items: center;
+  flex-direction: row;
+  width: 100%;
  }
  .contmobimenus{
   display: flex;
@@ -69,6 +69,14 @@
 /* CSS para mostrar o menu quando aberto */
 .menu-lateral.aberto {
   right: 0; /* Move o menu para a posição visível */
+}
+.textadress{
+  
+  display:'flex';
+  flex-direction: row;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a912a;
 }
 
 
