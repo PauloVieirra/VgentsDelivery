@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import firebase from '../../config/firebaseConfig';
+import { userData, local  } from '../localStorageComponent';
 import CardList from '../ItensImpullss';
 import './style.css';
 
@@ -96,7 +97,13 @@ const CitySelection = ({ onSelectCity }) => {
       <div className='contchosse'>
         <div className='conttittle'>
           {selectedCity ? selectedCity : 'Delivery'}
+          <div className='textadress'>
+           
+          </div>
         </div>
+        <div style={{width:'100%',paddingLeft:'20px',fontSize:'12px', fontWeight:'200', color:"#151561"}}>
+        Entrega rápida e segura.
+      </div>
         <div className='continputcentered'>
           <select
             value={selectedCity}

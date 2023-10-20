@@ -2,10 +2,14 @@
 
 .card-list {
   display: flex;
+  align-items: start;
   overflow-x: auto;
+  overflow-y: hidden;
+  height: 360px;
+  padding-left: 16px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
-  padding: 10px; /* Adiciona um pequeno espaçamento nas extremidades */
+ 
 }
 .card-list-vert {
   display: flex;
@@ -17,12 +21,11 @@
 }
 
 .card {
-  flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
+  flex: 0 0 45%; /* Ajustado para exibir 1/5 dos itens por linha */
   margin: 0 1%; /* Espaçamento entre os cards */
-  margin-top: 8px;
-  padding: 10px;
-  height: auto;
-  max-height: 300px;
+  padding: 2px;
+  height: 100vh;
+  min-height: 340px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
   background-color: #fff;
@@ -31,7 +34,7 @@
   flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
   margin: 0 1%; /* Espaçamento entre os cards */
   margin-top: 8px;
-  padding: 10px;
+  padding: 2px;
   height: auto;
   max-height: 300px;
   border-radius: 12px;
@@ -57,6 +60,28 @@
 }
 .btnscrollrigth{
   display: none;
+}
+.divdescriptionspace{
+  display: flex;
+  height: 13vh;
+}
+.conticoncardsdiv{
+ display: flex;
+ padding: 8px;
+ bottom: 0;
+ flex-direction: row;
+ height:auto;
+ justify-content: space-between;
+ width: 100%;
+ font-size: 16px;
+}
+.coniconcard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
 }
 
 @media (min-width: 426px) {
@@ -133,7 +158,6 @@
     justify-content: space-between;
     width: 100%;
     height: auto;
-    background-color: aqua;
   }
 
  

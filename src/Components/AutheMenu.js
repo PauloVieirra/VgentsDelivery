@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoutButton from './Logout';
 import { useAuth } from '../../src/Context/AuthContext';
+import { userData, local, userimage } from './localStorageComponent';
 import iconbarmenu from '../images/menuicon.png';
 import iconbarmenuclose from '../images/closemenu.png';
-import './styles.css';
+import logopro from '../images/logodfoodg.png';
 import SignIn from '../screens/SignIn/Index';
 import SignUp from '../screens/SignUp/Index';
+import './styles.css';
+
+
 
 const AuthenticatedMenu = ({ userType }) => {
   const navigate = useNavigate();
@@ -72,11 +76,12 @@ const AuthenticatedMenu = ({ userType }) => {
       <div className={user ? 'menumobile' : 'style'} style={user ? null : style}>
         <div className='mobidata'>
           <>
+          <div className='contlogopro'>
+          <img src={logopro} style={{width:'80px',height:'32px'}}/>
+          </div>
           {user && userType === 'cliente' && (
         <div style={{ display: 'flex', alignItems: 'center', marginLeft: '16px' }}>
-          <div className='textadress'>
-          {user.email}
-          </div>
+          
         </div>
       )}
 
@@ -125,16 +130,19 @@ const AuthenticatedMenu = ({ userType }) => {
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '100%',
+                width:'100%',
+                height: '300px',
                 alignItems: 'center',
-                paddingTop: '80px',
               }}
             >
-              <div className='imguserinit'>foto</div>
-              <div style={{ fontSize: '18px', fontWeight: '600', marginTop: '8px' }}>
+              <div className='contimgperson'>
+              <img src={userimage} className='imguserinit'/>
+              </div>
+              <div style={{width:'100%', height:'80px'}}/>
+              <div style={{  fontWeight: '600', fontSize:'20px'}}>
                 {localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).name}
               </div>
-              <div style={{ fontSize: '14px' }}>{localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).email}</div>
+              <div style={{ fontSize: '16px' }}>{localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).email}</div>
             </div>
           </div>
           <div style={{ display: 'flex', position: 'absolute', bottom: '20px', left: '20px' }}>

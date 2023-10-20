@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../Context/AuthContext';
+import { userData, local  } from '../localStorageComponent';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 
@@ -37,8 +38,13 @@ const CardList = () => {
   return (
     <>
       <div className='contpromotittle' style={{ paddingTop: '20px' }}>
-        <div style={{ marginLeft: '20px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>
-          Combo Promo
+        <div style={{ marginBottom:'10px',marginLeft: '20px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>
+        {user && (
+          <div style={{display:'flex',flexDirection:'row'}}> Ofertas em <div style={{color:'#F8A73F'}}> :  {local}</div>  </div> 
+        )} 
+        {!user && (
+          <div style={{display:'flex',flexDirection:'row'}}> Ofertas </div> 
+        )} 
         </div>
       </div>
       <div className="card-list" id="horizontalCardList">
@@ -49,12 +55,25 @@ const CardList = () => {
                 <div className='divimgout'>
                   <img src={card.imageUrl} alt="" className='imgprom'/>
                 </div>
-                <div style={{ marginTop: '8px' }}>
-                  <div style={{ fontSize: '16px' }}>{card.title}</div>
-                  <div style={{ display: 'flex', flexDirection: 'row', fontSize: '16px', fontStyle: 'normal', fontWeight: 600 }}>
-                    {card.price}
+                <div style={{ margin: '8px' }}>
+                  <div style={{ fontSize: '16px', backgroundColor:'#fff', fontWeight: 600 }}>{card.title}</div>
+                  <div className='divdescriptionspace'>
+                   {card.description}
                   </div>
+                  <div className='conticoncardsdiv'>
+                    <div className='coniconcard'>
+                        
+                    </div>
+                    <div className='coniconcard'>
+                        
+                    </div>
+                    <div className='coniconcard' style={{fontSize:'22px', fontWeight:'600'}}>
+                    {card.price}
+                    </div>
+                  </div>
+                   
                 </div>
+                
               </div>
             );
           } else {
@@ -70,7 +89,7 @@ const CardList = () => {
       </div>
 
       <div className='contpromotittle'>
-        <div style={{ marginLeft: '20px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>Happy Hour</div>
+        <div style={{ marginLeft: '20px', marginTop:'8px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>Happy Hour</div>
       </div>
       <div className="card-list-vert">
         {productsProm.map((card) => {
@@ -80,11 +99,22 @@ const CardList = () => {
                 <div className='divimgout-vert'>
                   <img src={card.imageUrl} alt="" className='imgprom'/>
                 </div>
-                <div style={{ marginTop: '8px' }}>
-                  <div style={{ fontSize: '16px' }}>{card.title}</div>
-                  <div style={{ fontSize: '16px' }}>{card.id}</div>
-                  <div style={{ fontSize: '16px' }}> {card.price}</div>
-                  <p>{card.content}</p>
+                <div style={{ marginTop: '8px',margin:'6px' }}>
+                <div style={{ fontSize: '16px', backgroundColor:'#fff', fontWeight: 600 }}>{card.title}</div>
+                <div style={{
+                    display: 'fixed',
+                    flexDirection: 'row',
+                    fontSize: '15px',
+                    fontStyle: 'normal',
+                    fontWeight: 200,
+                    marginTop:'4px',
+                    }}>
+                   {card.description}
+                  </div>
+                  <div className='coniconcard' style={{display:'flex',width:'100%',alignItems:'flex-end',fontSize:'22px', fontWeight:'600'}}>
+                    {card.price}
+                  </div>
+                   
                 </div>
               </div>
             );
@@ -92,6 +122,7 @@ const CardList = () => {
             return null;
           }
         })}
+         <div className='conticoncardsdiv'/>
       </div>
     </>
   );

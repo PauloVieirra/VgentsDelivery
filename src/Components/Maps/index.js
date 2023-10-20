@@ -99,7 +99,7 @@ function MapContainer() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={{display:'flex',width:'100%', height:'100vh', justifyContent:'center', alignItems:'center'}}>Loading...</div>;
   }
 
   return isLoaded ? (
