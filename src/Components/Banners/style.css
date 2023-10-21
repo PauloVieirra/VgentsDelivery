@@ -1,13 +1,11 @@
 .contimpon{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 30px;
 }
 .contbanner{
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -20,12 +18,9 @@
   justify-content: flex-end;
   width: 90%;
   height: 148px;
-  margin-top: 10px;
   border-radius: 8px;
-  background-image: linear-gradient(to bottom, rgba(109, 179, 113, 0), rgba(0, 0, 0, 0)), url('../../images/bbnerstore.png');
   background-repeat: no-repeat;
   background-position: 50%;
-  box-shadow: 0 2px 5px rgba(0, 4, 5, 0.1);
 }
 
 .buttonprimaryin{
@@ -84,26 +79,54 @@
     border-radius: 12px;
     background-color: #fefefe;
   }
+  .contintotitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+    max-width: 1240px;
+  }
+  .buttonexplore{
+    width: auto;
+    background-color: #e29c21;
+  }
+  .contbrnexplore{
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: flex-end;
+  }
   
 @media (min-width: 500px) {
-    .contimpon{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100px;
-        margin-top: 30px;
-    }
-    .contbanner{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100px;
-    }
-    .imgbanner{
-        display: none;
-        width: 100%;
-        height: 100%;
-    }
+  .contimpon{
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 400px;
+    background-color: #e29c21;
+  }
+  .conttittle{
+    display: flex;
+    width: 100%;
+    height: 48px;
+    font-weight: 600;
+    font-size: 18px;
+    align-items: center;
+  }
+  .contintotitle{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-left: 20px;
+    height: 100px;
+    max-width: 1240px;
+    
+  }
+  .contbanner{
+    display: flex;
+    width: 100%;
+}
+
+
 }

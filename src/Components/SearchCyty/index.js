@@ -96,14 +96,15 @@ const CitySelection = ({ onSelectCity }) => {
     <>
       <div className='contchosse'>
         <div className='conttittle'>
-          {selectedCity ? selectedCity : 'Delivery'}
+          <div>
+             {selectedCity ? selectedCity : 'Delivery'}
+          </div>
           <div className='textadress'>
-           
+            Entrega rápida e segura.
           </div>
         </div>
-        <div style={{width:'100%',paddingLeft:'20px',fontSize:'12px', fontWeight:'200', color:"#151561"}}>
-        Entrega rápida e segura.
-      </div>
+        
+
         <div className='continputcentered'>
           <select
             value={selectedCity}

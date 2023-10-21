@@ -146,6 +146,7 @@ const Store = () => {
         </span>
       </div>
          )}
+      
       <Banners/>
       
       {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true

@@ -22,23 +22,35 @@ export default function Banners() {
 
   return (
     <div className='contimpon'>
-      <div className='conttittle'>Explorar sabores</div>
-      <div style={{ width: '100%', paddingLeft: '20px', fontSize: '12px', fontWeight: '200', color: "#151561" }}>
-        FoodTrucks - Quiosques - Restaurantes.
-      </div>
-      <div className='contbanner'>
-        <div className='imgbanner'>
-          {user ? (
+
+      <div className='contintotitle'>
+        <div>
+        <div className='conttittle'>Explorar sabores</div>
+        <div style={{ width: '100%',fontSize: '12px', fontWeight: '200', color: "#151561", marginBottom:'10px' }}>
+         FoodTrucks - Quiosques - Restaurantes.
+        </div> 
+        </div>
+        <div className='contbrnexplore' >
+        {user ? (
             // Se houver um usuário, mostre o primeiro botão
-            <button className='buttonprimaryin' onClick={handleMaps}>
+            <button className='buttonexplore' onClick={handleMaps}>
               Mostrar locais
             </button>
           ) : (
             // Se não houver usuário, mostre o segundo botão
-            <button className='buttonprimaryin' onClick={openLearningMore}>
+            <button className='buttonexplore' onClick={openLearningMore}>
               Saber Mais
             </button>
           )}
+        </div>
+
+
+      </div>
+      
+     
+      <div className='contbanner'>
+        <div className='imgbanner'>
+         
         </div>
       </div>
       {isLearningMore && (

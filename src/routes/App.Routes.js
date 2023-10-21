@@ -23,6 +23,8 @@ import FormularioComplementoLogista from '../Components/FormcomplitLogista/Index
 import Maps from '../Components/Maps';
 import FooterNavigation from '../Components/Footer';
 
+import { MenuClient } from '../Components/Menus';
+
 
 const AppRoutes = () => {
   const [userType, setUserType] = useState(null);
@@ -86,7 +88,7 @@ const AppRoutes = () => {
         }
 
         {userType === 'cliente' && 
-        <>
+        <>   
          <Route path="/Home" element={<Home />} />
         <Route path="/" element={<Store />} />
         <Route path="/Maps" element={<Maps />} />
@@ -97,6 +99,7 @@ const AppRoutes = () => {
          <Route path="/FormularioComplemento" element={<FormularioComplemento />} />
         </>
          }
+
       </Routes>
       </AuthProvider>
     </div>

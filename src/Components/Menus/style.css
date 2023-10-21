@@ -1,0 +1,134 @@
+.contdeskmenu{
+    width: 100%;
+}
+.divdeskinto{
+    display: flex;
+    width: 100%; 
+   
+}
+.divcenetrelogo{
+    display: flex;
+    width: auto;
+    height:70px ;
+    margin-left: 16px;
+    align-items: center;
+    justify-content: center;
+}
+.logomobi{
+    display: flex;
+    height: 30px;
+    margin-top: 6px;
+    
+}
+.divbtns{
+    display: none;
+}
+
+.dataper{
+    display: none;
+}
+.divcart{
+    display: none;
+}
+.coniconopen{
+    display: flex;
+    width: 28px;
+}
+.contbtnmenu{
+    display: flex;
+    width: auto;
+    position: absolute;
+    z-index: 999999;
+    top: 28px;
+    right: 20px;
+}
+.botmenuside{
+    display: flex;
+    width: 28px;
+    position: absolute;
+    z-index: 999999;
+    top: 28px;
+    right: 20px;
+}
+
+@media (min-width: 500px ){
+
+    .contdeskmenu{
+        display: flex;
+        width: 100%;
+        height: 66px;
+        align-items: center;
+        justify-content: center;
+    }
+    .divdeskinto{
+        display: flex;
+        width: 100%;
+        max-width: 1280px;
+    }
+    
+    .divbtns{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 66px;
+    }
+    .btnmenudesk{
+        display: flex;
+        width: auto;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        margin: 6px;
+        color: black;
+        padding: 8px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .divlink:hover{
+        text-decoration: underline;
+    }
+    .dataper{
+        display: flex;
+        flex-direction: row;
+        height: 66px;
+    }
+    .contdatauser{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .contimguser{
+     height: 52px;
+     border-radius: 100px; 
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+    .contnotify{
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        height: 66px;
+        padding-right: 20px;
+    }
+    .contsair{
+        display: flex;
+        width: 42px;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    .divcart{
+        display: flex;
+        width: 48px;
+        height: 66px;
+        justify-content: center;
+        align-items: center;
+    }
+    .coniconopen{
+        display: none;
+        width: 28px;
+    }
+    
+}

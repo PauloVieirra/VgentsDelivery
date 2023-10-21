@@ -19,6 +19,7 @@
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     outline: none;
+    
 }
 .conttittle{
   display: flex;
@@ -86,6 +87,7 @@
     align-items: center;
     width: 100%;
     height:auto;
+    margin-top: 100px;
    }
    .continputcentered{
        display: flex;
@@ -100,6 +102,7 @@
        border-radius: 100px;
        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
        outline: none;
+       
    }
    .inputcitybox{
        width: 100%;
@@ -147,5 +150,17 @@
      font-style: normal;
      font-weight: 600;
    }
+   .conttittle{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 30px;
+  }
+  .textadress{
+    display: flex;
+    color: #45b745;
+  }
 
 }
