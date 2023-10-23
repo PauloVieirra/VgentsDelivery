@@ -128,9 +128,6 @@ const SignIn = () => {
               </div>
             )}
       <div className='divform'>
-        <button className='btnbackgoleft' onClick={handlenavegue}>
-          Voltar
-        </button>
         <div className='divtitlelogindesk'>
           Entre ou crie uma conta
           <div style={{ display: 'flex', width: '70%', fontSize: '14px', fontWeight: '400' }}>

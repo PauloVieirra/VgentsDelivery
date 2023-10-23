@@ -37,10 +37,10 @@ const CardList = () => {
 
   return (
     <>
-      <div className='contpromotittle' style={{ paddingTop: '20px' }}>
+      <div className='contpromotittle' style={{ paddingTop: '30px' }}>
         <div style={{ marginBottom:'10px',marginLeft: '20px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>
         {user && (
-          <div style={{display:'flex',flexDirection:'row'}}> Ofertas em <div style={{color:'#F8A73F'}}> :  {local}</div>  </div> 
+          <div style={{display:'flex',flexDirection:'row'}}> Ofertas em <div style={{color:'#45b745'}}> :  {local}</div>  </div> 
         )} 
         {!user && (
           <div style={{display:'flex',flexDirection:'row'}}> Ofertas </div> 
@@ -56,7 +56,7 @@ const CardList = () => {
                   <img src={card.imageUrl} alt="" className='imgprom'/>
                 </div>
                 <div style={{ margin: '8px' }}>
-                  <div style={{ fontSize: '16px', backgroundColor:'#fff', fontWeight: 600 }}>{card.title}</div>
+                  <div style={{ fontSize: '16px', backgroundColor:'#fff', fontWeight: 600, width:'100%' }}>{card.title}</div>
                   <div className='divdescriptionspace'>
                    {card.description}
                   </div>
@@ -65,12 +65,13 @@ const CardList = () => {
                         
                     </div>
                     <div className='coniconcard'>
-                        
+                       
                     </div>
                     <div className='coniconcard' style={{fontSize:'22px', fontWeight:'600'}}>
                     {card.price}
                     </div>
-                  </div>
+                    
+                  </div>  
                    
                 </div>
                 
@@ -89,7 +90,7 @@ const CardList = () => {
       </div>
 
       <div className='contpromotittle'>
-        <div style={{ marginLeft: '20px', marginTop:'8px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>Happy Hour</div>
+        <div style={{ marginLeft: '20px', marginTop:'16px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>Happy Hour</div>
       </div>
       <div className="card-list-vert">
         {productsProm.map((card) => {

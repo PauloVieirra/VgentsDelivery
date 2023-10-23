@@ -1,16 +1,53 @@
-/* style.css */
-
+/* Estilos para a lista de cartões */
 .card-list {
   display: flex;
-  align-items: start;
+  align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 360px;
+  height: auto;
+  min-height: 390px;
   padding-left: 16px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
- 
+  flex-wrap: nowrap; /* Mantém os cartões em uma única linha */
 }
+
+
+/* Estilos para a imagem do cartão */
+.divimgout {
+  display: flex;
+  height: 50%;
+  justify-content: center;
+}
+
+.imgprom {
+  max-width: 100%;
+  height: 100%;
+  border-top-right-radius: 12px;
+  border-top-left-radius:12px;
+}
+
+/* Estilos para o título do cartão */
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #fff;
+  margin-top: 8px;
+}
+
+/* Estilos para a descrição do cartão */
+.divdescriptionspace {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* Estilos para o preço do cartão */
+.price {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+
 .card-list-vert {
   display: flex;
   flex-direction: column;
@@ -19,17 +56,28 @@
   -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
   padding: 10px; /* Adiciona um pequeno espaçamento nas extremidades */
 }
-
 .card {
-  flex: 0 0 45%; /* Ajustado para exibir 1/5 dos itens por linha */
-  margin: 0 1%; /* Espaçamento entre os cards */
-  padding: 2px;
-  height: 100vh;
-  min-height: 340px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
-  background-color: #fff;
+  flex: 0 0 43%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  margin: 0 0.1%; /* Espaçamento entre os cards */
+  margin-right: 16px;
+  padding: 0px;
+  height: 347px;
+  min-height: 347px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  width: 250px; /* Largura fixa para cada cartão (ajuste conforme necessário) */
 }
+
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+
+
 .card-vert {
   flex: 0 0 40%; /* Ajustado para exibir 1/5 dos itens por linha */
   margin: 0 1%; /* Espaçamento entre os cards */
@@ -40,12 +88,6 @@
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
   background-color: #fff;
-}
-
-.divimgout {
-  overflow: hidden;
-  border-radius: 8px;
-  height: 150px;
 }
 .divimgout-vert {
   overflow: hidden;
@@ -63,17 +105,18 @@
 }
 .divdescriptionspace{
   display: flex;
-  height: 13vh;
+  flex-direction: column;
+  height: 12vh;
 }
-.conticoncardsdiv{
- display: flex;
- padding: 8px;
- bottom: 0;
- flex-direction: row;
- height:auto;
- justify-content: space-between;
- width: 100%;
- font-size: 16px;
+.conticoncardsdiv {
+  display:flex;
+  position: relative;
+  z-index: -0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end; /* Posiciona os filhos na base */
+  width: 100%;
+  font-size: 16px;
 }
 .coniconcard{
   display: flex;

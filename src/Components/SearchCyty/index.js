@@ -99,10 +99,19 @@ const CitySelection = ({ onSelectCity }) => {
           <div>
              {selectedCity ? selectedCity : 'Delivery'}
           </div>
+          
+          {!selectedCity  && (
           <div className='textadress'>
-            Entrega rápida e segura.
+          Entrega rapida e segura
           </div>
-        </div>
+          )}
+
+          {selectedCity !== '' && (
+          <div className='textadress' onClick={handleCleanSearch}>
+          Limpar
+          </div>
+          )}
+          </div>
         
 
         <div className='continputcentered'>
@@ -165,11 +174,7 @@ const CitySelection = ({ onSelectCity }) => {
           )}
         </div>
       </div>
-      {selectedCity !== '' && (
-        <div className='btninicioout' onClick={handleCleanSearch}>
-          Voltar
-        </div>
-      )}
+    
     </>
   );
 };

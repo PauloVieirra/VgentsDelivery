@@ -103,7 +103,7 @@ const SignUp = () => {
   return (
     <div className='containersignup'>
       <div className='divform'>
-        <button className='btnbackgoleft' onClick={handlenavigate}>Voltar</button>
+       
         <div className='divtitlelogindesk'>
           Crie uma conta
           <div style={{ display: 'flex', width: '70%', fontSize: '14px', fontWeight: '400' }}>

@@ -164,7 +164,7 @@ button[type="submit"]:hover {
   display:fixed;
   position:absolute;
   z-index: 9999;
-  top:20px;
+  top:46px;
   right: 20px;
   color: #222222;
   font-size: 18px;
@@ -176,8 +176,8 @@ button[type="submit"]:hover {
   display:fixed;
   position:absolute;
   z-index: 9999;
-  top:20px;
-  right: 20px;
+  top:10px;
+  left: 10px;
   color: #222222;
   font-size: 18px;
   font-weight: 600;

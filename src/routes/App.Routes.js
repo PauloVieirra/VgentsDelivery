@@ -61,7 +61,7 @@ const AppRoutes = () => {
   
     <div>
        <AuthProvider>
-      <FooterNavigation/>
+     
       <AuthenticatedMenu userType={userType} />
       
       <Routes>

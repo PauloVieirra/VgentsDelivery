@@ -134,9 +134,7 @@ const Store = () => {
   return (
     <div className="contstore">
       <div className='cont' >
-       {!user && (
-        <button className='btnbackgo' onClick={handlenavegue}>Login</button>
-       )}
+     
        </div>
        {user && (
       <div className="cart-icon" onClick={toggleCart}>

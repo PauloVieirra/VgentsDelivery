@@ -1,5 +1,6 @@
   .cart-modal {
     display: flex;
+    flex-direction: column;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -21,7 +22,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
+    width: 100%;
     height: 100%;
   }
   .contrightmodalcart{
@@ -47,13 +48,16 @@
   .contlineitemcart{
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 100%;
     height: 120px;
     padding: 6px;
     margin-top: 12px;
-    border-radius: 20px;
-    background-color: rgb(245, 245, 245);
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 1px;
+    border-color: rgba(0, 0, 0, 0.277);
+    border-style: solid;
     
   }
   .contdatacart{
@@ -66,7 +70,7 @@
   .contimgcartitem{
     width: 120px;
     height: 100%;
-    border-radius: 16px;
+    border-radius: 6px;
     background-color: black;
   }
   .divdataintcart{
@@ -86,13 +90,12 @@
     font-weight: 600;
     color: rgb(61, 61, 61);
   }
-  .contcarttittle{
-    
-  }
+ 
   
   @media (min-width: 500px){
     .cart-modal {
       display: flex;
+      flex-direction: row;
       position: fixed;
       width: 100%;
       height: 100%;
