@@ -126,16 +126,17 @@
   width: auto;
   height: auto;
 }
+.tittlepromo{
+  display: flex;
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
 
 @media (min-width: 426px) {
-
-  .card-list {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
-    padding: 10px;
-  }
   .card-list-vert {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 colunas com largura igual */

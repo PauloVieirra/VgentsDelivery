@@ -4,12 +4,14 @@
  align-items: center;
  width: 100%;
  height:auto;
- margin-top: 30px;
+ margin-top: 6px;
 }
 .continputcentered{
     display: flex;
     flex-direction: row;
-    width: 90%;
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
     height: 42px;
     margin-top: 10px;
     padding-left: 10px;
@@ -23,8 +25,10 @@
 }
 .conttittle{
   display: flex;
-  justify-content: space-between;
-  width: 90%;
+  align-items: center;
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
   font-weight: 600;
   font-size: 18px;
 }
@@ -56,13 +60,21 @@
   
 .user-card {
   display: flex;
+  flex-direction: column;
   margin-right: 20px;
   margin-left: 20px;
-  margin-top: 12px;
-  padding: 20px;
-  border-radius: 12px;
+  margin-top: 40px;
+  padding: 2px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  box-shadow: 0 2px 6px rgba(71, 71, 71, 0.24);
+  box-shadow: 0 4px 4px rgba(71, 71, 71, 0.091);
+}
+.imgcardcity{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-height: 180px;
+  background-color: #f5f6f5;
 }
 .btninicioout{
   display: flex;
@@ -76,7 +88,34 @@
   font-style: normal;
   font-weight: 600;
 }
-
+.textadress{
+  display: flex;
+  justify-content: flex-end;
+  width: 70%;
+  color: #45b745;
+  
+}
+.cont{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.contmaps{
+  display: flex;
+}
+.textdeliv{
+  display: flex;
+  width: 30%;
+  
+}
+.contmapsMobile{
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.contmapsDesktop{
+  display: none;
+}
 
 
 @media (min-width: 426px) {
@@ -84,7 +123,7 @@
   .contchosse{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     height:auto;
     margin-top: 10px;
@@ -92,18 +131,17 @@
    .continputcentered{
     display: flex;
     flex-direction: row;
-    width: 90%;
+    width: 96%;
     height: 42px;
+    margin-left: 2%;
+    margin-right: 2%;
     margin-top: 10px;
-    padding-left: 10px;
+    padding-left: 4px;
     padding-right: 10px;
     border: 1px solid #ccc;
-    background-color: #f5f6f5;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     outline: none;
-       
-       
    }
    .inputcitybox{
     width: 100%;
@@ -153,16 +191,38 @@
    }
    .conttittle{
     display: flex;
+    align-items: flex-end;
     justify-content: flex-start;
-    width: 90%;
-    margin-left: 36px;
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: 80px;
+    padding-bottom: 16px;
     font-weight: 600;
     font-size: 18px;
+  }
+  .cont{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    align-items: flex-end;
   }
   .textadress{
     display: flex;
     margin-left: 30px;
     color: #45b745;
+    justify-content: flex-end;
+  }
+  .textdeliv{
+  }
+  .contmapsDesktop{
+    display: flex;
+    width: 100%;
+    background-color: #45b745;
+  }
+  .contmapsMobile{
+    display: none;
   }
 
 }

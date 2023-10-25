@@ -1,0 +1,95 @@
+.banner-desktop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.467), rgba(6, 6, 6, 0.415)),
+    url('https://www.shutterstock.com/image-photo/assortment-various-barbecue-vegan-food-260nw-1738904081.jpg') center/cover;
+    color: #fff; 
+    position: relative;
+    overflow: hidden;
+  }
+
+  
+  .banner-desktop img {
+    max-width: 100%;
+    height: auto;
+    background-color: rgba(red, green, rgb(30, 30, 35), 0.4)
+  }
+  
+  .banner-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+  }
+  
+  .banner-content h1 {
+    font-size: 24px; /* Tamanho da fonte do título */
+    margin: 0;
+  }
+  
+  .banner-content p {
+    font-size: 16px; /* Tamanho da fonte do texto descritivo */
+    margin: 10px 0;
+  }
+  
+  .banner-content a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Cor de fundo do botão de sua escolha */
+    color: #fff; /* Cor do texto do botão */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .banner-content a:hover {
+    background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+  }
+  .buttonexplore{
+    width: auto;
+    background-color: #e29c21;
+    color: white;
+    margin: 10px;
+  }
+  .buttonexplore:hover{
+    width: auto;
+    background-color: #e29c21;
+    color: white;
+    transform: scale(1.04);
+    margin: 10px;
+  }
+  .contimpon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    
+}
+.contintotitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 10px;
+    max-width: 1240px;
+  }
+  .tittlebanner{
+    display: flex;
+    width: 100%;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  p{
+  color: #fff;  
+  }
+
+  

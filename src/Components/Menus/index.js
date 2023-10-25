@@ -77,7 +77,7 @@ const MenuOutSide = () => {
   
   return(
   <div className='contdeskmenu'>
-      <div className="divdeskinto" style={{height:'100px',alignItems:'flex-end'}}>
+      <div className="divdeskinto">
         <div className="divcenetrelogo">
           <img src={logoTop} className="logomobi" />
         </div>
@@ -117,18 +117,18 @@ const MenuOutSide = () => {
           
         </div>
         { location.pathname === '/'  && (
-            <div className="contbtngo">
-            <button className='btnbackgo' onClick={handlenavegue}>Login</button>
-            </div>
+           
+            <button className="btnback" onClick={handlenavegue}>Login</button>
+        
         )}
         { location.pathname === '/Signin'  && (
             <div className="contbtngo">
-            <button className='btnbackgo' onClick={handlenavegueInit}>Voltar</button>
+            <button className="btnback" onClick={handlenavegueInit}>Voltar</button>
             </div>
         )}
          { location.pathname === '/SignUp'  && (
             <div className="contbtngo">
-            <button className='btnbackgo' onClick={handlenavegueSignin}>Voltar</button>
+            <button className="btnback" onClick={handlenavegueSignin}>Voltar</button>
             </div>
         )}
 
@@ -138,8 +138,6 @@ const MenuOutSide = () => {
   </div>
   );
 };
-
-
 
 const MenuClient = () => {
     const { signOut, isAuthenticated, user } = useAuth();

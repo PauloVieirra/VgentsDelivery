@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import firebase from '../../config/firebaseConfig';
 import { userData, local  } from '../localStorageComponent';
 import CardList from '../ItensImpullss';
+import { BannerDesktop, BannersMobile } from '../Banners';
 import './style.css';
 
 const CitySelection = ({ onSelectCity }) => {
@@ -95,11 +96,14 @@ const CitySelection = ({ onSelectCity }) => {
   return (
     <>
       <div className='contchosse'>
+         <div className='cont'>
+         <div className='contmapsDesktop'> <BannerDesktop/> </div>
+         <div className='contmapsMobile'> <BannersMobile/> </div>
+         
         <div className='conttittle'>
-          <div>
+          <div className='textdeliv'>
              {selectedCity ? selectedCity : 'Delivery'}
           </div>
-          
           {!selectedCity  && (
           <div className='textadress'>
           Entrega rapida e segura
@@ -111,21 +115,21 @@ const CitySelection = ({ onSelectCity }) => {
           Limpar
           </div>
           )}
-          </div>
+        </div>
         
-
+        </div>
         <div className='continputcentered'>
           <select
             value={selectedCity}
             onChange={handleSelectChange}
             className='inputcitybox'
           >
-            <option value="" disabled={!selectedCity}>
+            <option value="" disabled={!selectedCity} >
               {selectedCity ? 'Ver promoções' : 'Escolha uma cidade'}
             </option>
             {[...new Set(logistaUsers.map((user) => user.cidade))].map(
               (city) => (
-                <option key={city} value={city}>
+                <option key={city} value={city} style={{ display:'flex',fontSize:'18px', backgroundColor:'dedede', width:'20%'}}>
                   {city}
                 </option>
               )
@@ -150,19 +154,10 @@ const CitySelection = ({ onSelectCity }) => {
                   className='user-card'
                   onClick={() => handleUserCardClick(user.userId)}
                 >
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '100px',
-                      height: '100px',
-                      backgroundColor: '#fafafe',
-                    }}
-                  >
+                  <div className='imgcardcity'>
                     image
                   </div>
-                  <div style={{ width: '224px' }}>
+                  <div>
                     <p>{user.name}</p>
                     <p>{user.email}</p>
                   </div>

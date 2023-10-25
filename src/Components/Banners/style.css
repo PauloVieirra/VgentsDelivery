@@ -17,7 +17,7 @@
   align-items: flex-start;
   justify-content: flex-end;
   width: 90%;
-  height: 148px;
+  height: 130px;
   border-radius: 8px;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -54,12 +54,6 @@
       transform: scale(1.1);
     }
   }
-  .conttittle{
-    display: flex;
-    width: 90%;
-    font-weight: 600;
-    font-size: 18px;
-  }
   .modallearnigmore{
     display: flex;
     align-items: center;
@@ -84,7 +78,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 10px;
     padding: 20px;
     padding: 20px;
     max-width: 1240px;
@@ -102,33 +96,96 @@
   
 @media (min-width: 500px) {
   .contimpon{
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    height: 400px;
-    background-color: #e29c21;
-  }
-  .conttittle{
     display: flex;
-    width: 100%;
-    height: 48px;
-    font-weight: 600;
-    font-size: 18px;
     align-items: center;
+    width: 100%;
+    height: 200px;
+    background-color: #e29c21;
+}
+.contbanner{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto; 
+    
+}
+.imgbanner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 90%;
+  height: 130px;
+  border-radius: 8px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.buttonprimaryin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44%;
+  height: 38px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  color: #f1f1f1;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #e29c21;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.iconhand{
+    /* Adicionando animação contínua */
+    animation: pulse 1s infinite alternate;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+  .modallearnigmore{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 99999;
+    background-color: rgba(73, 73, 73, 0.271);
+    top: 0;
+    left: 0;
+  }
+  .contlearnigmore{
+    display: flex;
+    width: 98%;
+    height: 98%;
+    border-radius: 12px;
+    background-color: #fefefe;
   }
   .contintotitle{
-    display: flex;
-    flex-direction: row;
+    display: none;
     width: 100%;
-    margin-left: 20px;
-    height: 100px;
-    max-width: 1240px;
-    
   }
-  .contbanner{
+  .buttonexplore{
+    width: auto;
+    background-color: #e29c21;
+  }
+  .contbrnexplore{
     display: flex;
-    width: 100%;
-}
+    width: 36%;
+    align-items: center;
+    justify-content: flex-end;
+  }
 
 
 }

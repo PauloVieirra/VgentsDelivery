@@ -1,11 +1,15 @@
 .contdeskmenu{
     width: 100%;
+    
     background-color: #ffffff;
     
 }
 .divdeskinto{
     display: flex;
-    width: 100%; 
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    justify-content: space-between;
 }
 .divcenetrelogo{
     display: flex;
@@ -52,9 +56,26 @@
 }
 .contbtngo{
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
+    margin-left: 30px;
+    align-items: center;
+    justify-content: flex-end;
+    
+}
+.btnback{
+    display:fixed;
+    color: #222222;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 10px;
+    background-color: #55555500;
+}
+.btnback:hover{
+    display:fixed;
+    color: #222222;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 10px;
+    background-color: #55555514;
 }
 .contdatamobi{
     display: flex;

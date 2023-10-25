@@ -534,6 +534,14 @@
 .cart-count.non-zero {
   background-color: #6cca3dda; 
 }
+.contbarrdesk{
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
   }
   
   

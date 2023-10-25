@@ -7,7 +7,6 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartModal from '../CartModal/Index';
 import ProductDetailsModal from '../../Components/DetailsModalProduct';
 import CitySelection from '../../Components/SearchCyty';
-import Banners from '../../Components/Banners/BannerImpussion';
 import icons1 from '../../images/icon1.png';
 import icons2 from '../../images/icon2.png';
 import icons3 from '../../images/icon3.png';
@@ -144,13 +143,15 @@ const Store = () => {
         </span>
       </div>
          )}
+
+   
       
-      <Banners/>
+         
       
       {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true
       
        <div className='divsearchbarr'>
-        
+     
        <CitySelection onSelectCity={handleSelectCity} /> </div>
       
       ) : (
@@ -166,6 +167,9 @@ const Store = () => {
             ref={searchInputRef}
           />
       </div>
+
+
+
       <div className='contbaricons'>
         <div className='divbarricons'>
           <div className={`conticonsear ${selectedCategory === 'Cerveja' ? 'selected' : ''}`} onClick={() => handleIconClick('Cerveja')}>
@@ -199,7 +203,8 @@ const Store = () => {
          </div>
         </div>
       </div>
-      )}
+    
+      )}  
 
       <div ref={resultsSectionRef}></div>
       <div className='contprodclient' >

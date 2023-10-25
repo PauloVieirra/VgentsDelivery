@@ -38,7 +38,7 @@ const CardList = () => {
   return (
     <>
       <div className='contpromotittle' style={{ paddingTop: '30px' }}>
-        <div style={{ marginBottom:'10px',marginLeft: '20px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>
+        <div className='tittlepromo'>
         {user && (
           <div style={{display:'flex',flexDirection:'row'}}> Ofertas em <div style={{color:'#45b745'}}> :  {local}</div>  </div> 
         )} 
