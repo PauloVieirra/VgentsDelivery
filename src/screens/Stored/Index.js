@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -30,8 +30,21 @@ const Store = () => {
   const searchInputRef = useRef(null);
   const [showCitySelection, setShowCitySelection] = useState(!lojistaId);
   const {user} = useAuth();
-
   const navigate = useNavigate();
+  const [logistaUsers, setLogistaUsers] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [lojistaData, setLojistaData] = useState({
+    url:'',
+    img: '',
+    name: '', 
+    email: '', 
+    phone:'',
+  });
+
+
+  
+
+
 
   useEffect(() => {
     const unsubscribe = getProductsByUserId(lojistaId);
@@ -56,6 +69,43 @@ const Store = () => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
+  useEffect(() => {
+    const allUsers = JSON.parse(localStorage.getItem('logistaUsers')) || [];
+    const logistaUsers = allUsers.filter(user => user.ROLE.tipo === 'logista');
+    setLogistaUsers(logistaUsers);
+  
+    // Verifique se lojistaId corresponde à URL antes de carregar os dados
+    if (lojistaId) {
+      const lojistaCorrespondente = logistaUsers.find(user => user.url === lojistaId);
+  
+      if (lojistaCorrespondente) {
+        // Faça algo com os dados do lojista correspondente
+        const { url,img, name, email, phone } = lojistaCorrespondente;
+        setLojistaData({
+          url,
+          img,
+          name, 
+          email, 
+          phone,
+        });
+        setDataLoaded(true);
+      } else {
+        console.log("Lojista não encontrado");
+        // Se o lojista não for encontrado, você pode limpar os dados
+        setLojistaData({
+          url:'',
+          img: '',
+          name: '',
+          email: '',
+          phone: '',
+        });
+        setDataLoaded(true);
+      }
+    }
+  }, [lojistaId]);
+  
+  
+ 
   const handleIconClick = (category) => {
     setSelectedCategory(category);
     setSearchTerm('');
@@ -118,7 +168,6 @@ const Store = () => {
     setIsCartOpen(!isCartOpen);
   };
 
-  
   // Função para selecionar uma cidade
   const handleSelectCity = (city) => {
     setSelectedCity(city);
@@ -129,12 +178,28 @@ const Store = () => {
     navigate('Signin');
   };
 
-
   return (
     <div className="contstore">
       <div className='cont' >
-     
        </div>
+       <div className="contstore">
+
+       {dataLoaded && lojistaId === lojistaData.url && ( // Renderize apenas se os dados foram carregados e o lojistaId corresponde à URL
+        <div className="lojista-info">
+          <div className='cardstore'>
+            <div className='contimgstore'>
+             <img src={lojistaData.img} alt="" className='imgstore'/>
+            </div>
+          <div className='contdatastore'>
+             <div className='dicdatainto'>{lojistaData.name || 'Nome da Loja'}</div>
+             <div className='dicdatainto'>{lojistaData.phone || 'Nome da Loja'}</div>
+             <div className='dicdatainto'>{lojistaData.email || 'Email da Loja'}</div>
+          </div>
+          </div>
+        </div>
+      )}
+      
+    </div>
        {user && (
       <div className="cart-icon" onClick={toggleCart}>
         <FontAwesomeIcon icon={faShoppingCart} style={{ color: '#131313' }} />
@@ -144,16 +209,9 @@ const Store = () => {
       </div>
          )}
 
-   
-      
-         
-      
       {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true
-      
        <div className='divsearchbarr'>
-     
        <CitySelection onSelectCity={handleSelectCity} /> </div>
-      
       ) : (
       <div className='divsearchbarr'>
        
@@ -166,7 +224,7 @@ const Store = () => {
             onFocus={handleSearchFocus}
             ref={searchInputRef}
           />
-      </div>
+        </div>
 
 
 
@@ -204,12 +262,14 @@ const Store = () => {
         </div>
       </div>
     
-      )}  
-
+      )} 
+    
+   
+     
       <div ref={resultsSectionRef}></div>
       <div className='contprodclient' >
         {filteredProducts.map((product) => (
-          <div key={product.id} className='card' onClick={() => openProductDetails(product)}>
+          <div key={product.id} className='cardp' onClick={() => openProductDetails(product)}>
             <img src={product.imageUrl} alt={product.title} className='contimg' />
           <div style={{ margin: '10px' }}>
               <h3 style={{ color: '#000' }}>{product.title}</h3>

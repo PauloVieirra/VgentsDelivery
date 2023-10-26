@@ -58,8 +58,9 @@ function MapContainer() {
   };
   const handleNavegueURL = (url) => {
     if (url) {
+      const { img, name, email} = url;
       console.log("Chave única do usuário:", url);
-      navigate(`/${url}`);
+      navigate(`/${url}`, { state: { img, name, email } });
     } else {
       console.log("Loja não encontrada");
     }
@@ -149,11 +150,12 @@ function MapContainer() {
           <div className="store-card-maps">
             {/* Conteúdo do cartão da loja */}
             <div className="store-card-content">
+              <div>
               <img
                 className="store-card-image"
-                src={showStoreCard.image || 'caminho/para/placeholder.jpg'}
+                src={showStoreCard.img || 'caminho/para/placeholder.jpg'}
                 alt="Food Truck"
-              />
+              /></div>
               <div className="store-card-title">{showStoreCard.name || 'Nome do Food Truck'}</div>
               <div className="store-card-details">
                 <p>Telefone: {showStoreCard.phone || 'N/A'}</p>

@@ -88,17 +88,17 @@ const MenuOutSide = () => {
             </Link>
           </div>
           <div className="btnmenudesk">
-            <Link to="/" style={{textDecoration:'none', color:'#131313'}}>
+            <Link to="/Sobre" style={{textDecoration:'none', color:'#131313'}}>
               Sobre
             </Link>
           </div>
           <div className="btnmenudesk">
-            <Link to="/" style={{textDecoration:'none', color:'#131313'}}>
+            <Link to="/Parceiros" style={{textDecoration:'none', color:'#131313'}}>
               Clientes
             </Link>
           </div>
           <div className="btnmenudesk">
-            <Link to="/" style={{textDecoration:'none', color:'#131313'}}>
+            <Link to="/Termos" style={{textDecoration:'none', color:'#131313'}}>
               Termos
             </Link>
           </div>

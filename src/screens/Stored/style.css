@@ -15,10 +15,23 @@
     }
     .contprodclient {
       display: grid;
+      width: 96%;
+      margin-left: 2%;
+      margin-right: 2%;
       margin-top: 20px;
-      grid-template-columns: repeat(2, 1fr); /* Mostrar 2 itens por linha */
-      gap:0px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));
+      gap: 20px;
     }
+    .contprodclient::before {
+      display: grid;
+      width: 96%;
+      margin-left: 2%;
+      margin-right: 2%;
+      margin-top: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));
+      gap: 20px;
+    }
+
     .contimg {
       width: 100%;
       height: 50%;
@@ -34,6 +47,23 @@
       border-radius: 10px 10px 0 0;
       overflow: hidden;
     }
+   
+
+    .cardp {
+      flex: 0 0 40%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 0 0.1%; /* Espaçamento entre os cards */
+      padding: 0px;
+      height: 347px;
+      min-height: 347px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      width: 100%; /* Largura fixa para cada cartão (ajuste conforme necessário) */
+    }
+    
   
     .product-card h3 {
       font-size: 20px;
@@ -51,7 +81,7 @@
       margin-top: 15px;
     }
     .contbaricons{
-      display: flex;
+      display: none;
       width: 100%;
       align-items: center;
       justify-content: center;
@@ -89,22 +119,19 @@
       display:'flex';
       flex-direction: column;
       width: 100%;
-      height: auto;
      }
      .cliensearshbar {
       display: flex;
       width: 100%;
       justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      
     }
     .cliensearshbar input {
-      width: 80%;
-      height: 28px;
+      width: 96%;
+      height: 100%;
       padding: 10px;
-      padding-left: 30px;
-      margin: 6px;
-      margin-top: 20px;
+      padding-left: 16px;
+      margin-top: 10px;
       border: 1px solid #ccc;
       border-radius: 100px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -127,7 +154,43 @@
       top: 30px;
       right:120px;
     }   
-   
+    .prt{
+      color: #333;
+    }
+    .lojista-info{
+      display: flex;
+      width: 100%;
+      background-color: #ffffff;
+    }
+    .cardstore{
+      display: flex;
+      flex-direction: row;
+      width: 96%;
+      margin-left: 2%;
+      margin-right: 2%;
+      border-radius: 8px;
+      
+    }
+    .contimgstore{
+      width: 200px;
+      height: 100%;
+      background-color: #007bff;
+    }
+    .imgstore{
+      width: 100%;
+      height: 100%;
+    }
+   .contdatastore{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+   }
+   .dicdatainto{
+    width: 100%;
+    height: 100%;
+   }
 
 
  
@@ -152,19 +215,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #d94117;
   }
   .cliensearshbar input {
     width: 50%;
-    height: 32px;
+    height: 52px;
     padding: 10px;
     padding-left: 30px;
-    margin: 6px;
+    margin: 10px;
     margin-top: 20px;
     border: 1px solid #ccc;
     border-radius: 100px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #33a33a;
     outline: none;
   }
    .contclient{
@@ -451,8 +512,8 @@
   .contprodclient {
     display: grid;
     margin-top: 40px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
     
   }
   .contimg {
