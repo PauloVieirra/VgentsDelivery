@@ -100,7 +100,7 @@ const { user } = useAuth();
    
     </>
   );
-}
+};
 
 
 export { BannerDesktop, BannersMobile };

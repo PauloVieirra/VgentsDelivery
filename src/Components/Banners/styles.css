@@ -25,17 +25,20 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    color: #fff;
     
   }
   
   .banner-content h1 {
     font-size: 24px; /* Tamanho da fonte do título */
     margin: 0;
+    color: #f4f4f4e9;
   }
   
   .banner-content p {
     font-size: 16px; /* Tamanho da fonte do texto descritivo */
     margin: 10px 0;
+    color: #f4f4f4e9;
   }
   
   .banner-content a {

@@ -155,11 +155,12 @@ const CitySelection = ({ onSelectCity }) => {
                   onClick={() => handleUserCardClick(user.userId)}
                 >
                   <div className='imgcardcity'>
-                    image
+                      <img src={user.img} alt=""className='contimgstore'/>
                   </div>
-                  <div>
-                    <p>{user.name}</p>
-                    <p>{user.email}</p>
+                  <div className='contdatastoreseach'>
+                   <div style={{fontSize:'20px', fontWeight:'600', marginLeft:'10px'}} >{user.name}</div>
+                   <div style={{fontSize:'18px', fontWeight:'300', marginLeft:'10px'}} >{user.email}</div>
+                   
                   </div>
                 </div>
               </Link>

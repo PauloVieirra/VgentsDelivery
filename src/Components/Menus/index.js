@@ -231,16 +231,7 @@ const MenuClient = () => {
             </div>
           </div>
         </div>
-        <div className="contdatamobi">
-          <div className="divdatamobi">
-            Oi 
-           <div style={{marginLeft:'6px',fontSize:'16px', fontWeight:'600'}}>{name}</div> 
-            , pedindo em -
-           <div style={{fontSize:'16px', fontWeight:'600'}}>
-            {local}
-           </div>  
-          </div>
-        </div>
+       
 
         {isCartOpen && (
         <CartModal cartItems={cartItems} removeFromCart={removeFromCart} onClose={toggleCart} userIsAuthenticated={isAuthenticated} />

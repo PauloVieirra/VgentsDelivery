@@ -1,7 +1,6 @@
 .contdeskmenu{
     width: 100%;
-    
-    background-color: #ffffff;
+    height: 68px;
     
 }
 .divdeskinto{
@@ -10,6 +9,7 @@
     height: 100px;
     align-items: center;
     justify-content: space-between;
+    
 }
 .divcenetrelogo{
     display: flex;
@@ -51,7 +51,7 @@
     width: 28px;
     position: absolute;
     z-index: 999999;
-    top: 28px;
+    top: 20px;
     right: 20px;
 }
 .contbtngo{
@@ -81,6 +81,7 @@
     display: flex;
     align-items: center;
     height: 60px;
+    background-color: #000;
 }
 .divdatamobi{
     display: flex;
@@ -122,6 +123,7 @@
         height: 66px;
         align-items: center;
         justify-content: center;
+        
     }
     .divdeskinto{
         display: flex;

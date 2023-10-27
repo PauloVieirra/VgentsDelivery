@@ -191,7 +191,11 @@ const Store = () => {
              <img src={lojistaData.img} alt="" className='imgstore'/>
             </div>
           <div className='contdatastore'>
-             <div className='dicdatainto'>{lojistaData.name || 'Nome da Loja'}</div>
+            <div style={{display:'flex'}}>
+               <div className='dicdatainto'>{lojistaData.name || 'Nome da Loja'}</div>
+               <div style={{display:'flex', flexDirection:'row', width:'40px', marginRight:'2%'}}>A4.3</div>
+            </div>
+            
              <div className='dicdatainto'>{lojistaData.phone || 'Nome da Loja'}</div>
              <div className='dicdatainto'>{lojistaData.email || 'Email da Loja'}</div>
           </div>
