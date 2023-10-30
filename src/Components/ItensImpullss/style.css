@@ -10,6 +10,7 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
   flex-wrap: nowrap; /* Mantém os cartões em uma única linha */
+  
 }
 
 

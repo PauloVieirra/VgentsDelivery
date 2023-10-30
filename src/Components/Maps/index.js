@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import FooterNavigation from '../Footer';
 import { useNavigate } from 'react-router-dom';
@@ -20,9 +20,9 @@ function MapContainer() {
   const [userLocation, setUserLocation] = useState(null);
   const [logistaUsers, setLogistaUsers] = useState([]);
   const [showStoreCard, setShowStoreCard] = useState(null);
-  const [maxDistance, setMaxDistance] = useState(2000);
+  const [maxDistance, setMaxDistance] = useState(500);
   const [showDistanceOptions, setShowDistanceOptions] = useState(false); // Estado para controlar a visibilidade das opções de distância
-  const distanceOptions = [2000, 5000, 8000, 10000]; // Valores das opções de distância
+  const distanceOptions = [500, 1000, 2000, 3000];
 
   const distancia = maxDistance;
 
@@ -116,7 +116,33 @@ function MapContainer() {
   const handleSelectDistance = (distance) => {
     setMaxDistance(distance);
     setShowDistanceOptions(false); // Fecha as opções após a seleção
+  
+    // Calcular o nível de zoom com base na distância selecionada
+    let zoomLevel = 17; // Valor padrão
+  
+    if (distance === 500) {
+      zoomLevel = 17;
+    } else if (distance === 1000) {
+      zoomLevel = 16;
+    } else if (distance === 2000) {
+      zoomLevel = 15;
+    } else if (distance === 3000) {
+      zoomLevel = 14;
+    }
+  
+    // Atualizar o zoom do mapa
+    if (mapRef.current) {
+      mapRef.current.panTo(userLocation);
+      mapRef.current.setZoom(zoomLevel);
+    }
   };
+
+  const mapRef = useRef(null);
+
+  const handleMapLoad = (map) => {
+    mapRef.current = map;
+  };
+  
 
   if (loading) {
     return <div style={{ display: 'flex', width: '100%', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>Loading...</div>;
@@ -145,7 +171,8 @@ function MapContainer() {
       <GoogleMap
         mapContainerStyle={{ width: '100%', height: '100vh' }}
         center={userLocation}
-        zoom={14}
+        zoom={17}
+        onLoad={handleMapLoad} 
         options={{
           fullscreenControl: false,
           disableDefaultUI: true,

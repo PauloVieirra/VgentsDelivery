@@ -4,7 +4,7 @@ import { useAuth } from "../../Context/AuthContext";
 import { userData, email, name, userimage, local } from "../localStorageComponent";
 import logoTop from '../../images/logodfoodg.png';
 import CartModal from "../../screens/CartModal/Index";
-import { faHome, faHistory, faShoppingCart, faUser, } from '@fortawesome/free-solid-svg-icons'; // Importe os ícones necessários
+import { faHome, faHistory, faShoppingCart, faUser, } from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import iconbarmenuclose from '../../images/closemenu.png';
 import iconbarmenu from '../../images/menuicon.png'

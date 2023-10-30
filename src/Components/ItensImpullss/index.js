@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../Context/AuthContext';
 import { userData, local  } from '../localStorageComponent';
 import { useNavigate } from 'react-router-dom';
+import RecipeReviewCard from '../CardUi';
 import './style.css';
 
 const CardList = () => {
@@ -18,22 +19,7 @@ const CardList = () => {
     }
   };
 
-  const handleScroll = (direction) => {
-    const cardList = document.getElementById('horizontalCardList');
-    const cardWidth = 220; // A largura de cada card, ajuste conforme necessário
-    const maxScroll = (productsProm.length - 1) * cardWidth;
-
-    if (direction === 'left') {
-      setScrollPosition((prevPosition) => Math.max(prevPosition - cardWidth, 0));
-    } else {
-      setScrollPosition((prevPosition) => Math.min(prevPosition + cardWidth, maxScroll));
-    }
-
-    // Use `scrollLeft` para rolar a lista horizontalmente
-    if (cardList) {
-      cardList.scrollLeft = scrollPosition;
-    }
-  };
+ 
 
   return (
     <>
@@ -47,47 +33,9 @@ const CardList = () => {
         )} 
         </div>
       </div>
-      <div className="card-list" id="horizontalCardList">
-        {productsProm.map((card) => {
-          if (card.category !== 'Happy Hour') {
-            return (
-              <div key={card.id} className='card' onClick={() => handleUserCardClick(card.isUrl)}>
-                <div className='divimgout'>
-                  <img src={card.imageUrl} alt="" className='imgprom'/>
-                </div>
-                <div style={{ margin: '8px' }}>
-                  <div style={{ fontSize: '16px', backgroundColor:'#fff', fontWeight: 600, width:'100%' }}>{card.title}</div>
-                  <div className='divdescriptionspace'>
-                   {card.description}
-                  </div>
-                  <div className='conticoncardsdiv'>
-                    <div className='coniconcard'>
-                        
-                    </div>
-                    <div className='coniconcard'>
-                       
-                    </div>
-                    <div className='coniconcard' style={{fontSize:'22px', fontWeight:'600'}}>
-                    {card.price}
-                    </div>
-                    
-                  </div>  
-                   
-                </div>
-                
-              </div>
-            );
-          } else {
-            return null;
-          }
-        })}
-       
-        
-      </div>
-       <div className='navscrolll'>
-        <button onClick={() => handleScroll('left')} className='btnscrollleft'>{"<"}</button>
-        <button onClick={() => handleScroll('right')} className='btnscrollrigth'>{">"}</button>
-      </div>
+
+      <RecipeReviewCard/>
+      
 
       <div className='contpromotittle'>
         <div style={{ marginLeft: '20px', marginTop:'16px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>Happy Hour</div>

@@ -7,6 +7,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartModal from '../CartModal/Index';
 import ProductDetailsModal from '../../Components/DetailsModalProduct';
 import CitySelection from '../../Components/SearchCyty';
+import RecipeReviewCard from '../../Components/CardUi';
 import icons1 from '../../images/icon1.png';
 import icons2 from '../../images/icon2.png';
 import icons3 from '../../images/icon3.png';
@@ -183,7 +184,7 @@ const Store = () => {
       <div className='cont' >
        </div>
        <div className="contstore">
-
+          
        {dataLoaded && lojistaId === lojistaData.url && ( // Renderize apenas se os dados foram carregados e o lojistaId corresponde à URL
         <div className="lojista-info">
           <div className='cardstore'>
@@ -212,7 +213,7 @@ const Store = () => {
         </span>
       </div>
          )}
-
+      
       {showCitySelection ? ( // Renderize a seleção de cidade quando showCitySelection for true
        <div className='divsearchbarr'>
        <CitySelection onSelectCity={handleSelectCity} /> </div>
@@ -230,7 +231,7 @@ const Store = () => {
           />
         </div>
 
-
+       
 
       <div className='contbaricons'>
         <div className='divbarricons'>
@@ -268,7 +269,7 @@ const Store = () => {
     
       )} 
     
-   
+
      
       <div ref={resultsSectionRef}></div>
       <div className='contprodclient' >
@@ -284,6 +285,9 @@ const Store = () => {
         ))}
       
       </div>
+
+     
+
       <div className="product-list"></div>
       {selectedProduct && (
         <ProductDetailsModal
@@ -295,6 +299,7 @@ const Store = () => {
       {isCartOpen && (
         <CartModal cartItems={cartItems} removeFromCart={removeFromCart} onClose={toggleCart} userIsAuthenticated={isAuthenticated} />
       )}
+      
     </div>
   );
 };

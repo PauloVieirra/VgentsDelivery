@@ -1,0 +1,86 @@
+.card-listn {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
+    flex-wrap: nowrap; /* Mantém os cartões em uma única linha */
+
+  }
+   .spacecard{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+   }
+
+  .paginationleft{
+    display: none;
+  }
+  .paginationright{
+    display: none;
+  }
+
+  .contcards{
+    margin-left: 0px;
+  }
+ 
+  @media (min-width: 500px) {
+    .card-listn {
+        display: flex;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch; /* Adiciona suporte para scrolling suave em dispositivos iOS */
+        flex-wrap: nowrap; /* Mantém os cartões em uma única linha */
+       
+      }
+
+      .paginationleft {
+        display: flex;
+        width: 40px;
+        height: 60px;
+        position: absolute;
+        margin-top: 150px;
+        margin-left: -2px;
+        align-items: center;
+        justify-content: center;
+        /* Estilos específicos para o semicírculo esquerdo */
+        background-color: #1b1b1bea; /* Cor de fundo do semicírculo esquerdo */
+        border-top-right-radius: 30px; /* Raio superior direito para criar o efeito de semicírculo */
+        border-bottom-right-radius: 30px; /* Raio inferior direito */
+      }
+      
+      .paginationright {
+        display: flex;
+        width: 40px;
+        height: 60px;
+        position: absolute;
+        margin-top: 150px;
+        margin-right: -2px;
+        right: 0px;
+        align-items: center;
+        justify-content: center;
+        /* Estilos específicos para o semicírculo direito */
+        background-color: #1b1b1bea; /* Cor de fundo do semicírculo esquerdo */
+        border-top-left-radius: 30px; /* Raio superior esquerdo para criar o efeito de semicírculo */
+        border-bottom-left-radius: 30px; /* Raio inferior esquerdo */
+      }
+      
+      
+      
+      /* Estilos para o conteúdo dentro dos semicírculos, como ícones, números, etc. */
+      .paginationleft .content {
+        /* Estilos para o conteúdo dentro do semicírculo esquerdo */
+        color: #fff; /* Cor do texto dentro do semicírculo esquerdo */
+      }
+      
+      .paginationright .content {
+        /* Estilos para o conteúdo dentro do semicírculo direito */
+        color: #fff; /* Cor do texto dentro do semicírculo direito */
+      }
+
+      .contcards{
+        margin-left: 16px;
+      }
+      
+   
+  }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { IconButton } from '@mui/material';
+import AddShoppingCartIcon from '@mui/material/';
 
 
 const CustomBtnGoBack = () => {
@@ -17,5 +19,16 @@ const CustomBtnPrimary = () => {
   );
 };
 
+const CustomBtnCartAdd = () => {
+  return(
+    <div>
+      <IconButton color="primary" aria-label="add to shopping cart">
+    <AddShoppingCartIcon />
+    </IconButton>
+    </div>
+    
+  );
+}
 
-export default {CustomBtnGoBack, CustomBtnPrimary};
+
+export default {CustomBtnGoBack, CustomBtnPrimary,CustomBtnCartAdd};
