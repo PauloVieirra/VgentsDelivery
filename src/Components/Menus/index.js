@@ -130,9 +130,14 @@ const MenuOutSide = () => {
           </div>
         </div>
         <div className="contnotify">
-          <div onClick={toggleCart} className="divcart">
-           <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#000'/>
+        <div className='btnmenu' onClick={toggleCart}>
+          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
+          {contItems && (
+          <div className="divcounter">
+            {getItemCount()}
           </div>
+          )}
+        </div>
         </div>
         <div className='dataper'>
           <div className="contdatauser">
