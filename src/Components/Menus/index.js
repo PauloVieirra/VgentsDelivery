@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
-import { useCart } from "../../Context/CartContext";
 import { userData, email, name, userimage, local } from "../localStorageComponent";
 import logoTop from '../../images/logodfoodg.png';
 import CartModal from "../../screens/CartModal/Index";
@@ -10,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import iconbarmenuclose from '../../images/closemenu.png';
 import iconbarmenu from '../../images/menuicon.png'
 import SideMenu from "../SideMenu";
-
 import './style.css';
 
 
@@ -59,32 +57,30 @@ const MenuLogista = () => {
   );
 };
 
-
 const MenuOutSide = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
-
-
   const handlenavegue = () => {
     navigate('Signin');
   };
+
   const handlenavegueInit = () => {
     navigate('/');
   };
+
   const handlenavegueSignin = () => {
     navigate('/Signin');
   };
   
   return(
-  <div className='contdeskmenu'>
+    <div className='contdeskmenu'>
       <div className="divdeskinto">
         <div className="divcenetrelogo">
           <img src={logoTop} className="logomobi" />
@@ -115,25 +111,20 @@ const MenuOutSide = () => {
           <div onClick={toggleCart} className="divcart">
            <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#000'/>
           </div>
-          </div>
+        </div>
         <div className='dataper'>
           <div className="contdatauser">
            <div style={{fontSize:'14px', fontWeight:'600'}}>
-          
            </div>  
            <div  style={{fontSize:'14px'}}>
-            
            </div>
           </div>
-          
         </div>
         {isCartOpen && (
         <CartModal  onClose={toggleCart} />
          )}
         { location.pathname === '/'  && (
-           
             <button className="btnback" onClick={handlenavegue}>Login</button>
-        
         )}
         { location.pathname === '/Signin'  && (
             <div className="contbtngo">
@@ -145,11 +136,13 @@ const MenuOutSide = () => {
             <button className="btnback" onClick={handlenavegueSignin}>Voltar</button>
             </div>
         )}
-
-        
-         </div>
-      
-  </div>
+        </div>
+        <div className='containerfooter'>
+        <div className='btnmenu' onClick={toggleCart}>
+          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#000'/>
+        </div>
+    </div>
+    </div>
   );
 };
 
@@ -280,7 +273,6 @@ const MenuClient = () => {
      
       </>
     );
-  };
-
+};
 
 export  {MenuLogista, MenuClient, MenuOutSide};

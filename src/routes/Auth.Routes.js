@@ -16,7 +16,6 @@ const AuthRoutes = () => {
   return (
     <div>
       <AuthProvider>
-      
          <AuthenticatedMenu />
       <Routes>
         <Route path="/" element={<Store />} />
@@ -27,9 +26,6 @@ const AuthRoutes = () => {
         <Route path="/Termos" element={<TermsAndPrivacy />} />
         <Route path="/Sobre" element={<About />} />
         <Route path="/Parceiros" element={<Partners />} />
-         
-        
-       
       </Routes> 
       </AuthProvider>
     </div>

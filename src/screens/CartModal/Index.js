@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../Context/CartContext';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import DeleteIcon from '@mui/icons-material/Delete';
 import './style.css';
 
 const CartModal = ({ onClose, userIsAuthenticated }) => {
@@ -29,27 +30,33 @@ const CartModal = ({ onClose, userIsAuthenticated }) => {
             </div>
             <div className='contdatacart'>
               <div className='tittlecart'>
-                {item.title}
-              </div>
-              <div>
-              Quantidade: {item.quantity}
-              <ButtonGroup variant="contained" aria-label="outlined primary button group">
-              <Button onClick={() => increaseQuantity(item)}>+</Button>
-              <Button onClick={() => decreaseQuantity(item)}>-</Button>
-             </ButtonGroup>
+                {item.title} 
+                <div>
+                <DeleteIcon onClick={() => handleRemoveItem(item)}/>
+               </div>
               </div>
               <div>
                 {item.category}
               </div>
-            </div>
-            <div className='divdataintcart'>
               <div className='contcartvalor'>
                 <small>R$ {item.price}</small>
               </div>
               <div>
-                <button className='btnremove' onClick={() => handleRemoveItem(item)}>Remover</button>
+              Quantidade: {item.quantity}
+              <ButtonGroup variant="contained" aria-label="outlined primary button group">
+              <Button size="small" onClick={() => increaseQuantity(item)}>+</Button>
+              <Button size="small" onClick={() => decreaseQuantity(item)}>-</Button>
+             </ButtonGroup>
               </div>
+             
+            <div className='divdataintcart'>
+              
+              
             </div>
+
+
+            </div>
+            
           </div>
         ))}
       </div>
