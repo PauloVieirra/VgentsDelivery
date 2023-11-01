@@ -24,6 +24,7 @@ import Maps from '../Components/Maps';
 import FooterNavigation from '../Components/Footer';
 
 import { MenuClient } from '../Components/Menus';
+import { CartContext } from '../Context/CartContext';
 
 
 const AppRoutes = () => {
@@ -89,6 +90,7 @@ const AppRoutes = () => {
 
         {userType === 'cliente' && 
         <>   
+     
          <Route path="/Home" element={<Home />} />
         <Route path="/" element={<Store />} />
         <Route path="/Maps" element={<Maps />} />
@@ -97,7 +99,8 @@ const AppRoutes = () => {
          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
          <Route path="/UpdateProfileForm" element={<UpdateProfileForm />} />
          <Route path="/FormularioComplemento" element={<FormularioComplemento />} />
-        </>
+       
+        </> 
          }
 
       </Routes>

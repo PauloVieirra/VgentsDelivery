@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../../config/firebaseConfig';
 import { useAuth } from '../../Context/AuthContext';
+import { userData,name } from '../localStorageComponent';
 import './stylesCad.css';
 
 const ProductForm = () => {

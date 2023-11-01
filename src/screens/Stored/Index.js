@@ -7,7 +7,6 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartModal from '../CartModal/Index';
 import ProductDetailsModal from '../../Components/DetailsModalProduct';
 import CitySelection from '../../Components/SearchCyty';
-import RecipeReviewCard from '../../Components/CardUi';
 import icons1 from '../../images/icon1.png';
 import icons2 from '../../images/icon2.png';
 import icons3 from '../../images/icon3.png';
@@ -139,6 +138,8 @@ const Store = () => {
     localStorage.removeItem('selectedCategory');
   };
 
+  
+
   const addToCart = (product, selectedQuantity) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
 
@@ -159,6 +160,9 @@ const Store = () => {
 
     closeProductDetails();
   };
+
+
+
 
   const removeFromCart = (itemToRemove) => {
     const updatedCart = cartItems.filter((item) => item.id !== itemToRemove.id);

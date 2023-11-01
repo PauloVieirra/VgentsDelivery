@@ -25,6 +25,7 @@
     "react-spring": "^9.7.3",
     "styled-components": "^6.0.7",
     "swiper": "^11.0.3",
+    "vercel": "^32.5.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

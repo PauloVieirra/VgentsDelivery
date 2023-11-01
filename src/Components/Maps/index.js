@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import FooterNavigation from '../Footer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ThreeDots } from 'react-loader-spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot,faSortDown } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,9 @@ function MapContainer() {
     googleMapsApiKey: API_KEY,
     libraries: ['geometry'],
 });
+
+  const location = useLocation();
+  const { cartItems } = location.state || { cartItems: [] };
 
   const [loading, setLoading] = useState(true);
   const [userLocation, setUserLocation] = useState(null);
@@ -135,7 +138,7 @@ function MapContainer() {
       mapRef.current.panTo(userLocation);
       mapRef.current.setZoom(zoomLevel);
     }
-  };
+    };
 
   const mapRef = useRef(null);
 
@@ -150,7 +153,6 @@ function MapContainer() {
 
   return isLoaded ? (
     <div className='contmap'>
-
       <div className='contfiltromaps'>
         <div onClick={toggleDistanceOptions} style={{display:'flex',height:'52px',flexDirection:'row', justifyContent:'center', alignItems:'center'}}> 
         <FontAwesomeIcon icon={faLocationDot} />

@@ -15,51 +15,51 @@ import './style.css';
 
 
 
-
 const MenuLogista = () => {
-    return(
-    <div className='contdeskmenu'>
-        <div className="divdeskinto">
-          <div className="divcenetrelogo">
-            <img src={logoTop} className="logomobi" />
+  return(
+  <div className='contdeskmenu'>
+      <div className="divdeskinto">
+        <div className="divcenetrelogo">
+          <img src={logoTop} className="logomobi" />
+        </div>
+        <div className="divbtns">
+           <div className="btnmenudesk">
+            <Link to="/" className="divlink" style={{textDecoration:'none', color:'#131313'}}>
+              Inicio
+            </Link>
           </div>
-          <div className="divbtns">
-             <div className="btnmenudesk">
-              <Link to="/" className="divlink" style={{textDecoration:'none', color:'#131313'}}>
-                Inicio
-              </Link>
-            </div>
-            <div className="btnmenudesk">
-              <Link to="/Products" style={{textDecoration:'none', color:'#131313'}}>
-                Produtos
-              </Link>
-            </div>
-            <div className="btnmenudesk">
-              <Link to="/Pedidos" style={{textDecoration:'none', color:'#131313'}}>
-                Pedidos
-              </Link>
-            </div>
+          <div className="btnmenudesk">
+            <Link to="/Products" style={{textDecoration:'none', color:'#131313'}}>
+              Produtos
+            </Link>
           </div>
-          <div className="contnotify">
-          </div>
-          <div className='dataper'>
-            <div className="contdatauser">
-             <div style={{fontSize:'14px', fontWeight:'600'}}>
-             {name} 
-             </div>  
-             <div  style={{fontSize:'14px'}}>
-              {email}
-             </div>
-            </div>
-            <div className="contdatauser">
-            <img src={userimage} alt="" className="contimguser"/>    
-            </div>
+          <div className="btnmenudesk">
+            <Link to="/Pedidos" style={{textDecoration:'none', color:'#131313'}}>
+              Pedidos
+            </Link>
           </div>
         </div>
-        
-    </div>
-    );
+        <div className="contnotify">
+        </div>
+        <div className='dataper'>
+          <div className="contdatauser">
+           <div style={{fontSize:'14px', fontWeight:'600'}}>
+           {name} 
+           </div>  
+           <div  style={{fontSize:'14px'}}>
+            {email}
+           </div>
+          </div>
+          <div className="contdatauser">
+          <img src={userimage} alt="" className="contimguser"/>    
+          </div>
+        </div>
+      </div>
+      
+  </div>
+  );
 };
+
 
 const MenuOutSide = () => {
 
@@ -140,7 +140,7 @@ const MenuOutSide = () => {
 };
 
 const MenuClient = () => {
-    const { signOut, isAuthenticated, user } = useAuth();
+    const { signOut, isAuthenticated,user } = useAuth();
     const navigate = useNavigate();
     const [cartCount, setCartCount] = useState(0); 
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -179,13 +179,13 @@ const MenuClient = () => {
       navigate('/');
     };
     const handleHistory = () => {
-      navigate('/MeusPedidos');
+      navigate('/MeusPedidos', { state: { cartItems } });
     };
     const handleCart = () => {
       navigate('/CartModal');
     };
     const handleMaps = () => {
-      navigate('/Maps');
+      navigate('/Maps', { state: { cartItems } });
     };
   
     return (
