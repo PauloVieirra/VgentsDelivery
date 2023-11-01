@@ -4,6 +4,7 @@ import { useAuth } from "../../Context/AuthContext";
 import { userData, email, name, userimage, local } from "../localStorageComponent";
 import logoTop from '../../images/logodfoodg.png';
 import CartModal from "../../screens/CartModal/Index";
+import { useCart } from "../../Context/CartContext";
 import { faHome, faHistory, faShoppingCart, faUser, } from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import iconbarmenuclose from '../../images/closemenu.png';
@@ -58,10 +59,31 @@ const MenuLogista = () => {
 };
 
 const MenuOutSide = () => {
-
+  
   const navigate = useNavigate();
   const location = useLocation();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const { getItemCount } = useCart();
+
+  const [contItems, setContItems] = useState(false);
+
+  useEffect(() => {
+    const updateItemCount = () => {
+      if (getItemCount() >= 1) {
+        setContItems(getItemCount());
+      } else {
+        setContItems('');
+      }
+    };
+
+    // Adicione um ouvinte para chamar updateItemCount quando a quantidade de itens mudar
+    updateItemCount();
+
+    // Retorne uma função de limpeza para remover o ouvinte quando o componente for desmontado
+    return () => {
+      // Remova o ouvinte
+    };
+  }, [getItemCount]);
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -139,7 +161,12 @@ const MenuOutSide = () => {
         </div>
         <div className='containerfooter'>
         <div className='btnmenu' onClick={toggleCart}>
-          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#000'/>
+          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
+          {contItems && (
+          <div className="divcounter">
+            {getItemCount()}
+          </div>
+          )}
         </div>
     </div>
     </div>
@@ -149,9 +176,30 @@ const MenuOutSide = () => {
 const MenuClient = () => {
     const { signOut, isAuthenticated,user } = useAuth();
     const navigate = useNavigate();
+    const { getItemCount } = useCart();
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(''); 
     
+    
+  const [contItems, setContItems] = useState(false);
+
+  useEffect(() => {
+    const updateItemCount = () => {
+      if (getItemCount() >= 1) {
+        setContItems(getItemCount());
+      } else {
+        setContItems('');
+      }
+    };
+
+    // Adicione um ouvinte para chamar updateItemCount quando a quantidade de itens mudar
+    updateItemCount();
+
+    // Retorne uma função de limpeza para remover o ouvinte quando o componente for desmontado
+    return () => {
+      // Remova o ouvinte
+    };
+  }, [getItemCount]);
     
 
     const toggleMenu = () => {
@@ -205,9 +253,14 @@ const MenuClient = () => {
             </div>
           </div>
           <div className="contnotify">
-          <div onClick={toggleCart} className="divcart">
-           <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#000'/>
+          <div className='btnmenu' onClick={toggleCart}>
+          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
+          {contItems && (
+          <div className="divcounter">
+            {getItemCount()}
           </div>
+          )}
+        </div>
           </div>
           <div className="dataper">
             <div className="contdatauser">
@@ -260,7 +313,12 @@ const MenuClient = () => {
      
       
         <div className='btnmenu' onClick={toggleCart}>
-          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#000'/>
+          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
+          {contItems && (
+          <div className="divcounter">
+            {getItemCount()}
+          </div>
+          )}
         </div>
      
     

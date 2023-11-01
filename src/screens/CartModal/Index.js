@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../Context/CartContext';
 import Button from '@mui/material/Button';
@@ -6,23 +6,46 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './style.css';
 
+
+
 const CartModal = ({ onClose, userIsAuthenticated }) => {
   const navigate = useNavigate();
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice  } = useCart();
-   
+  const [ contItens, setContItens] = useState();
+
   const handleRemoveItem = (item) => {
     removeFromCart(item);
   };
 
-  const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + (item.totalPrice || 0), 0);
-  };
+  useEffect(() => {
+    const updateItemCount = () => {
+      if (getItemCount() >= 1) {
+        setContItens(getItemCount());
+      } else {
+        setContItens('');
+      }
+    };
+
+    // Adicione um ouvinte para chamar updateItemCount quando a quantidade de itens mudar
+    updateItemCount();
+
+    // Retorne uma função de limpeza para remover o ouvinte quando o componente for desmontado
+    return () => {
+      // Remova o ouvinte
+    };
+  }, [getItemCount]);
+
   
 
   return (
     <div className="cart-modal">
       <div className='contleftmodalcart'>
-        <div className='contcarttittle'>Lista de pedidos</div>
+          {contItens && (
+            <div className='contcarttittle'>Lista de pedidos</div>
+          )}
+           {!contItens && (
+            <div className='divnoitenscart'>Seu carrinho esta vazio!!!</div>  
+           )}
         {cartItems.map(item => (
           <div className='contlineitemcart' key={item.id}>
             <div className='contimgcartitem'>
@@ -65,7 +88,11 @@ const CartModal = ({ onClose, userIsAuthenticated }) => {
           <strong>Total:</strong> R$  {getTotalPrice().toFixed(2)}
         </div>
         <div className='contbtns'>
-          <button className='btnconfirmar'>Confirmar pedido</button>
+        {contItens && (
+        <button className='btnconfirmar'>Confirmar pedido</button>
+        )}
+          
+
           <button className="btnclosemodal" onClick={onClose}>Continuar comprando</button>
         </div>
       </div>
