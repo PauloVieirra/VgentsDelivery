@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useAuth } from '../../Context/AuthContext';
 import { userData, local  } from '../localStorageComponent';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,8 @@ import './style.css';
 const CardList = () => {
   const navigate = useNavigate();
   const { user, productsProm } = useAuth();
-  const [scrollPosition, setScrollPosition] = useState(0);
+ 
+  
 
   const handleUserCardClick = (isUrl) => {
     if (isUrl) {

@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Context/AuthContext';
 import { styled } from '@mui/material/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus} from '@fortawesome/free-solid-svg-icons'; 
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useCart } from '../../Context/CartContext'; // Importe o contexto do carrinho
 import './style.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -34,8 +34,9 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard() {
   const [expanded, setExpanded] = React.useState(false);
-  const { user, productsProm } = useAuth();
+  const { productsProm } = useAuth();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   const handleUserCardClick = (isUrl) => {
     if (isUrl) {
@@ -57,9 +58,13 @@ export default function RecipeReviewCard() {
     slidesPerView = 1.8; // 1 slide visível em telas menores
   } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
     slidesPerView = 3.5; // 2 slides visíveis em telas médias
-  } else if (window.innerWidth >= 1025)  {
+  } else if (window.innerWidth >= 1025) {
     slidesPerView = 5.8; // 3 slides visíveis em telas maiores
   }
+
+  const addItemToCart = (item) => {
+    addToCart(item);
+  };
 
   return (
     <div className='contcards'>
@@ -101,20 +106,17 @@ export default function RecipeReviewCard() {
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing className='spacecard'>
-                    <IconButton variant="body2" >
-                    R$ {card.price}
+                    <IconButton variant="body2">
+                      R$ {card.price}
                     </IconButton>
-                    <IconButton aria-label="share" >
-                      
+                    <IconButton aria-label="share">
+                      {/* Ícone de compartilhamento */}
                     </IconButton>
-                    
-                    <IconButton>
-                    <FontAwesomeIcon icon={faCartPlus}  fontSize='22px' color='#000'/>
+                    <IconButton onClick={() => addItemToCart(card)}>
+                      <FontAwesomeIcon icon={faCartPlus} fontSize='22px' color='#000' />
                     </IconButton>
                   </CardActions>
-                  <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    {/* Conteúdo expandido */}
-                  </Collapse>
+                 
                 </Card>
               </SwiperSlide>
             );
@@ -123,7 +125,6 @@ export default function RecipeReviewCard() {
           }
         })}
       </Swiper>
-     
     </div>
   );
 }

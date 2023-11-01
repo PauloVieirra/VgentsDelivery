@@ -1,68 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../Context/CartContext';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import './style.css';
 
-const CartModal = ({ cartItems, removeFromCart, onClose, userIsAuthenticated }) => {
+const CartModal = ({ onClose, userIsAuthenticated }) => {
   const navigate = useNavigate();
-  const [savedCartItems, setSavedCartItems] = useState([]);
-
-  useEffect(() => {
-    // Retrieve cart items from localStorage on component mount
-    const savedCart = localStorage.getItem('cartItems');
-    if (savedCart) {
-      setSavedCartItems(JSON.parse(savedCart));
-    }
-  }, []);
-
+  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice  } = useCart();
+   
   const handleRemoveItem = (item) => {
-    // Call removeFromCart function and then update savedCartItems
     removeFromCart(item);
-    // Update the saved cart items in local storage
-    const updatedSavedCart = savedCartItems.filter(savedItem => savedItem.id !== item.id);
-    localStorage.setItem('cartItems', JSON.stringify(updatedSavedCart));
-    setSavedCartItems(updatedSavedCart);
-  };
-
-  const handleFinalizeOrder = () => {
-    onClose();
-    if (userIsAuthenticated) {
-      navigate('/ConfirmationPage', { state: { cartItems } });
-    } else {
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      navigate('/SignIn', { state: { cartItems } });
-    }
   };
 
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + (item.totalPrice || 0), 0);
   };
+  
 
   return (
     <div className="cart-modal">
       <div className='contleftmodalcart'>
         <div className='contcarttittle'>Lista de pedidos</div>
-        {savedCartItems.map(item => (
+        {cartItems.map(item => (
           <div className='contlineitemcart' key={item.id}>
             <div className='contimgcartitem'>
               <img src={item.imageUrl} alt="" className='contimgcartitem' />
             </div>
             <div className='contdatacart'>
               <div className='tittlecart'>
-                {item.title} 
+                {item.title}
               </div>
               <div>
-                Quantidade: {item.quantity}
+              Quantidade: {item.quantity}
+              <ButtonGroup variant="contained" aria-label="outlined primary button group">
+              <Button onClick={() => increaseQuantity(item)}>+</Button>
+              <Button onClick={() => decreaseQuantity(item)}>-</Button>
+             </ButtonGroup>
               </div>
               <div>
-               {item.category}
+                {item.category}
               </div>
             </div>
             <div className='divdataintcart'>
               <div className='contcartvalor'>
-                <small>R$</small> {item.totalPrice.toFixed(2)}
+                <small>R$ {item.price}</small>
               </div>
               <div>
-                 <button className='btnremove' onClick={() => handleRemoveItem(item)}>Remover</button>
+                <button className='btnremove' onClick={() => handleRemoveItem(item)}>Remover</button>
               </div>
             </div>
           </div>
@@ -70,11 +55,11 @@ const CartModal = ({ cartItems, removeFromCart, onClose, userIsAuthenticated }) 
       </div>
       <div className='contrightmodalcart'>
         <div className='conttotalcart'>
-          <strong>Total:</strong> R$ {calculateTotalPrice().toFixed(2)}
+          <strong>Total:</strong> R$  {getTotalPrice().toFixed(2)}
         </div>
         <div className='contbtns'>
-          <button className='btnconfirmar' onClick={handleFinalizeOrder}>Confirmar pedido</button>
-          <button className="btnclosemodal" onClick={onClose}>Cancelar pedido</button>
+          <button className='btnconfirmar'>Confirmar pedido</button>
+          <button className="btnclosemodal" onClick={onClose}>Continuar comprando</button>
         </div>
       </div>
     </div>
