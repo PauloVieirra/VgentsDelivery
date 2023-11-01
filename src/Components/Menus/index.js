@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
+import { useCart } from "../../Context/CartContext";
 import { userData, email, name, userimage, local } from "../localStorageComponent";
 import logoTop from '../../images/logodfoodg.png';
 import CartModal from "../../screens/CartModal/Index";
@@ -11,8 +12,6 @@ import iconbarmenu from '../../images/menuicon.png'
 import SideMenu from "../SideMenu";
 
 import './style.css';
-
-
 
 
 const MenuLogista = () => {
@@ -65,6 +64,15 @@ const MenuOutSide = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+
+
   const handlenavegue = () => {
     navigate('Signin');
   };
@@ -104,7 +112,10 @@ const MenuOutSide = () => {
           </div>
         </div>
         <div className="contnotify">
-        </div>
+          <div onClick={toggleCart} className="divcart">
+           <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#000'/>
+          </div>
+          </div>
         <div className='dataper'>
           <div className="contdatauser">
            <div style={{fontSize:'14px', fontWeight:'600'}}>
@@ -116,6 +127,9 @@ const MenuOutSide = () => {
           </div>
           
         </div>
+        {isCartOpen && (
+        <CartModal  onClose={toggleCart} />
+         )}
         { location.pathname === '/'  && (
            
             <button className="btnback" onClick={handlenavegue}>Login</button>
@@ -142,25 +156,15 @@ const MenuOutSide = () => {
 const MenuClient = () => {
     const { signOut, isAuthenticated,user } = useAuth();
     const navigate = useNavigate();
-    const [cartCount, setCartCount] = useState(0); 
     const [isCartOpen, setIsCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(''); 
-
+    
+    
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
       };
    
-    const updateCartCount = (count) => {
-      setCartCount(count);
-    };
-
-    const removeFromCart = (itemToRemove) => {
-        const updatedCart = cartItems.filter((item) => item.id !== itemToRemove.id);
-        setCartItems(updatedCart);
-      };
-
     const toggleCart = () => {
         setIsCartOpen(!isCartOpen);
       };
@@ -179,13 +183,13 @@ const MenuClient = () => {
       navigate('/');
     };
     const handleHistory = () => {
-      navigate('/MeusPedidos', { state: { cartItems } });
+      navigate('/MeusPedidos');
     };
     const handleCart = () => {
       navigate('/CartModal');
     };
     const handleMaps = () => {
-      navigate('/Maps', { state: { cartItems } });
+      navigate('/Maps');
     };
   
     return (
@@ -234,7 +238,7 @@ const MenuClient = () => {
        
 
         {isCartOpen && (
-        <CartModal cartItems={cartItems} removeFromCart={removeFromCart} onClose={toggleCart} userIsAuthenticated={isAuthenticated} />
+        <CartModal  onClose={toggleCart} userIsAuthenticated={isAuthenticated} />
          )}
 
        {isMenuOpen && (
