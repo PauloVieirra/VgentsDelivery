@@ -20,7 +20,6 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    // Recupere o carrinho do localForage no início
     cartStorage.getItem('cartItems').then((savedCart) => {
       if (savedCart) {
         setCartItems(savedCart);
@@ -59,10 +58,8 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const increaseQuantity = useCallback((item) => {
-    // Encontre o item no carrinho
     const foundItem = cartItems.find((cartItem) => cartItem.id === item.id);
     if (foundItem) {
-      // Aumente a quantidade em 1 e atualize o estado e o localForage
       foundItem.quantity += 1;
       setCartItems([...cartItems]);
       cartStorage.setItem('cartItems', cartItems);
@@ -83,17 +80,14 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const getItemCount = useCallback(() => {
-    // Conte os itens no carrinho somando suas quantidades
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   }, [cartItems]);
 
   const getTotalPrice = useCallback(() => {
-    // Inicialize o valor total como zero
     let total = 0;
   
-    // Itere sobre os itens no carrinho
+   
     cartItems.forEach((item) => {
-      // Multiplique o preço do item pela quantidade
       total += item.price * item.quantity;
     });
   
