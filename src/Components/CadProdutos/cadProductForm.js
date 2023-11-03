@@ -6,6 +6,7 @@ import './stylesCad.css';
 
 const ProductForm = () => {
   const { user } = useAuth();
+  const [nameStore, setNameStore] = useState();
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -16,14 +17,17 @@ const ProductForm = () => {
   const [category, setCategory] = useState(''); // Estado para armazenar a categoria selecionada
   const [isActive, setIsActive] = useState(true);
   const [isUrl, setIsUrl] = useState('');
+  
  
 
   const categories = ['Cerveja', 'Drink', 'Lanche', 'Petisco', 'Prato', 'Vinho','Sobremesa', 'Happy Hour', 'Combo']; // Opções de categoria
   
   const userlink = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).url;
+  const userStoreName= localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).complemento.nomecomercial;
   
   useEffect(() => {
     setIsUrl(userlink);
+    setNameStore(userStoreName);
   }, [user]);
 
   const handleImageChange = (e) => {
@@ -64,6 +68,7 @@ const ProductForm = () => {
 
       await newProductRef.set({
         id: newProductId,
+        nameStore,
         title,
         price,
         description,

@@ -24,10 +24,10 @@ function FormularioComplementoLogista() {
 
   // Função para lidar com as mudanças nos campos do formulário
   const handleComplementoChange = (event) => {
-    const { nomecomercial, value } = event.target;
+    const { name, value } = event.target;
     setComplemento((prevState) => ({
       ...prevState,
-      [nomecomercial]: value,
+      [name]: value,
     }));
   };
 
@@ -48,10 +48,10 @@ function FormularioComplementoLogista() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (validateForm()) {
+   
       saveLogistaFormToFirebase(complemento); // Chame a função do contexto para enviar os dados
       setIsFormSubmitted(true);
-    }
+    
   };
 
   return (
@@ -132,7 +132,7 @@ function FormularioComplementoLogista() {
           />
         </div>
        
-        <button type='submit'>Enviar</button>
+        <button type='submit' >Enviar</button>
       </form>
     </div>
         </div>

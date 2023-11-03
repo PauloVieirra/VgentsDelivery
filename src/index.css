@@ -100,9 +100,7 @@ button[type="submit"]:hover {
   min-height: 70px;
   margin-top: 1px;
 }
-.no-pointer-events {
-  pointer-events: none;
-}
+
 .labeldescript{
   font-size: 14px;
   font-weight: 400;

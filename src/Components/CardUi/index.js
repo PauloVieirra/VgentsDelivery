@@ -132,7 +132,6 @@ const PromotionCardPrimary = () => {
 
 
 const PromotionCardSecondary = () => {
-  const [expanded, setExpanded] = React.useState(false);
   const { productsProm } = useAuth();
   const navigate = useNavigate();
   const { addToCart } = useCart();
@@ -146,42 +145,18 @@ const PromotionCardSecondary = () => {
     }
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  let slidesPerView = 2; // Valor padrão
-
-  // Verificar a largura da tela e ajustar o número de slides visíveis
-  if (window.innerWidth < 768) {
-    slidesPerView = 1.8; // 1 slide visível em telas menores
-  } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
-    slidesPerView = 3.5; // 2 slides visíveis em telas médias
-  } else if (window.innerWidth >= 1025) {
-    slidesPerView = 5.8; // 3 slides visíveis em telas maiores
-  }
-
-  const addItemToCart = (item) => {
-    addToCart(item);
-  };
-
   return (
-    <div className='contcards'>
-      <Swiper
-        spaceBetween={1} // Espaço entre os slides (cards)
-        slidesPerView={slidesPerView} // Quantidade de slides visíveis por vez
-        navigation={{ prevEl: '.paginationleft', nextEl: '.paginationright' }} // Controle de navegação personalizado
-        loop={false} // Desativar o loop
-      >
+    <div className='contcardssecond'>
+      <Grid container spacing={2}>
         {productsProm.map((card) => {
           if (card.category === 'Happy Hour') {
             return (
-              <SwiperSlide key={card.id} className='card-listn'>
+              <Grid item key={card.id} xs={12} sm={6} md={4} lg={3}>
                 <Card
                   sx={{
-                    width: '96%', // Largura de cada card
-                    margin: '0 10px', // Espaço entre os cards
-                    verticalAlign: 'top', // Alinha os cards no topo
+                    width: '96%',
+                    margin: '0 10px',
+                    verticalAlign: 'top',
                   }}
                 >
                   <CardHeader
@@ -195,7 +170,7 @@ const PromotionCardSecondary = () => {
                         {/* Ícone de configurações */}
                       </IconButton>
                     }
-                    title={card.title}
+                    title={card.nameStore}
                     subheader={card.date}
                   />
                   <CardMedia component="img" height="194" image={card.imageUrl} alt={card.title} />
@@ -211,23 +186,22 @@ const PromotionCardSecondary = () => {
                     <IconButton aria-label="share">
                       {/* Ícone de compartilhamento */}
                     </IconButton>
-                    <IconButton onClick={() => addItemToCart(card)}>
+                    <IconButton onClick={() => addToCart(card)}>
                       <FontAwesomeIcon icon={faCartPlus} fontSize='22px' color='#000' />
                     </IconButton>
                   </CardActions>
-                 
                 </Card>
-              </SwiperSlide>
+              </Grid>
             );
           } else {
             return null;
           }
         })}
-      </Swiper>
+      </Grid>
     </div>
   );
 };
-
+  
 
 
 export {PromotionCardPrimary,PromotionCardSecondary}

@@ -305,7 +305,7 @@ const saveLogistaFormToFirebase = (complemento) => {
     
     // Atualizar a propriedade 'formulario' para true
     userRef.update({
-      formulario: false
+      formulario: true
     })
     .then(() => {
       console.log('Propriedade "formulario" atualizada para true.');
