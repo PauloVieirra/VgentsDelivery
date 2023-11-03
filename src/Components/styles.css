@@ -65,7 +65,7 @@
   background-color: #fff; /* Cor de fundo do menu */
   box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.6); /* Sombra para o menu */
   transition: right 1s ease; /* Efeito de transição */
-  z-index: 9000; /* Z-index alto para sobrepor outros elementos */
+  z-index: 100; /* Z-index alto para sobrepor outros elementos */
 }
 
 .menu-lateral ul {

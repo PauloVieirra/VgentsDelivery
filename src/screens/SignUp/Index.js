@@ -168,7 +168,7 @@ const SignUp = () => {
             <button type="submit" className='buttonprimary'>Cadastrar</button>
           </form>
         )}
-        <div>Já tem uma conta? <Link to="/SignIn">Faça o login aqui</Link></div>
+        <div style={{marginTop:'30px'}}>Já tem uma conta? <Link to="/SignIn">Faça o login aqui</Link></div>
       </div>
     </div>
   );

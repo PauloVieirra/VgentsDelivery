@@ -98,7 +98,7 @@ const AuthenticatedMenu = ({ userType }) => {
 
 
 
-      <div className='contmobimenus'>
+      <div className='contmobimenus123'>
           {location.pathname !== '/SignIn' && location.pathname !== '/SignUp' && !user && (
             <div className='buttonmobile'>
               {' '}
@@ -107,10 +107,7 @@ const AuthenticatedMenu = ({ userType }) => {
           )}
           {user && (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '60px', height: '60px' }}>
-               
-                {/* Adicione um onClick para abrir/fechar o menu */}
-              </div>
+              
             </div>
           )}
       </div>

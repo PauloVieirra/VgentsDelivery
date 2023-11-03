@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useAuth } from '../../Context/AuthContext';
 import { userData, local  } from '../localStorageComponent';
 import { useNavigate } from 'react-router-dom';
-import RecipeReviewCard from '../CardUi';
+import {PromotionCardPrimary,PromotionCardSecondary} from '../CardUi';
 import './style.css';
 
 const CardList = () => {
@@ -35,45 +35,13 @@ const CardList = () => {
         </div>
       </div>
 
-      <RecipeReviewCard/>
+      <PromotionCardPrimary/>
       
 
       <div className='contpromotittle'>
         <div style={{ marginLeft: '20px', marginTop:'16px', fontSize: '18px', fontStyle: 'normal', fontWeight: 600 }}>Happy Hour</div>
       </div>
-      <div className="card-list-vert">
-        {productsProm.map((card) => {
-          if (card.category === 'Happy Hour') {
-            return (
-              <div key={card.id} className="card-vert" onClick={() => handleUserCardClick(card.isUrl)}>
-                <div className='divimgout-vert'>
-                  <img src={card.imageUrl} alt="" className='imgprom'/>
-                </div>
-                <div style={{ marginTop: '8px',margin:'6px' }}>
-                <div style={{ fontSize: '16px', backgroundColor:'#fff', fontWeight: 600 }}>{card.title}</div>
-                <div style={{
-                    display: 'fixed',
-                    flexDirection: 'row',
-                    fontSize: '15px',
-                    fontStyle: 'normal',
-                    fontWeight: 200,
-                    marginTop:'4px',
-                    }}>
-                   {card.description}
-                  </div>
-                  <div className='coniconcard' style={{display:'flex',width:'100%',alignItems:'flex-end',fontSize:'22px', fontWeight:'600'}}>
-                    {card.price}
-                  </div>
-                   
-                </div>
-              </div>
-            );
-          } else {
-            return null;
-          }
-        })}
-         <div className='conticoncardsdiv'/>
-      </div>
+      <PromotionCardSecondary/>
     </>
   );
 };

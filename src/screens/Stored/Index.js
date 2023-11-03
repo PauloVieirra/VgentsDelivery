@@ -199,38 +199,11 @@ const Store = () => {
      
        
 
-      <div className='contbaricons'>
-        <div className='divbarricons'>
-          <div className={`conticonsear ${selectedCategory === 'Cerveja' ? 'selected' : ''}`} onClick={() => handleIconClick('Cerveja')}>
-            <img src={icons7} alt="" className='conticonsearsh' />
-            Cervejas
-          </div>
-          <div className={`conticonsear ${selectedCategory === 'Drink' ? 'selected' : ''}`} onClick={() => handleIconClick('Drink')}>
-            <img src={icons1} alt="" className='conticonsearsh' />
-            Drink`s
-          </div>
-          <div className={`conticonsear ${selectedCategory === 'Lanche' ? 'selected' : ''}`} onClick={() => handleIconClick('Lanche')}>
-            <img src={icons2} alt="" className='conticonsearsh'/>
-            Lanche
-          </div>
-          <div className={`conticonsear ${selectedCategory === 'Petisco' ? 'selected' : ''}`} onClick={() => handleIconClick('Petisco')}>
-            <img src={icons3} alt="" className='conticonsearsh'/>
-            Petiscos
-          </div>
-          <div className={`conticonsear ${selectedCategory === 'Prato' ? 'selected' : ''}`} onClick={() => handleIconClick('Prato')}>
-            <img src={icons4} alt="" className='conticonsearsh'/>
-            Pratos
-          </div>
-          <div className={`conticonsear ${selectedCategory === 'Vinho' ? 'selected' : ''}`} onClick={() => handleIconClick('Vinho')}>
-            <img src={icons5} alt="" className='conticonsearsh'/>
-            Vinhos
-          </div>
-          <div className={`conticonsear ${selectedCategory === 'Sobremesa' ? 'selected' : ''}`} onClick={() => handleIconClick('Sobremesa')}>
-            <img src={icons6} alt="" className='conticonsearsh'/>
-            Doces
-          </div>
-         </div>
+       <div className='contfoot'>
+        <div className='controdape'>
+          rodape aqui
         </div>
+       </div>
       </div>
     
       )} 

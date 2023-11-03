@@ -184,7 +184,14 @@
     align-items: center;
     margin-left: 10px;
    }
-
+   .contfoot{
+    display: flex;
+    height: auto;
+    min-height: 60px;
+   }
+   .controdape{
+    display: none;
+   }
 
  
   @media (min-width: 500px) {
@@ -590,6 +597,11 @@
 .contbarrdesk{
   display: flex;
   flex-direction: row;
+}
+.controdape{
+  display: flex;
+  width: 100%;
+  background-color: #33a33a;
 }
 
 

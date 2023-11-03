@@ -139,6 +139,7 @@ const MenuOutSide = () => {
           )}
         </div>
         </div>
+        
         <div className='dataper'>
           <div className="contdatauser">
            <div style={{fontSize:'14px', fontWeight:'600'}}>
@@ -151,7 +152,9 @@ const MenuOutSide = () => {
         <CartModal  onClose={toggleCart} />
          )}
         { location.pathname === '/'  && (
+          <div className="contbtngo">
             <button className="btnback" onClick={handlenavegue}>Login</button>
+          </div>
         )}
         { location.pathname === '/Signin'  && (
             <div className="contbtngo">
@@ -164,16 +167,6 @@ const MenuOutSide = () => {
             </div>
         )}
         </div>
-        <div className='containerfooter'>
-        <div className='btnmenu' onClick={toggleCart}>
-          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
-          {contItems && (
-          <div className="divcounter">
-            {getItemCount()}
-          </div>
-          )}
-        </div>
-    </div>
     </div>
   );
 };
@@ -241,6 +234,7 @@ const MenuClient = () => {
     return (
         <>
       <div className="contdeskmenu">
+        
         <div className="divdeskinto" style={{height:'auto',alignItems:'center'}}>
           <div className="divcenetrelogo">
             <img src={logoTop} className="logomobi" />
@@ -257,8 +251,9 @@ const MenuClient = () => {
               </Link>
             </div>
           </div>
-          <div className="contnotify">
-          <div className='btnmenu' onClick={toggleCart}>
+
+          <div className="contnotifycontrole" >
+          <div className='btnmenucontrole'onClick={toggleCart}>
           <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
           {contItems && (
           <div className="divcounter">
@@ -267,6 +262,7 @@ const MenuClient = () => {
           )}
         </div>
           </div>
+
           <div className="dataper">
             <div className="contdatauser">
               <div style={{ fontSize: '14px', fontWeight: '600' }}>
@@ -285,6 +281,17 @@ const MenuClient = () => {
             <div>
             </div>
           </div>
+
+         <div className="contbtnmenu">
+            {isMenuOpen && (
+              <img src={iconbarmenuclose} alt="" className="botmenuside"  onClick={toggleMenu}/>  
+            )}
+
+            {!isMenuOpen && (
+              <img src={iconbarmenu} alt="" className="botmenuside"  onClick={toggleMenu} /> 
+            )}
+            </div>
+          
         </div>
        
 
@@ -296,14 +303,9 @@ const MenuClient = () => {
          <SideMenu/> 
         )}
       </div>
-    
-        {isMenuOpen && (
-           <img src={iconbarmenuclose} alt="" className="botmenuside"  onClick={toggleMenu}/>  
-        )}
-
-        {!isMenuOpen && (
-           <img src={iconbarmenu} alt="" className="botmenuside"  onClick={toggleMenu} /> 
-        )}
+        
+        
+       
 
        <div className='containerfooter'>
         <div className='btnmenu' style={{ marginLeft: '30px' }} onClick={handleHomes}>
