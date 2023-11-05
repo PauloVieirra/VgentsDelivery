@@ -21,6 +21,7 @@ import ConfirmationPage from '../screens/DeliveryConfirm/Index';
 import FormularioComplemento from '../Components/Formcomplit/Index';
 import FormularioComplementoLogista from '../Components/FormcomplitLogista/Index';
 import Maps from '../Components/Maps';
+import CartModal from '../screens/CartModal/Index';
 import FooterNavigation from '../Components/Footer';
 
 import { MenuClient } from '../Components/Menus';
@@ -97,6 +98,7 @@ const AppRoutes = () => {
         <Route path="/:lojistaId" element={<Store />} />
          <Route path="/MeusPedidos" element={<MeusPedidos />} />
          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
+         <Route path="/CartModal" element={<CartModal/>}/>
          <Route path="/UpdateProfileForm" element={<UpdateProfileForm />} />
          <Route path="/FormularioComplemento" element={<FormularioComplemento />} />
        

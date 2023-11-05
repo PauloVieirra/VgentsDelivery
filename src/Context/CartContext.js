@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import firebase from '../config/firebaseConfig';
 import localforage from 'localforage';
 
 const CartContext = createContext();
@@ -94,10 +95,33 @@ export const CartProvider = ({ children }) => {
     return total;
   }, [cartItems]);
 
- 
+  const createOrder = async (userId, orderDetails) => {
+    try {
+      const ordersRef = firebase.database().ref(`orders/`);
+      const newOrderRef = ordersRef.push();
+  
+      // Gere uma chave aleatória única para o pedido
+      const orderId = newOrderRef.key;
+  
+      // Salvar os detalhes do pedido no Realtime Database
+      await newOrderRef.set({
+        orderId: orderId,
+        ...orderDetails,
+      });
+  
+      const order = {
+        orderId: orderId,
+        ...orderDetails,
+      };
+  
+      return order;
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice, createOrder }}>
       {children}
     </CartContext.Provider>
   );

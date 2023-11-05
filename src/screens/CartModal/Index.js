@@ -11,13 +11,19 @@ import './style.css';
 
 const CartModal = ({ onClose, userIsAuthenticated }) => {
   const navigate = useNavigate();
-  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice  } = useCart();
+  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice   } = useCart();
   const [ contItens, setContItens] = useState();
 
   const handleRemoveItem = (item) => {
     removeFromCart(item);
   };
 
+  const handlenavegueConfimation = () => {
+    navigate('ConfirmationPage');
+    onClose();
+  }
+
+  //Controle de axibicao do contador do carrinho
   useEffect(() => {
     const updateItemCount = () => {
       if (getItemCount() >= 1) {
@@ -66,7 +72,7 @@ const CartModal = ({ onClose, userIsAuthenticated }) => {
                 <small>R$ {item.price}</small>
               </div>
               <div>
-              Quantidade: {item.quantity}
+              {item.nameStore}: {item.quantity}
               <ButtonGroup variant="contained" aria-label="outlined primary button group">
               <Button size="small" onClick={() => increaseQuantity(item)}>+</Button>
               <Button size="small" onClick={() => decreaseQuantity(item)}>-</Button>
@@ -90,7 +96,7 @@ const CartModal = ({ onClose, userIsAuthenticated }) => {
         </div>
         <div className='contbtns'>
         {contItens && (
-        <button className='btnconfirmar'>Confirmar pedido</button>
+        <button className='btnconfirmar' onClick={handlenavegueConfimation} >Confirmar pedido</button>
         )}
           
 

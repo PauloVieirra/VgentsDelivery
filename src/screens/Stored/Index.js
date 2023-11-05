@@ -34,9 +34,10 @@ const Store = () => {
   const [lojistaData, setLojistaData] = useState({
     url:'',
     img: '',
-    name: '', 
+    name: '',
+    nomecomercial: '', 
     email: '', 
-    phone:'',
+    telefoneContato:'',
   });
 
  
@@ -79,13 +80,14 @@ const Store = () => {
       const lojistaCorrespondente = logistaUsers.find(user => user.url === lojistaId);
   
       if (lojistaCorrespondente) {
-        const { url,img, name, email, phone } = lojistaCorrespondente;
+        const { url,img, name, nomecomercial,email, telefoneContato } = lojistaCorrespondente;
         setLojistaData({
           url,
           img,
-          name, 
+          name,
+          nomecomercial,
           email, 
-          phone,
+          telefoneContato,
         });
         setDataLoaded(true);
       } else {
@@ -95,8 +97,9 @@ const Store = () => {
           url:'',
           img: '',
           name: '',
+          nomecomercial: '',
           email: '',
-          phone: '',
+          telefoneContato: '',
         });
         setDataLoaded(true);
       }
@@ -171,11 +174,11 @@ const Store = () => {
             </div>
           <div className='contdatastore'>
             <div style={{display:'flex'}}>
-               <div className='dicdatainto'>{lojistaData.name || 'Nome da Loja'}</div>
+               <div className='dicdatainto'>{lojistaData.nome || 'Nome da Loja'}</div>
                <div style={{display:'flex', flexDirection:'row', width:'40px', marginRight:'2%'}}>A4.3</div>
             </div>
             
-             <div className='dicdatainto'>{lojistaData.phone || 'Nome da Loja'}</div>
+             <div className='dicdatainto'>{lojistaData.telefoneContato || 'Nome da Loja'}</div>
              <div className='dicdatainto'>{lojistaData.email || 'Email da Loja'}</div>
           </div>
           </div>

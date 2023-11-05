@@ -26,7 +26,7 @@ function MapContainer() {
   const [maxDistance, setMaxDistance] = useState(500);
   const [showDistanceOptions, setShowDistanceOptions] = useState(false); // Estado para controlar a visibilidade das opções de distância
   const distanceOptions = [500, 1000, 2000, 3000];
-
+  console.log(showStoreCard);
   const distancia = maxDistance;
 
   useEffect(() => {
@@ -70,9 +70,9 @@ function MapContainer() {
 
   const handleNavegueURL = (url) => {
     if (url) {
-      const { img, name, email} = url;
+      const { img, name, email, nomecomercial, telefoneContato} = url;
       console.log("Chave única do usuário:", url);
-      navigate(`/${url}`, { state: { img, name, email } });
+      navigate(`/${url}`, { state: { img, name, email, nomecomercial, telefoneContato } });
     } else {
       console.log("Loja não encontrada");
     }
@@ -232,9 +232,9 @@ function MapContainer() {
                     alt="Food Truck"
                   />
                 </div>
-                <div className="store-card-title">{showStoreCard.name || 'Nome do Food Truck'}</div>
+                <div className="store-card-title">{showStoreCard.complemento.nomecomercial || 'Nome do Food Truck'}</div>
                 <div className="store-card-details">
-                  <p>Telefone: {showStoreCard.phone || 'N/A'}</p>
+                  <p>Telefone: {showStoreCard.complemento.telefoneContato || 'N/A'}</p>
                   <p>Email: {showStoreCard.email || 'N/A'}</p>
                   <p>Redes Sociais: {showStoreCard.socialMedia || 'N/A'}</p>
                 </div>

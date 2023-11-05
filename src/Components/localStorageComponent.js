@@ -6,6 +6,6 @@ const local = userData ? userData.cidade : null;
 const form = userData ? userData.formulario : null;
 const userimage = userData ? userData.img : null;
 const identidade = userData ? userData.UID : null;
-
+console.log(identidade);
 
 export { userData, local, userimage, name, email, identidade, form };

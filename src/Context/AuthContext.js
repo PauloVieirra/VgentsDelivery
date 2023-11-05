@@ -238,30 +238,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const createOrder = async (userId, orderDetails) => {
-    try {
-      const ordersRef = firebase.database().ref(`users/${userId}/orders`);
-      const newOrderRef = ordersRef.push();
-  
-      // Gere uma chave aleatória única para o pedido
-      const orderId = newOrderRef.key;
-  
-      // Salvar os detalhes do pedido no Realtime Database
-      await newOrderRef.set({
-        orderId: orderId,
-        ...orderDetails,
-      });
-  
-      const order = {
-        orderId: orderId,
-        ...orderDetails,
-      };
-  
-      return order;
-    } catch (error) {
-      throw error;
-    }
-  };
 
   const saveFormToFirebase = (complemento) => {
     const userUid = user.uid;
@@ -376,7 +352,6 @@ const getFriendlyErrorMessage = (errorCode) => {
     createNewStore,
     getProductsByUserId,
     getStoreIdByProductId,
-    createOrder,
     saveFormToFirebase,
     saveLogistaFormToFirebase,
     signInWithGoogle,
