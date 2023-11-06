@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
   const [showInactiveItems, setShowInactiveItems] = useState(true);
   const [userOrders, setUserOrders] = useState([]);
   const [productsProm, setProductsProm] = useState([]);
+  
  
   
 
@@ -295,15 +296,31 @@ const saveLogistaFormToFirebase = (complemento) => {
   });
 };
 
-const fetchUserOrders = async (uid) => {
+const getUserOrders = async () => {
   try {
-    const ordersRef = firebase.database().ref('orders');
-    const userOrdersSnapshot = await ordersRef.child(uid).once('value');
+    const userUid = user.uid;
+    const userOrderHistoryRef = firebase.database().ref(`users/${userUid}/orderhistory`);
+    const userOrderHistorySnapshot = await userOrderHistoryRef.once('value');
 
-    if (userOrdersSnapshot.exists()) {
-      const ordersData = userOrdersSnapshot.val();
-      const ordersArray = Object.values(ordersData);
-      setUserOrders(ordersArray);
+    if (userOrderHistorySnapshot.exists()) {
+      const isUrls = Object.keys(userOrderHistorySnapshot.val());
+
+      const ordersRef = firebase.database().ref('orders');
+      const userOrdersArray = [];
+
+      for (const isUrl of isUrls) {
+        const orderIds = Object.values(userOrderHistorySnapshot.val()[isUrl]);
+
+        for (const orderId of orderIds) {
+          const orderSnapshot = await ordersRef.child(isUrl).child(orderId).once('value');
+
+          if (orderSnapshot.exists()) {
+            userOrdersArray.push(orderSnapshot.val());
+          }
+        }
+      }
+
+      setUserOrders(userOrdersArray);
     } else {
       setUserOrders([]);
     }
@@ -311,6 +328,12 @@ const fetchUserOrders = async (uid) => {
     console.error('Erro ao buscar pedidos:', error);
   }
 };
+
+useEffect(() => {
+  getUserOrders();
+}, [user]);
+
+
 
 const getFriendlyErrorMessage = (errorCode) => {
   switch (errorCode) {
@@ -345,7 +368,7 @@ const getFriendlyErrorMessage = (errorCode) => {
     products,
     userOrders,
     productsProm,
-    fetchUserOrders,
+    getUserOrders,
     signInWithEmailAndPassword,
     signUpWithEmailAndPassword,
     signOut,

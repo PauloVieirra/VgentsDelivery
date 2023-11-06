@@ -9,7 +9,7 @@ export default function MeusPedidos() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (location.pathname === '/meus-pedidos') {
+    if (location.pathname === '/MeusPedidos') {
       // Verifique se o usuário está logado antes de buscar os pedidos
       if (user) {
         getUserOrders(user.uid)
@@ -39,6 +39,15 @@ export default function MeusPedidos() {
                 {/* Renderize os detalhes do pedido, por exemplo: */}
                 <p>ID do Pedido: {order.orderId}</p>
                 <p>Data do Pedido: {order.orderDate}</p>
+                <ul>
+                  {Object.values(order.products).map((product) => (
+                    <li key={product.id}>
+                      <p>ID do Produto: {product.id}</p>
+                      <p>Título do Produto: {product.title}</p>
+                      {/* Adicione mais informações do produto conforme necessário */}
+                    </li>
+                  ))}
+                </ul>
                 {/* Adicione mais informações do pedido conforme necessário */}
               </li>
             ))}

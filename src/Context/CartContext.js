@@ -120,8 +120,16 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const clearCart = () => {
+    //remover os itens do carrinho do armazenamento local
+    localforage.removeItem('cart').then(() => {
+      // Após a limpeza, atualize o estado do carrinho para refletir o carrinho vazio
+      setCartItems([]);
+    });
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice, createOrder }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, getItemCount, getTotalPrice, createOrder, clearCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { useCart } from '../../Context/CartContext';
 import { userData, form, identidade } from '../../Components/localStorageComponent';
+import localforage from 'localforage';
 import firebase from '../../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import FormularioComplemento from '../../Components/Formcomplit/Index';
@@ -22,7 +23,7 @@ const ConfirmationPage = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isAddressButtonVisible, setIsAddressButtonVisible] = useState(true);
   const [isUserForm, setIsUserForm] = useState('');
-  const { cartItems, getTotalPrice } = useCart();
+  const { cartItems, getTotalPrice, clearCart } = useCart();
   
 
   const isFormSented = (form  || null );
@@ -81,48 +82,53 @@ const ConfirmationPage = () => {
     setIsSending(true);
     const db = firebase.database();
     const ordersRef = db.ref('orders');
-
+  
     const userUid = user.uid;
-
+  
     if (!userUid) {
       console.error('Usuário não logado');
       setIsSending(false);
       return;
     }
-
+  
     try {
-      const orderId = uuidv4().substr(0, 4);
-
       const logistaOrdersMap = {};
-
+  
       cartItems.forEach((item) => {
         const { isUrl, id, quantity, price, title } = item;
-         
+  
         if (!logistaOrdersMap[isUrl]) {
           logistaOrdersMap[isUrl] = {};
         }
-
+  
+        const orderId = uuidv4().substr(0, 4);
+  
         if (!logistaOrdersMap[isUrl][orderId]) {
           logistaOrdersMap[isUrl][orderId] = {
             selectedAddress: selectedAddress,
             products: [],
           };
         }
-
+  
         logistaOrdersMap[isUrl][orderId].products.push({ id, quantity, price, title });
+  
+        const userOrderHistoryRef = db.ref(`users/${userUid}/orderhistory`);
+        userOrderHistoryRef.child(isUrl).push().set(orderId);
+        clearCart();
       });
-
+  
       const promises = Object.keys(logistaOrdersMap).map(async (isUrl) => {
         const logistaOrderRef = ordersRef.child(isUrl);
         return logistaOrderRef.update(logistaOrdersMap[isUrl]);
       });
-
+  
       await Promise.all(promises);
       setIsSending(false);
       setIsSent(true);
       setIsFormSubmitted(true);
-
+  
       setTimeout(() => {
+       
         navigate('/');
       }, 3000);
     } catch (error) {
@@ -130,6 +136,9 @@ const ConfirmationPage = () => {
       setIsSending(false);
     }
   };
+  
+
+  
 
   const handleAddressChange = (newAddressData) => {
     setSelectedAddress(newAddressData);
