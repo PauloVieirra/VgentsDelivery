@@ -1,26 +1,37 @@
-import React,{useState} from 'react';
+import React from 'react';
 import './style.css';
-import { useAuth } from '../../Context/AuthContext';
-import LogoutButton from '../../Components/Logout';
-import { userData, form } from '../../Components/localStorageComponent';
-import FormularioComplementoLogista from '../../Components/FormcomplitLogista/Index';
-
-
-
 
 export default function LogistaHome() {
-  const {user} = useAuth();
-  const formenvio = form;
-  
- 
-
- return (
-   <div className='contlogista'>
-   <p>Logista Home</p> 
-   <LogoutButton/>
-   {formenvio === false &&(
-    <FormularioComplementoLogista/>
-   )}
+  return (
+    <div className='contlogista'>
+      <div className='logista-info'>
+        {/* Módulo de informações da empresa */}
+        <h2>Informações da Empresa</h2>
+        {/* Adicione dados da empresa aqui */}
+      </div>
+      <div className='logista-modules'>
+        <div className='logista-module'>
+          {/* Módulo 1 */}
+          <h3>Módulo 1</h3>
+          {/* Conteúdo do Módulo 1 */}
+        </div>
+        <div className='logista-module'>
+          {/* Módulo 2 */}
+          <h3>Módulo 2</h3>
+          {/* Conteúdo do Módulo 2 */}
+        </div>
+        <div className='logista-module'>
+          {/* Módulo 3 */}
+          <h3>Módulo 3</h3>
+          {/* Conteúdo do Módulo 3 */}
+        </div>
+        <div className='logista-module'>
+          {/* Módulo 4 */}
+          <h3>Módulo 4</h3>
+          {/* Conteúdo do Módulo 4 */}
+        </div>
+        {/* Adicione mais módulos conforme necessário */}
+      </div>
     </div>
   );
 }

@@ -104,13 +104,14 @@ const ProductForm = () => {
       
       <form onSubmit={handleSubmit}>
         <div className='continput'>
-          <label htmlFor="title">Título:</label>
+        <label htmlFor="title">Título (máx. 10 caracteres):</label>
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            maxLength="10" // Adicione o atributo maxLength
           />
         </div>
         <div className='continput'>
@@ -155,6 +156,7 @@ const ProductForm = () => {
             id="isActive"
             checked={isActive}
             onChange={(e) => setIsActive(e.target.checked)}
+            style={{width:'20px'}}
           />
         </div>
         <div className='continput'>

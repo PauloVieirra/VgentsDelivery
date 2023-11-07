@@ -65,11 +65,10 @@ const SignIn = () => {
 
       // Agora, o tempo de espera está dentro do try para garantir que o loading apareça
       await new Promise(resolve => setTimeout(resolve, 3000));
-
       const signInResult = await signInWithEmailAndPassword(email, password, []);
       const userType = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).tipo;
       const userForm = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).formulario;
-
+       console.log(userForm);
       // Adicione logs para depuração
       console.log('Tipo de usuário:', userType);
       console.log('Formulário do usuário:', userForm);
@@ -79,7 +78,7 @@ const SignIn = () => {
       } else if (userType === 'cliente' && userForm === true) {
         navigate('/', { state: { cartItems: [] } });
       } else if (userType === 'logista' && userForm === false) {
-        navigate('/ConfirmationPage');
+        navigate('/DeliveryConfLogista');
       } else if (userType === 'logista' && userForm === true) {
         navigate('/');
       } else {

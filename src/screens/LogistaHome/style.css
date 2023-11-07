@@ -1,12 +1,36 @@
 .contlogista {
   display: flex;
-   justify-content: center;
-   align-items: center;
-    width: 100%;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-    background-color: rgb(73, 89, 89);
-    }
-   
+}
+
+.logista-info {
+  flex: 0 0 20%; /* Módulo de informações da empresa */
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.logista-modules {
+  flex: 1; /* Módulos quadrados ocupam o restante do espaço */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.logista-module {
+  background-color: #e0e0e0;
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .contlogista {
+    flex-direction: column;
+  }
+
+  .logista-modules {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 
     

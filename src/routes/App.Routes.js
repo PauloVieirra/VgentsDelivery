@@ -18,6 +18,7 @@ import LogistaHome from '../screens/LogistaHome/Index';
 import MeusPedidos from '../screens/MeusPedidos/Index';
 import UpdateProfileForm from '../Components/Formcomplit/Index';
 import ConfirmationPage from '../screens/DeliveryConfirm/Index';
+import DeliveryConfLogista from '../screens/DeliveryConfLogista/Index';
 import FormularioComplemento from '../Components/Formcomplit/Index';
 import FormularioComplementoLogista from '../Components/FormcomplitLogista/Index';
 import Maps from '../Components/Maps';
@@ -83,8 +84,8 @@ const AppRoutes = () => {
         <Route path="/" element={<LogistaHome />} />
         <Route path="/Products" element={<Products />} />
         <Route path="/Suporte" element={<Suporte />} />
+        <Route path="/DeliveryConfLogista" element={<DeliveryConfLogista />} />
         <Route path="/Pedidos" element={<Pedidos />} />
-        <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
         <Route path="/FormularioComplementoLogista" element={<FormularioComplementoLogista />} />
         </>
         }

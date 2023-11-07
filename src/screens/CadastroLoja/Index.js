@@ -37,8 +37,15 @@ const Cadastroloja = () => {
     const formulario = false;
 
     try {
-      await signUpWithEmailAndPassword(email, password, name, tipo, formulario);
-      setSuccessMessage('Loja cadastrada com sucesso.');
+      const result = await signUpWithEmailAndPassword(email, password, name, tipo, formulario);
+
+    if (result.redirectToConfirmation) {
+      // Redirecionar para a página de confirmação
+      navigate('/DeliveryConfLogista'); // Substitua 'pagina-de-confirmacao' pelo caminho correto
+    } else {
+      // Redirecionar para a página inicial
+      navigate('/');
+    }
       
     } catch (error) {
       if (error.code === 'auth/weak-password') {

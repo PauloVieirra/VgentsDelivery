@@ -7,7 +7,7 @@ import iconbarmenu from '../images/menuicon.png';
 import iconbarmenuclose from '../images/closemenu.png';
 import SignIn from '../screens/SignIn/Index';
 import SignUp from '../screens/SignUp/Index';
-import { MenuClient, MenuOutSide, MenuLogista } from './Menus';
+import { MenuClient, MenuOutSide, MenuLogista, MenuAdm } from './Menus';
 import './styles.css';
 
 
@@ -112,6 +112,9 @@ const AuthenticatedMenu = ({ userType }) => {
           )}
       </div>
     </div>
+    {userType === 'adm'  &&  (
+        <MenuAdm/>
+    )}
     {userType === 'logista'  &&  (
         <MenuLogista/>
     )}

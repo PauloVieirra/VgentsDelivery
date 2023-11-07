@@ -138,17 +138,13 @@ const AuthProvider = ({ children }) => {
       });
   
       if (tipo !== '') {
-        
         const userDataWithTipo = { name, email, tipo, formulario };
         localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
-        
       }
   
       if (cartItems.length === 0) {
-        // Caso não haja itens, retornar o usuário
-        return user;
+        return { user, redirectToConfirmation: false };
       } else {
-        // Caso haja itens, retornar uma flag indicando que deve ser redirecionado para a página de confirmação
         return { user, redirectToConfirmation: true };
       }
     } catch (error) {
@@ -156,6 +152,7 @@ const AuthProvider = ({ children }) => {
       throw error;
     }
   };
+  
 
   
   const signOut = async () => {

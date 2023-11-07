@@ -1,11 +1,9 @@
-.contcardlist {
+.contcardlistprod {
     display: flex;
     width: 100%;
     flex-direction: column;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    justify-content: flex-end;
   }
   
   .contcadgridpro {
@@ -83,18 +81,32 @@
     margin-top: 15px;
   }
   
-  .conttitles {
+  .conttitlesprod {
     display: flex;
-    width: 100vr;
+    width: 100%;
+    align-items: center;
     justify-content: space-between;
-    margin-left: 20px;
-    margin-right: 30px;
   }
-  .btnupdate{
-    height: 52px;
+  .btnupdat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 20px;
     background-color: #e9a847;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
+  
+  .btnupdat:hover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 20px;
+    background-color: #ecb157;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
   /* styles.css */
 .update-status {
   display: flex;

@@ -13,6 +13,188 @@ import SideMenu from "../SideMenu";
 import './style.css';
 
 
+const MenuAdm = () => {
+  const { signOut, isAuthenticated,user } = useAuth();
+  const navigate = useNavigate();
+  const { getItemCount } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(''); 
+  
+  
+const [contItems, setContItems] = useState(false);
+
+useEffect(() => {
+  const updateItemCount = () => {
+    if (getItemCount() >= 1) {
+      setContItems(getItemCount());
+    } else {
+      setContItems('');
+    }
+  };
+
+  // Adicione um ouvinte para chamar updateItemCount quando a quantidade de itens mudar
+  updateItemCount();
+
+  // Retorne uma função de limpeza para remover o ouvinte quando o componente for desmontado
+  return () => {
+    // Remova o ouvinte
+  };
+}, [getItemCount]);
+  
+
+  const toggleMenu = () => {
+      setIsMenuOpen(!isMenuOpen);
+    };
+ 
+  const toggleCart = () => {
+      setIsCartOpen(!isCartOpen);
+    };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      // Após o logout, redirecione para a tela de login
+      navigate('/');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error.message);
+    }
+  };
+
+  const handleHomes = () => {
+    navigate('/');
+  };
+  const handleHistory = () => {
+    navigate('/MeusPedidos');
+  };
+  const handleCart = () => {
+    navigate('/CartModal');
+  };
+  const handleMaps = () => {
+    navigate('/Maps');
+  };
+
+  return (
+      <>
+    <div className="contdeskmenu">
+      
+      <div className="divdeskinto" style={{height:'auto',alignItems:'center'}}>
+        <div className="divcenetrelogo">
+          <img src={logoTop} className="logomobi" />
+        </div>
+        <div className="divbtns">
+          <div className="btnmenudesk">
+            <Link to="/" className="divlink" style={{ textDecoration: 'none', color: '#131313' }}>
+              Inicio
+            </Link>
+          </div>
+          <div className="btnmenudesk">
+            <Link to="/Cadastroloja" style={{ textDecoration: 'none', color: '#131313' }}>
+              Cadastro
+            </Link>
+          </div>
+        </div>
+
+        <div className="contnotifycontrole" >
+        <div className='btnmenucontrole'onClick={toggleCart}>
+        <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
+        {contItems && (
+        <div className="divcounter">
+          {getItemCount()}
+        </div>
+        )}
+      </div>
+        </div>
+
+        {user &&(
+          <div className="contnotifycontrolelog" >
+          <div className='btnmenucontrole'onClick={toggleCart}>
+          <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
+          {contItems && (
+          <div className="divcounter">
+            {getItemCount()}
+          </div>
+          )}
+        </div>
+          </div>
+        )}
+
+        <div className="dataper">
+          <div className="contdatauser">
+            <div style={{ fontSize: '14px', fontWeight: '600' }}>
+              {name}
+            </div>
+            <div style={{ fontSize: '14px' }}>
+              {email}
+            </div>
+          </div>
+          <div className="contdatauser">
+            <img src={userimage} alt="" className="contimguser" />
+          </div>
+          <div className="contsair" onClick={handleLogout}>
+            Sair
+          </div>
+          <div>
+          </div>
+        </div>
+
+       <div className="contbtnmenu">
+          {isMenuOpen && (
+            <img src={iconbarmenuclose} alt="" className="botmenuside"  onClick={toggleMenu}/>  
+          )}
+
+          {!isMenuOpen && (
+            <img src={iconbarmenu} alt="" className="botmenuside"  onClick={toggleMenu} /> 
+          )}
+          </div>
+        
+      </div>
+     
+
+      {isCartOpen && (
+      <CartModal  onClose={toggleCart} userIsAuthenticated={isAuthenticated} />
+       )}
+
+     {isMenuOpen && (
+       <SideMenu/> 
+      )}
+    </div>
+      
+      
+     
+
+     <div className='containerfooter'>
+      <div className='btnmenu' style={{ marginLeft: '30px' }} onClick={handleHomes}>
+        <FontAwesomeIcon icon={faHome} fontSize='22px' color='#000' />
+        
+      </div>
+   
+      <div className='btnmenu' onClick={handleHistory}>
+        <FontAwesomeIcon icon={faHistory} fontSize='22px'/>
+     
+      </div>
+   
+    
+      <div className='btnmenu' onClick={toggleCart}>
+        <FontAwesomeIcon icon={faShoppingCart}  fontSize='22px' color='#555'/>
+        {contItems && (
+        <div className="divcounter">
+          {getItemCount()}
+        </div>
+        )}
+      </div>
+   
+  
+      <div className='btnmenu' style={{ marginRight: '30px' }}  onClick={handleMaps}>
+        <FontAwesomeIcon icon={faUser} fontSize='22px' />
+      
+      </div>
+   
+  </div>
+   
+    </>
+  );
+};
+
 const MenuLogista = () => {
   return(
   <div className='contdeskmenu'>
@@ -353,4 +535,4 @@ const MenuClient = () => {
     );
 };
 
-export  {MenuLogista, MenuClient, MenuOutSide};
+export  { MenuAdm, MenuLogista, MenuClient, MenuOutSide};

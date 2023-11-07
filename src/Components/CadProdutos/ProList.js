@@ -208,19 +208,20 @@ const handleDeleteClick = (product) => {
 
 
   return (
-    <div className='contcardlist'>
-      <div className='conttitles'>
+    <div className='contcardlistprod'>
+      <div className='conttitlesprod'>
         <h2>Produtos Cadastrados</h2>
-        <div className="continput">
+        <div className="continputrascu">
           <label htmlFor="showActiveItems">Mostrar rascunhos:</label>
           <input
             type="checkbox"
             id="showActiveItems"
             checked={showActiveItems}
             onChange={(e) => setShowActiveItems(e.target.checked)}
+            style={{width:'20px'}}
           />
         </div>
-        <button onClick={handleUpdateProducts} className='btnupdate'>
+        <button onClick={handleUpdateProducts} className='btnupdat'>
           Atualizar
         </button>
       </div>

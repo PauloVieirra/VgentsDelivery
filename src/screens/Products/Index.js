@@ -11,7 +11,7 @@ export default function Products() {
     <div>
        <ProductForm/>
     </div>
-    <div>
+    <div className='contproductlogist'>
         <ProductList/>
     </div>
     </div>
