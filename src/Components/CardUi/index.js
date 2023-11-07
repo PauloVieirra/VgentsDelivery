@@ -97,7 +97,7 @@ const PromotionCardPrimary = () => {
                         {/* Ícone de configurações */}
                       </IconButton>
                     }
-                    title={card.title}
+                    title={card.nameStore}
                     subheader={card.date}
                   />
                   <CardMedia component="img" height="194" image={card.imageUrl} alt={card.title} />

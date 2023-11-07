@@ -27,7 +27,7 @@ const ProductForm = () => {
   
   useEffect(() => {
     setIsUrl(userlink);
-    setNameStore(userStoreName);
+    setNameStore(userStoreName || 'N\A' );
   }, [user]);
 
   const handleImageChange = (e) => {

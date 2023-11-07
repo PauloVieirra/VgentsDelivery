@@ -95,7 +95,7 @@ const ConfirmationPage = () => {
       const logistaOrdersMap = {};
   
       cartItems.forEach((item) => {
-        const { isUrl, id, quantity, price, title } = item;
+        const { isUrl, id, quantity, price, title, imageUrl, description } = item;
   
         if (!logistaOrdersMap[isUrl]) {
           logistaOrdersMap[isUrl] = {};
@@ -110,7 +110,7 @@ const ConfirmationPage = () => {
           };
         }
   
-        logistaOrdersMap[isUrl][orderId].products.push({ id, quantity, price, title });
+        logistaOrdersMap[isUrl][orderId].products.push({ id, quantity, price, title, orderId, imageUrl, description });
   
         const userOrderHistoryRef = db.ref(`users/${userUid}/orderhistory`);
         userOrderHistoryRef.child(isUrl).push().set(orderId);

@@ -4,7 +4,7 @@ import { useAuth } from '../../Context/AuthContext';
 import './styles.css';
 
 const ProductList = () => {
-  const { user } = useAuth();
+  const {user, deleteProduct} = useAuth();
   const [products, setProducts] = useState([]);
   const [updateStatus, setUpdateStatus] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,6 +13,9 @@ const ProductList = () => {
   const [editedProduct, setEditedProduct] = useState(null);
   const [showActiveItems, setShowActiveItems] = useState(false);
   const [showInactiveItems, setShowInactiveItems] = useState(true);
+  const [productToDelete, setProductToDelete] = useState(null);
+  const [isPromotedModalOpen, setIsPromotedModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const fetchProductsFromFirebase = async () => {
     if (user) {
@@ -137,8 +140,6 @@ const ProductList = () => {
     setEditedProduct((prevProduct) => ({ ...prevProduct, isActive: checked }));
   };
 
-  // ...
-
 const handlePromoteProduct = async (productId, isPromoted) => {
   try {
     console.log('Chamando handlePromoteProduct');
@@ -182,7 +183,30 @@ const handlePromoteProduct = async (productId, isPromoted) => {
   }
 };
 
-// ...
+
+const handleDeleteClick = (product) => {
+  if (product.isPromoted) {
+    // Produto promovido, abra o modal de aviso
+    setProductToDelete(product);
+    setIsPromotedModalOpen(true);
+  } else {
+    setProductToDelete(product);
+    setIsDeleteModalOpen(true);
+  }
+};
+
+ 
+ const handleDelete = () =>{
+  if (productToDelete) {
+    deleteProduct(productToDelete.id);
+    setIsDeleteModalOpen(false);
+  }
+ }
+
+
+
+
+
   return (
     <div className='contcardlist'>
       <div className='conttitles'>
@@ -220,23 +244,55 @@ const handlePromoteProduct = async (productId, isPromoted) => {
             if (showInactiveItems || product.isActive) {
               return (
                 <div key={product.id} className='product-cardpro'>
+
                   <button className='btneditecardpro' onClick={() => handleOpenModal(product)}>
                     <img src={product.imageUrl} alt={product.title} className='contimgpro' />
                     <h3 style={{ color: '#000' }}>{product.title}</h3>
                     <p>{product.description}</p>
                     <p>Preço: R$ {product.price}</p>
                   </button>
+               
                   <div className='contbtnpromote'>
-                    <label>
+                   <div  style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+                       Promover
                       <input
                         type='checkbox'
                         checked={product.isPromoted}
                         onChange={() => handlePromoteProduct(product.id, !product.isPromoted)}
+                        style={{display:'flex',width:'20px'}}
                       />
-                      Promover
-                    </label>
-                  </div>
-                </div>
+                     
+                    </div>
+                  
+                    <button onClick={() => handleDeleteClick(product)}>Apagar</button>
+                        </div>
+                      
+                        {isPromotedModalOpen && isDeleteModalOpen === false && productToDelete === product && (
+                          <div className="promoted-product-modal">
+                              <div className='card-prod-dellete'>
+                            <div style={{display:'flex',justifyContent:'center', alignItems:'center',width:'100%', height:'100%'}}>
+                              Você não pode excluir um produto promovido. Remova a promoção e tente novamente.
+                            </div>
+                            
+                            <button onClick={() => setIsPromotedModalOpen(false)}>Fechar</button>
+                               </div>
+                          </div>
+                        )}
+                         {isDeleteModalOpen && isPromotedModalOpen === false && productToDelete === product && (
+                            <div className="promoted-product-modal">
+                               <div className='card-prod-dellete'>
+                               <div style={{display:'flex',justifyContent:'center', alignItems:'center',width:'100%', height:'100%'}}>
+                              <p>Tem certeza que deseja apagar este produto permanentemente?</p>
+                                </div>
+                                <div style={{display:'flex',flexDirection:'row',width:'100%', alignItems:'center', justifyContent:'space-between',alignContent:'space-between'}}> 
+                              <button onClick={() => handleDelete(productToDelete.id)}>Confirmar</button>
+                              <button onClick={() => setIsDeleteModalOpen(false)}>Cancelar</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                    </div>
+              
               );
             }
             return null;

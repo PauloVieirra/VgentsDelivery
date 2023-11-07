@@ -1,61 +1,90 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React,{useState, useEffect} from 'react';
 import { useAuth } from '../../Context/AuthContext';
+import firebase from '../../config/firebaseConfig';
+import './style.css';
 
-export default function MeusPedidos() {
-  const location = useLocation();
-  const { getUserOrders, userOrders, user } = useAuth();
-
+const MeusPedidos = () => {
+  const [userOrders, setUserOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
-    if (location.pathname === '/MeusPedidos') {
-      // Verifique se o usuário está logado antes de buscar os pedidos
-      if (user) {
-        getUserOrders(user.uid)
-          .then(() => {
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error('Erro ao buscar pedidos do usuário:', error);
-            setLoading(false);
-          });
-      } else {
+    const fetchUserOrders = async () => {
+      try {
+        const user = firebase.auth().currentUser;
+        if (user) {
+          const userUid = user.uid;
+          const userOrderHistoryRef = firebase.database().ref(`users/${userUid}/orderhistory`);
+          const userOrderHistorySnapshot = await userOrderHistoryRef.once('value');
+
+          if (userOrderHistorySnapshot.exists()) {
+            const isUrls = Object.keys(userOrderHistorySnapshot.val());
+
+            const ordersRef = firebase.database().ref('orders');
+            const userOrdersArray = [];
+
+            for (const isUrl of isUrls) {
+              const orderIds = Object.values(userOrderHistorySnapshot.val()[isUrl]);
+
+              for (const orderId of orderIds) {
+                const orderSnapshot = await ordersRef.child(isUrl).child(orderId).once('value');
+
+                if (orderSnapshot.exists()) {
+                  userOrdersArray.push(orderSnapshot.val());
+                }
+              }
+            }
+
+            setUserOrders(userOrdersArray);
+          } else {
+            setUserOrders([]);
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao buscar pedidos:', error);
+      } finally {
         setLoading(false);
       }
-    }
-  }, [location.pathname, user, getUserOrders]);
+    };
+
+    fetchUserOrders();
+  }, []);
 
   return (
-    <div className='clienthome'>
-      {loading ? (
-        <p>Carregando pedidos...</p>
-      ) : userOrders.length > 0 ? (
+  <div className="meus-pedidos-container">
+  <h2>Meus Pedidos</h2>
+  {loading ? (
+    <p>Carregando...</p>
+  ) : userOrders.length > 0 ? (
+    <div className="cards-container">
+      {userOrders.map((order, index) => (
+        <div key={index} className="cardty">
+          <div className='line'>
+          <div> </div>
+
+          {order.products.map((product, productIndex) => (
+            <div key={productIndex}>
+              <div>{product.orderId}</div>
+              <strong>Produto:</strong> {product.title}<br />
+              <strong>Quantidade:</strong> {product.quantity}<br />
+              <strong>Preço:</strong> R$ {product.price}
+            </div>
+          ))}
+         </div>
         <div>
-          <h2>Meus Pedidos</h2>
-          <ul>
-            {userOrders.map((order) => (
-              <li key={order.orderId}>
-                {/* Renderize os detalhes do pedido, por exemplo: */}
-                <p>ID do Pedido: {order.orderId}</p>
-                <p>Data do Pedido: {order.orderDate}</p>
-                <ul>
-                  {Object.values(order.products).map((product) => (
-                    <li key={product.id}>
-                      <p>ID do Produto: {product.id}</p>
-                      <p>Título do Produto: {product.title}</p>
-                      {/* Adicione mais informações do produto conforme necessário */}
-                    </li>
-                  ))}
-                </ul>
-                {/* Adicione mais informações do pedido conforme necessário */}
-              </li>
-            ))}
-          </ul>
+          {order.selectedAddress.cidade}  {order.selectedAddress.bairro} {order.selectedAddress.rua} {order.selectedAddress.numero} {order.selectedAddress.telefoneContato}
+         
+          
+         
         </div>
-      ) : (
-        <p>Você não possui pedidos ainda.</p>
-      )}
+        </div>
+      ))}
     </div>
+  ) : (
+    <p>Você não possui pedidos ainda.</p>
+  )}
+</div>
   );
-}
+};
+
+export default MeusPedidos;

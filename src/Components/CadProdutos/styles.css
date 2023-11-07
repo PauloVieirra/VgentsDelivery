@@ -27,6 +27,8 @@
   }
   
   .product-cardpro {
+    display: flex;
+    flex-direction: column;
     width: 190px;
     height:auto;
     min-height: 300px;
@@ -39,9 +41,7 @@
     margin-bottom: 20px;
   }
   
-  .product-cardpro:hover {
-    transform: translateY(-5px);
-  }
+
   
   .product-image {
     width: 100%;
@@ -62,6 +62,14 @@
   }
   .contimgpro{
     width: 100%;
+    height: auto;
+    min-height: 200px;
+    max-height: 200px;
+    border-radius: 12px;
+    position: relative;
+  }
+  .contimgpro::after {
+    content: '';
   }
   
   .product-card p {
@@ -153,16 +161,18 @@
   cursor: pointer;
 }
 .btneditecardpro{
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 190px;
   height: 100%;
   border-radius: 8;
-  background-color: #dff0d800;
+  background-color: #ffffff;
 }
 .btneditecardpro:hover{
   width: 100%;
   height: 100%;
   border-radius: 12;
-  background-color: #9494941c;
+  background-color: #ffffff;
 }
 
 /* Estilo para a mensagem de atualização (opcional, para mostrar o status da atualização) */
@@ -317,7 +327,44 @@
   margin-top: 60px;
   margin-top: 100px;
 }
-
+.contbtnpromote{
+  display: flex;
+  flex-direction: row;
+  width: 96%;
+  justify-content: space-between;
+  align-items: center;
+}
+.delete-modal{
+  position: absolute;
+  z-index: 10000;
+  top: 0px;
+  left:0px;
+  width: 100%;
+}
+.promoted-product-modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 910000;
+  padding: 10px;
+  top: 0%;
+  left:0%;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(37, 39, 38, 0.615)
+}
+.card-prod-dellete{
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 20px;
+  width: 50%;
+  height: auto;
+  min-height: 60%;
+  background-color: #ffffff;
+}
 
 
 

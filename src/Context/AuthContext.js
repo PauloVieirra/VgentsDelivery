@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext,useEffect } from 'react';
+import { identidade, userData } from '../Components/localStorageComponent';
 import firebase from '../config/firebaseConfig';
 
 
@@ -11,11 +12,8 @@ const AuthProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showActiveItems, setShowActiveItems] = useState(false);
   const [showInactiveItems, setShowInactiveItems] = useState(true);
-  const [userOrders, setUserOrders] = useState([]);
   const [productsProm, setProductsProm] = useState([]);
-  
- 
-  
+
 
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -43,28 +41,35 @@ const AuthProvider = ({ children }) => {
 
   
   useEffect(() => {
-    const fetchProductsProm = async () => {
+    const fetchProductsProm = () => {
       try {
         const productsRef = firebase.database().ref('promotedProducts');
-  
-        // Utilizando once para pegar os dados uma vez
-        const snapshot = await productsRef.once('value');
-  
-        if (snapshot.val()) {
-          const productArray = Object.entries(snapshot.val()).map(([key, value]) => ({
-            id: key,
-            ...value,  // Incluindo todos os dados dentro de cada ID
-          }));
-  
-          setProductsProm(productArray);
-        }
+    
+        // Usando o método 'on' para ouvir eventos em tempo real
+        productsRef.on('value', (snapshot) => {
+          if (snapshot.val()) {
+            const productArray = Object.entries(snapshot.val()).map(([key, value]) => ({
+              id: key,
+              ...value,  // Incluindo todos os dados dentro de cada ID
+            }));
+    
+            setProductsProm(productArray);
+          }
+        });
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }
     };
   
     fetchProductsProm();
+  
+    // Lembre-se de desvincular o ouvinte quando o componente for desmontado
+    return () => {
+      const productsRef = firebase.database().ref('promotedProducts');
+      productsRef.off('value');
+    };
   }, []);
+  
   
 
 
@@ -223,8 +228,7 @@ const AuthProvider = ({ children }) => {
     };
   };
 
-  
-
+ 
   const getStoreIdByProductId = async (productId) => {
     try {
       const productRef = firebase.database().ref(`products/${productId}`);
@@ -296,42 +300,16 @@ const saveLogistaFormToFirebase = (complemento) => {
   });
 };
 
-const getUserOrders = async () => {
+const deleteProduct = async (productId) => {
   try {
-    const userUid = user.uid;
-    const userOrderHistoryRef = firebase.database().ref(`users/${userUid}/orderhistory`);
-    const userOrderHistorySnapshot = await userOrderHistoryRef.once('value');
-
-    if (userOrderHistorySnapshot.exists()) {
-      const isUrls = Object.keys(userOrderHistorySnapshot.val());
-
-      const ordersRef = firebase.database().ref('orders');
-      const userOrdersArray = [];
-
-      for (const isUrl of isUrls) {
-        const orderIds = Object.values(userOrderHistorySnapshot.val()[isUrl]);
-
-        for (const orderId of orderIds) {
-          const orderSnapshot = await ordersRef.child(isUrl).child(orderId).once('value');
-
-          if (orderSnapshot.exists()) {
-            userOrdersArray.push(orderSnapshot.val());
-          }
-        }
-      }
-
-      setUserOrders(userOrdersArray);
-    } else {
-      setUserOrders([]);
-    }
+    const productRef = firebase.database().ref(`users/${user.uid}/products/${productId}`);
+    await productRef.remove();
+    alert('Produto excluído com sucesso!');
   } catch (error) {
-    console.error('Erro ao buscar pedidos:', error);
+    console.error('Erro ao excluir o produto:', error.message);
+    alert('Erro ao excluir o produto. Por favor, tente novamente mais tarde.');
   }
 };
-
-useEffect(() => {
-  getUserOrders();
-}, [user]);
 
 
 
@@ -352,6 +330,10 @@ const getFriendlyErrorMessage = (errorCode) => {
 };
 
 
+
+
+
+
   useEffect(() => {
     if (user) {
       const unsubscribeProducts = getProductsByUserId(user.uid);
@@ -366,9 +348,8 @@ const getFriendlyErrorMessage = (errorCode) => {
     user,
     isAuthenticated: !!user,
     products,
-    userOrders,
     productsProm,
-    getUserOrders,
+    deleteProduct,
     signInWithEmailAndPassword,
     signUpWithEmailAndPassword,
     signOut,
