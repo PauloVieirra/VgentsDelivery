@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import LogoutButton from '../../Components/Logout';
 
 export default function LogistaHome() {
   return (
@@ -32,6 +33,7 @@ export default function LogistaHome() {
         </div>
         {/* Adicione mais módulos conforme necessário */}
       </div>
+      <LogoutButton/>
     </div>
   );
 }

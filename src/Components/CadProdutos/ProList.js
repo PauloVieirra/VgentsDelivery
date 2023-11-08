@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import firebase from '../../config/firebaseConfig';
 import { useAuth } from '../../Context/AuthContext';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
 import './styles.css';
 
 const ProductList = () => {
@@ -103,7 +106,7 @@ const ProductList = () => {
           description: editedProduct.description,
           price: editedProduct.price,
           isActive: editedProduct.isActive,
-          url: editedProduct.uid,
+       
         });
 
         setIsModalOpen(false);
@@ -244,12 +247,12 @@ const handleDeleteClick = (product) => {
           {filteredProducts.map((product) => {
             if (showInactiveItems || product.isActive) {
               return (
-                <div key={product.id} className='product-cardpro'>
+                <Card key={product.id} className='product-cardpro'>
 
                   <button className='btneditecardpro' onClick={() => handleOpenModal(product)}>
                     <img src={product.imageUrl} alt={product.title} className='contimgpro' />
                     <h3 style={{ color: '#000' }}>{product.title}</h3>
-                    <p>{product.description}</p>
+                    <p style={{marginTop:'10px', textAlign:'justify'}}>{product.description}</p>
                     <p>Preço: R$ {product.price}</p>
                   </button>
                
@@ -292,7 +295,7 @@ const handleDeleteClick = (product) => {
                               </div>
                             </div>
                           )}
-                    </div>
+                    </Card>
               
               );
             }
@@ -318,6 +321,7 @@ const handleDeleteClick = (product) => {
                     value={editedProduct.title}
                     onChange={(e) => setEditedProduct({ ...editedProduct, title: e.target.value })}
                     className='modal-input'
+                    maxLength="23"
                   />
                   <input
                     type='text'
@@ -329,6 +333,7 @@ const handleDeleteClick = (product) => {
                     value={editedProduct.description}
                     onChange={(e) => setEditedProduct({ ...editedProduct, description: e.target.value })}
                     className='modal-textarea'
+                    maxLength="100"
                   />
                   <input
                     type='number'

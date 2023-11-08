@@ -6,7 +6,7 @@ import CreateStore from '../../Components/MinScreens/StoresCreator';
 import './style.css';
 
 const Cadastroloja = () => {
-  const { signUpWithEmailAndPassword } = useAuth();
+  const { signUpStore } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,7 +37,7 @@ const Cadastroloja = () => {
     const formulario = false;
 
     try {
-      const result = await signUpWithEmailAndPassword(email, password, name, tipo, formulario);
+      const result = await signUpStore(email, password, name, tipo, formulario);
 
     if (result.redirectToConfirmation) {
       // Redirecionar para a página de confirmação

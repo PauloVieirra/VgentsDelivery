@@ -102,9 +102,12 @@ const PromotionCardPrimary = () => {
                   />
                   <CardMedia component="img" height="194" image={card.imageUrl} alt={card.title} />
                   <CardContent>
-                    <Typography variant="body2" color="text.secondary">
+                  <div style={{display:'flex', fontSize:'16px', fontWeight:'600'}}>
+                      {card.title}
+                    </div>
+                    <div style={{display:'flex', fontSize:'14px',height:'100px', marginTop:'8px'}}>
                       {card.description}
-                    </Typography>
+                    </div>
                   </CardContent>
                   <CardActions disableSpacing className='spacecard'>
                     <IconButton variant="body2">

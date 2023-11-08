@@ -16,7 +16,7 @@ const ProductForm = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [category, setCategory] = useState(''); // Estado para armazenar a categoria selecionada
   const [isActive, setIsActive] = useState(true);
-  const [isUrl, setIsUrl] = useState('');
+  const [isUrl, setIsUrl] = useState(null);
   
  
 
@@ -99,19 +99,20 @@ const ProductForm = () => {
   return (
     <div className='contcardcad'>
       <div className='h2n'>
+        <h2>{userStoreName}</h2>
         <h2>Cadastrar Produto</h2>
       </div>
       
       <form onSubmit={handleSubmit}>
         <div className='continput'>
-        <label htmlFor="title">Título (máx. 10 caracteres):</label>
+        <label htmlFor="title">Título (máx. 23 caracteres):</label>
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            maxLength="10" // Adicione o atributo maxLength
+            maxLength="23" // Adicione o atributo maxLength
           />
         </div>
         <div className='continput'>
@@ -124,8 +125,8 @@ const ProductForm = () => {
             required
           />
         </div>
-        <div className='continput'>
-          <label htmlFor="description">Descrição:</label>
+        <div className='continputdescription'>
+          <label htmlFor="description">Descrição (máx. 100 caracteres):</label>
           <textarea
             id="description"
             value={description}

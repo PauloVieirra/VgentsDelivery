@@ -25,6 +25,28 @@ form {
     display: flex;
     flex-direction: column;
   }
+  .continputdescription {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .continputdescription textarea {
+    width: 100%; /* Define a largura desejada */
+    height: 100px; /* Define a altura desejada */
+    resize: vertical; /* Permite redimensionar verticalmente */
+    padding: 8px; /* Adiciona espaço interno para melhor legibilidade */
+    font-size: 16px; /* Define o tamanho da fonte desejado */
+    line-height: 1.5; /* Define o espaçamento entre linhas desejado */
+    border: 1px solid #ccc; /* Adiciona uma borda para separação */
+    border-radius: 4px; /* Arredonda as bordas */
+    transition: border-color 0.3s; /* Efeito de transição na borda */
+  
+    /* Estilize a aparência ao focar o elemento */
+    &:focus {
+      border-color: #007bff; /* Exemplo de cor azul ao focar */
+      outline: none; /* Remova o contorno padrão */
+    }
+  }
   .continputrascu{
     display: flex;
     flex-direction: row;

@@ -153,6 +153,38 @@ const AuthProvider = ({ children }) => {
     }
   };
   
+  const signUpStore = async (email, password, name, tipo, formulario, cartItems) => {
+    try {
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const { user } = userCredential;
+      setUser(user);
+  
+      const { uid } = user;
+      firebase.database().ref(`users/${uid}`).set({
+        name,
+        email,
+        ROLE: {
+          tipo: tipo,
+        },
+        formulario: formulario,
+        url: uid,
+      });
+  
+      if (tipo !== '') {
+        const userDataWithTipo = { name, email, tipo, formulario };
+        localStorage.setItem('userData', JSON.stringify(userDataWithTipo));
+      }
+  
+      if (cartItems.length === 0) {
+        return { user, redirectToConfirmation: false };
+      } else {
+        return { user, redirectToConfirmation: true };
+      }
+    } catch (error) {
+      setUser(null);
+      throw error;
+    }
+  };
 
   
   const signOut = async () => {
@@ -347,6 +379,7 @@ const getFriendlyErrorMessage = (errorCode) => {
     products,
     productsProm,
     deleteProduct,
+    signUpStore,
     signInWithEmailAndPassword,
     signUpWithEmailAndPassword,
     signOut,
