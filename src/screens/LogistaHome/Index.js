@@ -1,13 +1,15 @@
 import React from 'react';
 import './style.css';
+import { useAuth } from '../../Context/AuthContext';
 import LogoutButton from '../../Components/Logout';
 
 export default function LogistaHome() {
+  const {user} = useAuth();
   return (
     <div className='contlogista'>
       <div className='logista-info'>
         {/* Módulo de informações da empresa */}
-        <h2>Informações da Empresa</h2>
+        <h2>{user.email}</h2>
         {/* Adicione dados da empresa aqui */}
       </div>
       <div className='logista-modules'>

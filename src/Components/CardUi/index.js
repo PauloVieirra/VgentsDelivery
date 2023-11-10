@@ -24,6 +24,8 @@ import 'swiper/css/scrollbar';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
+
+
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -38,7 +40,7 @@ const PromotionCardPrimary = () => {
   const { productsProm } = useAuth();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-
+  
   const handleUserCardClick = (isUrl) => {
     if (isUrl) {
       console.log("Chave única do usuário:", isUrl);
@@ -138,7 +140,7 @@ const PromotionCardSecondary = () => {
   const { productsProm } = useAuth();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-
+  
   const handleUserCardClick = (isUrl) => {
     if (isUrl) {
       console.log("Chave única do usuário:", isUrl);
@@ -204,7 +206,85 @@ const PromotionCardSecondary = () => {
     </div>
   );
 };
+
+const CardPrimary = () => {
+  const { products } = useAuth();
+  const { addToCart } = useCart();
+  const Productsvariavel = [...products, ...products];
+
+  let slidesPerView = 2;
+
+  if (window.innerWidth < 768) {
+    slidesPerView = 1.8;
+  } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+    slidesPerView = 3.5;
+  } else if (window.innerWidth >= 1025) {
+    slidesPerView = 5.8;
+  }
+
+  const addItemToCart = (item) => {
+    addToCart(item);
+  };
+
+  return (
+    <div className='contcards'>
+      <Swiper
+        spaceBetween={1}
+        slidesPerView={slidesPerView}
+        navigation={{ prevEl: '.paginationleft', nextEl: '.paginationright' }}
+        loop={false}
+      >
+        {Productsvariavel.map((card, index) => (
+          <SwiperSlide key={`product-${card.id}-${index}`} className='card-listn'>
+            <Card
+              sx={{
+                width: '96%',
+                margin: '0 10px',
+                verticalAlign: 'top',
+              }}
+            >
+              <CardHeader
+                avatar={
+                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                    <img src={card.imageUrl} alt="" />
+                  </Avatar>
+                }
+                action={
+                  <IconButton aria-label="settings">
+                    {/* Ícone de configurações */}
+                  </IconButton>
+                }
+                title={card.nameStore}
+                subheader={card.date}
+              />
+              <CardMedia component="img" height="194" image={card.imageUrl} alt={card.title} />
+              <CardContent>
+                <div style={{ display: 'flex', fontSize: '16px', fontWeight: '600' }}>
+                  {card.title}
+                </div>
+                <div style={{ display: 'flex', fontSize: '14px', height: '100px', marginTop: '8px' }}>
+                  {card.description}
+                </div>
+              </CardContent>
+              <CardActions disableSpacing className='spacecard'>
+                <IconButton variant="body2">
+                  R$ {card.price}
+                </IconButton>
+                <IconButton aria-label="share">
+                  {/* Ícone de compartilhamento */}
+                </IconButton>
+                <IconButton onClick={() => addItemToCart(card)}>
+                  <FontAwesomeIcon icon={faCartPlus} fontSize='22px' color='#000' />
+                </IconButton>
+              </CardActions>
+            </Card>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
   
 
 
-export {PromotionCardPrimary,PromotionCardSecondary}
+export {PromotionCardPrimary,PromotionCardSecondary, CardPrimary }

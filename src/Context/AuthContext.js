@@ -8,12 +8,13 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
+  const [currentLogista, setCurrentLogista] = useState(null);
   const [updateStatus, setUpdateStatus] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showActiveItems, setShowActiveItems] = useState(false);
   const [showInactiveItems, setShowInactiveItems] = useState(true);
   const [productsProm, setProductsProm] = useState([]);
-
+  console.log();
 
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -237,36 +238,52 @@ const AuthProvider = ({ children }) => {
   };
   
 
-  const getProductsByUserId = (userId) => {
-    const productsRef = firebase.database().ref(`users/${userId}/products`);
-    const productsListener = productsRef.on('value', (snapshot) => {
-      const productsData = snapshot.val();
-      if (productsData) {
-        const inactiveProducts = Object.values(productsData).filter(product => !product.isActive);
-        setProducts(inactiveProducts);
-        localStorage.setItem('products', JSON.stringify(inactiveProducts));
-      } else {
-        setProducts([]);
-        localStorage.removeItem('products');
+  
+
+  const getProductsByUserId = (uid) => {
+    const logistaRef = firebase.database().ref(`users/${uid}/products`);
+
+    const listener = logistaRef.on('value', (snapshot) => {
+      try {
+        const productsData = snapshot.val() || {};
+        const productsArray = Object.entries(productsData).map(([key, value]) => ({
+          id: key,
+          ...value,
+        }));
+        setProducts(productsArray);
+        localStorage.setItem('products', JSON.stringify(productsArray));
+      } catch (error) {
+        console.error('Erro ao processar snapshot do Firebase:', error);
+        // Adicione aqui qualquer lógica adicional de tratamento de erro, se necessário
       }
     });
 
-    // Unsubscribe the listener after setting the products in the state
-    return () => {
-      productsRef.off('value', productsListener);
-    };
+    // Unsubscribe the listener after setting the logista and products in the state
+    return () => logistaRef.off('value', listener);
   };
 
+
+
+  
+  
+
  
-  const getStoreIdByProductId = async (productId) => {
+  const getStoreIdByProductId = async (productId, onUpdate) => {
     try {
       const productRef = firebase.database().ref(`products/${productId}`);
-      const snapshot = await productRef.once('value');
-      const productData = snapshot.val();
-      if (productData) {
-        return productData.storeId;
-      }
-      return null;
+  
+      // Adiciona um ouvinte de eventos para mudanças em tempo real
+      const listener = productRef.on('value', (snapshot) => {
+        const productData = snapshot.val();
+        if (productData) {
+          onUpdate(productData.storeId);
+        } else {
+          onUpdate(null);
+        }
+      });
+  
+      // Retorna a função de desinscrição (off) para ser usada no componentWillUnmount
+      return () => productRef.off('value', listener);
     } catch (error) {
       throw error;
     }
@@ -359,18 +376,6 @@ const getFriendlyErrorMessage = (errorCode) => {
 };
 
 
-
-
-
-
-  useEffect(() => {
-    if (user) {
-      const unsubscribeProducts = getProductsByUserId(user.uid);
-      return () => {
-        unsubscribeProducts();
-      };
-    }
-  }, [user]);
 
 
   const value = {

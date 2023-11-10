@@ -410,7 +410,7 @@ const MenuClient = () => {
       navigate('/CartModal');
     };
     const handleMaps = () => {
-      navigate('/Maps');
+      navigate('/WebappLoja');
     };
   
     return (
@@ -428,7 +428,7 @@ const MenuClient = () => {
               </Link>
             </div>
             <div className="btnmenudesk">
-              <Link to="/MeusPedidos" style={{ textDecoration: 'none', color: '#131313' }}>
+              <Link to="/WebappLoja" style={{ textDecoration: 'none', color: '#131313' }}>
                 Historico
               </Link>
             </div>

@@ -68,8 +68,7 @@ const CitySelection = ({ onSelectCity }) => {
 
   const handleUserCardClick = (uid) => {
     if (uid) {
-      console.log('Chave única do usuário:', uid);
-      navigate(`/${uid}`);
+      navigate(`/WebappLoja${uid}`);
     } else {
       console.log('Loja não encontrada');
     }
@@ -147,24 +146,21 @@ const CitySelection = ({ onSelectCity }) => {
         </div>
 
         <div className='user-grid'>
-          {selectedCity && filteredUsers.length > 0 ? (
-            filterUsersByTag(filteredUsers, selectedTag).map((user) => (
-              <Link key={user.userId} to={`/${user.url}`}>
-                <div
-                  className='user-card'
-                  onClick={() => handleUserCardClick(user.userId)}
-                >
-                  <div className='imgcardcity'>
-                      <img src={user.img} alt=""className='contimgstore'/>
-                  </div>
-                  <div className='contdatastoreseach'>
-                   <div style={{fontSize:'20px', fontWeight:'600', marginLeft:'10px'}} >{user.name}</div>
-                   <div style={{fontSize:'18px', fontWeight:'300', marginLeft:'10px'}} >{user.email}</div>
-                   
-                  </div>
-                </div>
-              </Link>
-            ))
+        {selectedCity && filteredUsers.length > 0 ? (
+    filterUsersByTag(filteredUsers, selectedTag).map((user) => (
+
+      <Link key={user.userId} to={`/WebappLoja/${user.url}`}> {/* Note que usamos ${user.userId} como parte do URL */}
+        <div className='user-card'>
+          <div className='imgcardcity'>
+            <img src={user.img} alt="" className='contimgstore' />
+          </div>
+          <div className='contdatastoreseach'>
+            <div style={{ fontSize: '20px', fontWeight: '600', marginLeft: '10px' }}>{user.name}</div>
+            <div style={{ fontSize: '18px', fontWeight: '300', marginLeft: '10px' }}>{user.email}</div>
+          </div>
+        </div>
+      </Link>
+    ))
           ) : (
             <CardList />
           )}

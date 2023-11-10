@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import firebase from '../../config/firebaseConfig';
 
 function FormularioComplementoLogista() {
   const { user, saveLogistaFormToFirebase } = useAuth();
   const navigate = useNavigate();
+  const [bannerUrl, setBannerUrl] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [imageUrlPreview, setImageUrlPreview] = useState(null);
+  const [imageKey, setImageKey] = useState(null);
+  const [image, setImage] = useState(null);
+const [isImageUploaded, setIsImageUploaded] = useState(false);
 
-  // Estado para controlar as etapas do formulário
+
   const [step, setStep] = useState(1);
-
-  // Estado para controlar os campos do formulário
   const [complemento, setComplemento] = useState({
     nomecomercial: '',
     configuracaoPadrao: '',
@@ -18,29 +23,33 @@ function FormularioComplementoLogista() {
     rua: '',
     numero: '',
     telefoneContato: '',
+    imagem: null,  // Initialize 'imagem' property
   });
 
-  // Estado para controlar erros de validação
   const [formErrors, setFormErrors] = useState({});
-
-  // Estado para controlar se o formulário foi enviado com sucesso
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-  // Função para lidar com as mudanças nas etapas
   const handleStepChange = (newStep) => {
     setStep(newStep);
   };
 
-  // Função para lidar com as mudanças nos campos do formulário
   const handleComplementoChange = (event) => {
-    const { name, value } = event.target;
-    setComplemento((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const { name, value, type } = event.target;
+
+    // Se o campo for um arquivo (imagem), atualize o estado de 'imagem'
+    if (type === 'file') {
+      setComplemento((prevState) => ({
+        ...prevState,
+        [name]: event.target.files[0],
+      }));
+    } else {
+      setComplemento((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
-  // Função para validar o formulário
   const validateForm = () => {
     const errors = {};
     if (!complemento.nomecomercial) {
@@ -52,18 +61,106 @@ function FormularioComplementoLogista() {
     return Object.keys(errors).length === 0;
   };
 
-  // Função para lidar com o envio do formulário
-  const handleSubmit = () => {
-    if (validateForm()) {
-      saveLogistaFormToFirebase(complemento);
-      setIsFormSubmitted(true);
-
-      // Atualize o valor de 'formulario' no localStorage para 'true'
-      localStorage.setItem('formulario', 'true');
-
-      navigate('/');
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+  
+    setComplemento((prevState) => ({
+      ...prevState,
+      imagem: file, // Make sure to set 'imagem' property
+    }));
+    setIsImageUploaded(false);
+  
+    // Exibir a imagem selecionada
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageUrlPreview(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      setImageUrlPreview(null);
     }
   };
+  
+
+  const handleImageUpload = async () => {
+    try {
+      if (complemento.imagem === null) {
+        throw new Error('Selecione uma imagem antes de enviar.');
+      }
+  
+      // Enviar a imagem para o armazenamento do Firebase
+      const imageRef = firebase.storage().ref(`users/${user.uid}/products/${complemento.imagem.name}`);
+      const uploadTask = imageRef.put(complemento.imagem);
+  
+      // Monitorar o progresso do upload
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Progresso do upload: ${progress}%`);
+          setUploadProgress(progress);
+        },
+        (error) => {
+          console.error('Erro ao enviar a imagem:', error.message);
+          // Lidar com o erro, se necessário
+        },
+        async () => {
+          // Upload concluído com sucesso, obter a URL da imagem
+          const imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
+  
+          // Atualizar o estado e o complemento com a URL da imagem
+          setBannerUrl(imageUrl);
+          setComplemento((prevState) => ({
+            ...prevState,
+            bannerUrl: imageUrl,
+          }));
+  
+          // Armazenar a chave da imagem
+          setImageKey(new Date().toISOString()); // Você pode ajustar a lógica para gerar uma chave única
+  
+          // Exibir mensagem informando que a imagem foi salva
+          alert('Imagem salva com sucesso! Agora você pode enviar o formulário.');
+  
+          // Limpar a imagem do estado (opcional)
+          setImage(null);
+        }
+      );
+    } catch (error) {
+      console.error('Erro ao enviar a imagem:', error.message);
+    }
+  };
+  
+  
+     
+  
+  const handleSubmit = async () => {
+    if (validateForm()) {
+      try {
+        // 1. Adicione a chave da imagem ao complemento antes de enviar o formulário
+        const complementoWithImageKey = { ...complemento, imageKey };
+  
+        // 2. Grave a cidade fora do complemento
+        const cidadeForaDoComplemento = complemento.cidade; // ou ajuste conforme necessário
+        await firebase.database().ref(`users/${user.uid}/cidade`).set(cidadeForaDoComplemento);
+  
+        // 3. Salve o complemento no Realtime Database
+        await saveLogistaFormToFirebase(complementoWithImageKey);
+  
+        // 4. Marque o formulário como enviado
+        setIsFormSubmitted(true);
+  
+        localStorage.setItem('formulario', 'true');
+        navigate('/');
+      } catch (error) {
+        console.error('Erro ao salvar no Firebase:', error.message);
+        // Lidar com o erro, se necessário
+      }
+    }
+  };
+  
+  
+  
 
   return (
     <div>
@@ -74,7 +171,7 @@ function FormularioComplementoLogista() {
             {step === 1 && (
               <div>
                 <form onSubmit={(e) => { e.preventDefault(); handleStepChange(2); }}>
-                  {/* Etapa 1 */}
+                <div>
                   <div className='form-field'>
                     <label htmlFor='nomecomercial'>Nome comercial da loja:</label>
                     <input
@@ -89,32 +186,15 @@ function FormularioComplementoLogista() {
                     )}
                   </div>
                   <button type='submit'>Próxima Etapa</button>
+              </div>
                 </form>
               </div>
             )}
             {step === 2 && (
               <div>
                 <form onSubmit={(e) => { e.preventDefault(); handleStepChange(3); }}>
-                  {/* Etapa 2 */}
-                  <div className='form-field'>
-                    <label htmlFor='configuracaoPadrao'>Configuração Padrão:</label>
-                    <input
-                      type='text'
-                      id='configuracaoPadrao'
-                      name='configuracaoPadrao'
-                      value={complemento.configuracaoPadrao}
-                      onChange={handleComplementoChange}
-                    />
-                  </div>
-                  <button type='button' onClick={() => handleStepChange(1)}>Etapa Anterior</button>
-                  <button type='submit'>Próxima Etapa</button>
-                </form>
-              </div>
-            )}
-            {step === 3 && (
-              <div>
-                <form onSubmit={handleSubmit}>
-                  {/* Etapa 3 */}
+                <div>
+               
                   <div className='form-field'>
                     <label htmlFor='cidade'>Cidade:</label>
                     <input
@@ -165,10 +245,53 @@ function FormularioComplementoLogista() {
                       onChange={handleComplementoChange}
                     />
                   </div>
-                  <button type='button' onClick={() => handleStepChange(2)}>Etapa Anterior</button>
-                  <button type='submit'>Enviar</button>
+                  <button type='button' onClick={() => handleStepChange(1)}>Etapa Anterior</button>
+                  <button type='submit'>Próxima Etapa</button>
+                  
+               
+              </div>
                 </form>
               </div>
+            )}
+            {step === 3 && (
+              <div>
+                {uploadProgress > 0 && <p>Progresso do Upload: {uploadProgress.toFixed(2)}%</p>}
+
+                <form onSubmit={(e) => { e.preventDefault(); handleStepChange(4); }}>
+                  <div className='continput'>
+                  <label htmlFor="image" className="custom-file-input">
+            {imageUrlPreview ? (
+              <img src={imageUrlPreview} alt="Imagem selecionada" style={{ width: '150px', height: '150px' }} />
+            ) : (
+              <>
+                <span>Escolher Imagem</span>
+                <img src="" alt="" style={{ width: '150px', height: '150px', display: 'none' }} />
+              </>
+            )}
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className='continputimg'
+            />
+          </label>
+                    <button type="button" onClick={handleImageUpload} className='contbutoncad'>
+                      Enviar Imagem
+                    </button>
+                  </div>
+                  <button type='button' onClick={() => handleStepChange(2)}>Etapa Anterior</button>
+                  <button type='submit'>Próxima Etapa</button>
+                </form>
+              </div>
+            )}
+            {step === 4 && (
+                  <div>
+                  <form onSubmit={handleSubmit}>
+                    <button type='button' onClick={() => handleStepChange(3)}>Etapa Anterior</button>
+                    <button type='submit'>Enviar</button>
+                  </form>
+                </div>
             )}
           </div>
         </div>

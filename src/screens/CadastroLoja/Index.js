@@ -39,7 +39,7 @@ const Cadastroloja = () => {
     try {
       const result = await signUpStore(email, password, name, tipo, formulario);
 
-    if (result.redirectToConfirmation) {
+    if (result.redirectToConfirmation && formulario === false) {
       // Redirecionar para a página de confirmação
       navigate('/DeliveryConfLogista'); // Substitua 'pagina-de-confirmacao' pelo caminho correto
     } else {

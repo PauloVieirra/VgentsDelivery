@@ -7,6 +7,7 @@ import TermsAndPrivacy from '../screens/Termos';
 import About from '../screens/Sobre';
 import Partners from '../screens/Parceiros';
 import CartModal from '../screens/CartModal/Index';
+import WebappLoja from '../screens/Conta/Index';
 import { AuthProvider } from '../Context/AuthContext';
 
 
@@ -20,6 +21,7 @@ const AuthRoutes = () => {
       <Routes>
         <Route path="/" element={<Store />} />
         <Route path="/:lojistaId" element={<Store />} />
+        <Route path="/:uid" element={<WebappLoja />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/CartModal" element={<CartModal />} />

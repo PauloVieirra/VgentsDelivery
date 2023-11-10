@@ -1,6 +1,170 @@
-.contconta{
+.webapp-loja-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+  }
+  
+  .banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-size: cover;
+    height: 26vh;
+    position: relative;
+    z-index: 0;
+    top: 0;
+  }
+
+  .webapp-banner-search {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-}
-.teste{
-    margin-top: 80px;
-}
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.794); /* Fundo branco com transparência */
+    border-radius: 8px;
+    margin: 10px;
+  }
+  
+  .webapp-banner-search input {
+    width: 70%;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 4px;
+    background-color: #fbfbfb00;
+  }
+  
+  .webapp-banner-search button {
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-left: 8px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .webapp-input{
+    display: flex;
+    height: 100%;
+    height: 32px;
+  }
+  
+  .store-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(118, 117, 117, 0.071), rgba(22, 22, 22, 0.61)); /* Adicione um degradê de cores */
+    padding: 20px;
+    
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    list-style: none;
+    background-color: #33333319;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 20px;
+  }
+  
+  a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  .webapp-second-cont {
+    width: 100%;
+    min-height: calc(100% - 58px);
+    position: absolute;
+    overflow: hidden;
+    min-height: 66vh; 
+    background-color: rgb(244, 244, 244);
+    display: flex;
+   
+    z-index: 1;
+    bottom: 0;
+    flex-direction: column; /* Adicione uma coluna de flex para ajustar os itens verticalmente */
+    align-items: center; /* Centralize verticalmente */
+    justify-content: center; /* Centralize horizontalmente, se necessário */
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+  }
+  .webapp-nome {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f9f9f9;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adicione uma sombra ao texto */
+  }
+  
+  .webapp-dados {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #f9f9f9;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Adicione uma sombra ao texto */
+  }
+  .webapp-banner {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    max-height: 230px;
+    height: 100%;
+    z-index: -1;
+    top: 0; 
+    background-color: #848484;
+  }
+  
+  .webapp-banner-img {
+    max-width: 100%; /* Defina o tamanho máximo da imagem para 100% da largura da div */
+    height: auto;
+   
+  }
+  .divtitle{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    font-size: 22px;
+    font-weight: 600;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  
+  
+  
+  

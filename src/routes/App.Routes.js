@@ -21,6 +21,7 @@ import ConfirmationPage from '../screens/DeliveryConfirm/Index';
 import DeliveryConfLogista from '../screens/DeliveryConfLogista/Index';
 import FormularioComplemento from '../Components/Formcomplit/Index';
 import FormularioComplementoLogista from '../Components/FormcomplitLogista/Index';
+import WebappLoja from '../screens/Conta/Index';
 import Maps from '../Components/Maps';
 import CartModal from '../screens/CartModal/Index';
 import FooterNavigation from '../Components/Footer';
@@ -74,6 +75,7 @@ const AppRoutes = () => {
         <Route path="/Conta" element={<Conta />} />
         <Route path="/Products" element={<Products />} />
         <Route path="/Pedidos" element={<Pedidos />} />
+        <Route path="/WebappLoja:uid" element={<WebappLoja />} />
         <Route path="/Store" element={<Store />} />
         <Route path='/CadastroLoja' element={<CadastroLoja/>}/>
         <Route path='/Dashboard' element={<Dashboard/>}/>
@@ -86,6 +88,7 @@ const AppRoutes = () => {
         <Route path="/Suporte" element={<Suporte />} />
         <Route path="/DeliveryConfLogista" element={<DeliveryConfLogista />} />
         <Route path="/Pedidos" element={<Pedidos />} />
+        <Route path="/WebappLoja:url" element={<WebappLoja />} />
         <Route path="/FormularioComplementoLogista" element={<FormularioComplementoLogista />} />
         </>
         }
@@ -100,6 +103,8 @@ const AppRoutes = () => {
          <Route path="/MeusPedidos" element={<MeusPedidos />} />
          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
          <Route path="/CartModal" element={<CartModal/>}/>
+         <Route path="/WebappLoja" element={<WebappLoja />} />
+         <Route path="/WebappLoja/:uid" element={<WebappLoja />} />
          <Route path="/UpdateProfileForm" element={<UpdateProfileForm />} />
          <Route path="/FormularioComplemento" element={<FormularioComplemento />} />
        
