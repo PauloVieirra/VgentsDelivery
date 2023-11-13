@@ -117,13 +117,16 @@ const [isImageUploaded, setIsImageUploaded] = useState(false);
           }));
   
           // Armazenar a chave da imagem
-          setImageKey(new Date().toISOString()); // Você pode ajustar a lógica para gerar uma chave única
+          const imageKey = new Date().toISOString(); // Você pode ajustar a lógica para gerar uma chave única
   
           // Exibir mensagem informando que a imagem foi salva
           alert('Imagem salva com sucesso! Agora você pode enviar o formulário.');
   
           // Limpar a imagem do estado (opcional)
           setImage(null);
+  
+          // Chamar a função que atualiza o estado da chave da imagem
+          setImageKey(imageKey);
         }
       );
     } catch (error) {
@@ -132,24 +135,58 @@ const [isImageUploaded, setIsImageUploaded] = useState(false);
   };
   
   
+  
      
   
   const handleSubmit = async () => {
     if (validateForm()) {
+      setIsFormSubmitted(true);
       try {
         // 1. Adicione a chave da imagem ao complemento antes de enviar o formulário
         const complementoWithImageKey = { ...complemento, imageKey };
-  
+        await firebase.database().ref(`users/${user.uid}/formulario`).set(isFormSubmitted);
         // 2. Grave a cidade fora do complemento
         const cidadeForaDoComplemento = complemento.cidade; // ou ajuste conforme necessário
         await firebase.database().ref(`users/${user.uid}/cidade`).set(cidadeForaDoComplemento);
-  
+        
         // 3. Salve o complemento no Realtime Database
         await saveLogistaFormToFirebase(complementoWithImageKey);
   
-        // 4. Marque o formulário como enviado
-        setIsFormSubmitted(true);
+        // Verifique se há uma segunda imagem no estado
+      if (image) {
+        // Enviar a segunda imagem para o armazenamento do Firebase
+        const imageRefProfile = firebase.storage().ref(`users/${user.uid}/products/${image.name}`);
+        const uploadTaskProfile = imageRefProfile.put(image);
   
+          // Monitorar o progresso do upload
+          uploadTaskProfile.on(
+            'state_changed',
+            (snapshot) => {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log(`Progresso do upload da segunda imagem: ${progress}%`);
+              setUploadProgress(progress);
+            },
+            (error) => {
+              console.error('Erro ao enviar a segunda imagem:', error.message);
+              // Lidar com o erro, se necessário
+            },
+            async () => {
+              // Upload concluído com sucesso, obter a URL da segunda imagem
+              const imageUrlProfile = await uploadTaskProfile.snapshot.ref.getDownloadURL();
+  
+              // Atualizar o estado e o complemento com a URL da segunda imagem
+              setBannerUrl(imageUrlProfile);
+              setComplemento((prevState) => ({
+                ...prevState,
+                imageProfile: imageUrlProfile,
+              }));
+  
+              // Limpar a segunda imagem do estado (opcional)
+              setImage(null);
+            }
+          );
+        }
+
         localStorage.setItem('formulario', 'true');
         navigate('/');
       } catch (error) {
@@ -158,6 +195,7 @@ const [isImageUploaded, setIsImageUploaded] = useState(false);
       }
     }
   };
+  
   
   
   
@@ -285,10 +323,42 @@ const [isImageUploaded, setIsImageUploaded] = useState(false);
                 </form>
               </div>
             )}
-            {step === 4 && (
+             {step === 4 && (
+              <div>
+                {uploadProgress > 0 && <p>Progresso do Upload: {uploadProgress.toFixed(2)}%</p>}
+
+                <form onSubmit={(e) => { e.preventDefault(); handleStepChange(5); }}>
+                  <div className='continput'>
+                  <label htmlFor="image" className="custom-file-input">
+            {imageUrlPreview ? (
+              <img src={imageUrlPreview} alt="Imagem selecionada" style={{ width: '150px', height: '150px' }} />
+            ) : (
+              <>
+                <span>Escolher Imagem2</span>
+                <img src="" alt="" style={{ width: '150px', height: '150px', display: 'none' }} />
+              </>
+            )}
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className='continputimg'
+            />
+          </label>
+                    <button type="button" onClick={handleImageUpload} className='contbutoncad'>
+                      Enviar Imagem
+                    </button>
+                  </div>
+                  <button type='button' onClick={() => handleStepChange(3)}>Etapa Anterior</button>
+                  <button type='submit'>Próxima Etapa</button>
+                </form>
+              </div>
+            )}
+            {step === 5 && (
                   <div>
                   <form onSubmit={handleSubmit}>
-                    <button type='button' onClick={() => handleStepChange(3)}>Etapa Anterior</button>
+                    <button type='button' onClick={() => handleStepChange(4)}>Etapa Anterior</button>
                     <button type='submit'>Enviar</button>
                   </form>
                 </div>

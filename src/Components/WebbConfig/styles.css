@@ -1,0 +1,83 @@
+/* SettingsSite.module.css */
+.cont-form-setings{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 1024px;
+    height: auto;
+}
+.cont-fomr-submit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* ou 'space-between' para espaçamento igual entre os itens */
+    margin-top: 20px;
+  }
+  
+  /* Estilo para cada item no grid */
+  .cont-fomr-submit .grid-item {
+    width: calc(33.33% - 10px); /* Calcula 33.33% da largura com espaçamento entre os itens */
+    margin: 5px; /* Espaçamento entre os itens */
+  }
+  
+.form-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .form-field {
+
+    width: 30%;
+    margin-bottom: 15px;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
+  .custom-file-input {
+    display: block;
+    position: relative;
+    margin-top: 10px;
+  }
+  
+  .custom-file-input span {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .custom-file-input input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .continputimg {
+    display: none;
+  }
+  
+  .contbutoncad {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .contbutoncad:hover {
+    background-color: #218838;
+  }
+  

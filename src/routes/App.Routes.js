@@ -24,6 +24,7 @@ import FormularioComplementoLogista from '../Components/FormcomplitLogista/Index
 import WebappLoja from '../screens/Conta/Index';
 import Maps from '../Components/Maps';
 import CartModal from '../screens/CartModal/Index';
+import handleSetingsSite from '../Components/WebbConfig/Index';
 import FooterNavigation from '../Components/Footer';
 
 import { MenuClient } from '../Components/Menus';
@@ -88,6 +89,7 @@ const AppRoutes = () => {
         <Route path="/Suporte" element={<Suporte />} />
         <Route path="/DeliveryConfLogista" element={<DeliveryConfLogista />} />
         <Route path="/Pedidos" element={<Pedidos />} />
+        <Route path="/handleSetingsSite" element={<handleSetingsSite />} />
         <Route path="/WebappLoja:url" element={<WebappLoja />} />
         <Route path="/FormularioComplementoLogista" element={<FormularioComplementoLogista />} />
         </>

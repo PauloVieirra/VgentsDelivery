@@ -53,6 +53,9 @@ export default function WebappLoja() {
       
       {logistaData ? (
         <>
+        <div className='header'>
+          
+        </div>
           <div className='banner'>
             <div className='menu'>
               <div className='webapp-banner-search'>
@@ -70,7 +73,7 @@ export default function WebappLoja() {
               </div>
             </div>
             <div className='webapp-banner'>
-              .
+              <img src={logistaData.complemento.bannerUrl} alt=""/>
             </div>
           </div>
 

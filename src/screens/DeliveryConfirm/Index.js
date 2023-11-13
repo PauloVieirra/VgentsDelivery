@@ -102,13 +102,18 @@ const ConfirmationPage = () => {
         }
   
         const orderId = uuidv4().substr(0, 4);
-  
+
+        const status = ('Aguardando ser aceito')
+
         if (!logistaOrdersMap[isUrl][orderId]) {
           logistaOrdersMap[isUrl][orderId] = {
+            status: status,
             selectedAddress: selectedAddress,
             products: [],
           };
         }
+
+       
   
         logistaOrdersMap[isUrl][orderId].products.push({ id, quantity, price, title, orderId, imageUrl, description });
   

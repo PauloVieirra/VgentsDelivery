@@ -71,9 +71,6 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
   
-  
-
-
 
   useEffect(() => {
     // Verifica se há dados no localStorage ao inicializar o contexto
@@ -84,8 +81,6 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  
-  
   
   const signInWithEmailAndPassword = async (email, password, cartItems) => {
     try {
@@ -236,8 +231,6 @@ const AuthProvider = ({ children }) => {
       throw error;
     }
   };
-  
-
   
 
   const getProductsByUserId = (uid) => {

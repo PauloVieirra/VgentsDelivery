@@ -112,6 +112,8 @@ const AuthenticatedMenu = ({ userType }) => {
           )}
       </div>
     </div>
+    {location.pathname.includes('/WebappLoja/') ? null : (
+    <>
     {userType === 'adm'  &&  (
         <MenuAdm/>
     )}
@@ -124,6 +126,9 @@ const AuthenticatedMenu = ({ userType }) => {
     {!userType  &&  (
         <MenuOutSide/>
     )}
+    </>
+    )}
+
       
       {isMenuOpen && (
         <div className='menu-lateral'>

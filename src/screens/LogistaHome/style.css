@@ -21,6 +21,18 @@
   padding: 20px;
   text-align: center;
 }
+.logista-modules-center{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+.logista-content{
+  display: flex;
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
 
 @media (max-width: 768px) {
   .contlogista {

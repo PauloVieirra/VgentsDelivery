@@ -9,6 +9,8 @@ import { faHome, faHistory, faShoppingCart, faUser, } from '@fortawesome/free-so
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import iconbarmenuclose from '../../images/closemenu.png';
 import iconbarmenu from '../../images/menuicon.png'
+import firebase from '../../config/firebaseConfig';
+import Notification from "../Notification";
 import SideMenu from "../SideMenu";
 import './style.css';
 
@@ -354,7 +356,8 @@ const MenuOutSide = () => {
 };
 
 const MenuClient = () => {
-    const { signOut, isAuthenticated,user } = useAuth();
+
+    const { signOut, isAuthenticated, user } = useAuth();
     const navigate = useNavigate();
     const { getItemCount } = useCart();
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -412,7 +415,8 @@ const MenuClient = () => {
     const handleMaps = () => {
       navigate('/WebappLoja');
     };
-  
+
+    
     return (
         <>
       <div className="contdeskmenu">
@@ -428,11 +432,13 @@ const MenuClient = () => {
               </Link>
             </div>
             <div className="btnmenudesk">
-              <Link to="/WebappLoja" style={{ textDecoration: 'none', color: '#131313' }}>
+              <Link to="/MeusPedidos" style={{ textDecoration: 'none', color: '#131313' }}>
                 Historico
               </Link>
             </div>
           </div>
+
+         
 
           <div className="contnotifycontrole" >
           <div className='btnmenucontrole'onClick={toggleCart}>
