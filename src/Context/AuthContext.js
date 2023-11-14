@@ -183,6 +183,8 @@ const AuthProvider = ({ children }) => {
   };
 
   
+
+  
   const signOut = async () => {
     try {
       await firebase

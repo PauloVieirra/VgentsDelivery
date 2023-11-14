@@ -21,6 +21,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import ProductDetails from '../ProductDatail';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,18 +41,14 @@ const PromotionCardPrimary = () => {
   const { productsProm } = useAuth();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const [selectedProduct, setSelectedProduct] = useState(null);
   
-  const handleUserCardClick = (isUrl) => {
-    if (isUrl) {
-      console.log("Chave única do usuário:", isUrl);
-      navigate(`/${isUrl}`);
-    } else {
-      console.log("Loja não encontrada");
-    }
+  const handleCardClick = (productData) => {
+    setSelectedProduct(productData);
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const closeProductDetails = () => {
+    setSelectedProduct(null);
   };
 
   let slidesPerView = 2; // Valor padrão
@@ -81,7 +78,7 @@ const PromotionCardPrimary = () => {
           if (card.category !== 'Happy Hour') {
             return (
               <SwiperSlide key={card.id} className='card-listn'>
-                <Card
+                <Card onClick={() => handleCardClick(card)}
                   sx={{
                     width: '96%', // Largura de cada card
                     margin: '0 10px', // Espaço entre os cards
@@ -131,7 +128,15 @@ const PromotionCardPrimary = () => {
           }
         })}
       </Swiper>
+      {selectedProduct && (
+        <div className='productor-details'>
+        <ProductDetails productData={selectedProduct} onClose={closeProductDetails} />
+        </div>
+      )}
     </div>
+
+
+
   );
 };
 

@@ -54,11 +54,10 @@ export default function WebappLoja() {
       {logistaData ? (
         <>
         <div className='header'>
-          
-        </div>
-          <div className='banner'>
-            <div className='menu'>
-              <div className='webapp-banner-search'>
+         </div>
+           <div className='banner'>
+             <div className='menu'>
+               <div className='webapp-banner-search'>
                 <input type="text" placeholder="Pesquisar..." />
                 <button type="submit">Buscar</button>
               </div>

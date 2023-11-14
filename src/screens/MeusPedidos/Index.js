@@ -8,7 +8,6 @@ const MeusPedidos = () => {
   const [loading, setLoading] = useState(true);
   const {user} = useAuth();
   
-  
 
   useEffect(() => {
     let isMounted = true;
@@ -32,14 +31,14 @@ const MeusPedidos = () => {
                   const orderIds = Object.values(snapshot.val()[isUrl]);
   
                   for (const orderId of orderIds) {
-  // Adiciona um ouvinte ao nó orders/uid/orderId
-  const orderNodeRef = firebase.database().ref(`orders/${userUid}/${orderId}`);
-  orderNodeRef.on('value', (orderNodeSnapshot) => {
-    if (orderNodeSnapshot.exists()) {
-      // Atualiza o estado com as alterações
-      setUserOrders((prevOrders) => {
-        const updatedOrders = [...prevOrders];
-        const existingOrderIndex = updatedOrders.findIndex(
+                  // Adiciona um ouvinte ao nó orders/uid/orderId
+                 const orderNodeRef = firebase.database().ref(`orders/${userUid}/${orderId}`);
+                 orderNodeRef.on('value', (orderNodeSnapshot) => {
+                if (orderNodeSnapshot.exists()) {
+               // Atualiza o estado com as alterações
+               setUserOrders((prevOrders) => {
+              const updatedOrders = [...prevOrders];
+             const existingOrderIndex = updatedOrders.findIndex(
           (order) => order.orderId === orderId
         );
 
@@ -60,20 +59,19 @@ const MeusPedidos = () => {
       }
      }
      }
-  
-                setUserOrders(userOrdersArray);
-              } else {
-                setUserOrders([]);
-              }
+        setUserOrders(userOrdersArray);
+          } else {
+            setUserOrders([]);
             }
-          });
-        }
-      } catch (error) {
-        console.error('Erro ao buscar pedidos:', error);
-      } finally {
-        setLoading(false);
+          }
+        });
       }
-    };
+    } catch (error) {
+        console.error('Erro ao buscar pedidos:', error);
+    } finally {
+        setLoading(false);
+    }
+  };
   
     fetchUserOrders();
   }, []); // Certifique-se de adicionar quaisquer dependências necessárias aqui
