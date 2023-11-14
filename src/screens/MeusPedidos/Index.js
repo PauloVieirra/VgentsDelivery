@@ -113,7 +113,7 @@ const MeusPedidos = () => {
       ))}
     </div>
   ) : (
-    <p>Você não possui pedidos ainda.</p>
+    <p>Carregando pedidos...</p>
   )}
  
 </div>

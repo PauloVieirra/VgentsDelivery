@@ -17,17 +17,27 @@ const ProductForm = () => {
   const [category, setCategory] = useState(''); // Estado para armazenar a categoria selecionada
   const [isActive, setIsActive] = useState(true);
   const [isUrl, setIsUrl] = useState(null);
-  
- 
+  const [StoreCidade, setStoreCidade] = useState('');
+  const [StoreBairro, setStoreBairro] = useState('');
+  const [StoreRua, setStoreRua] = useState('');
+  const [StoreNumero, setStoreNumero] = useState('');
 
   const categories = ['Cerveja', 'Drink', 'Lanche', 'Petisco', 'Prato', 'Vinho','Sobremesa', 'Happy Hour', 'Combo']; // Opções de categoria
   
   const userlink = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).url;
   const userStoreName= localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).complemento.nomecomercial;
-  
+  const userStoreCidade= localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).complemento.cidade;
+  const userStoreBairro= localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).complemento.bairro;
+  const userStoreRua= localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).complemento.rua;
+  const userStoreNumero= localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).complemento.numero;
+
   useEffect(() => {
     setIsUrl(userlink);
     setNameStore(userStoreName || 'N\A' );
+    setStoreCidade(userStoreCidade || 'N\A' );
+    setStoreBairro(userStoreBairro || 'N\A' );
+    setStoreRua(userStoreRua || 'N\A' );
+    setStoreNumero(userStoreNumero || 'N\A' );
   }, [user]);
 
   const handleImageChange = (e) => {
@@ -76,6 +86,10 @@ const ProductForm = () => {
         category, 
         isActive,
         isUrl,
+        StoreCidade,
+        StoreBairro,
+        StoreRua,
+        StoreNumero,
       });
 
       // Limpar os campos após o envio
@@ -88,6 +102,10 @@ const ProductForm = () => {
       setImageUrl(null);
       setCategory('');
       setIsActive(true);
+      setStoreCidade('');
+      setStoreBairro('');
+      setStoreRua('');
+      setStoreNumero('');
 
       alert('Produto cadastrado com sucesso!');
     } catch (error) {

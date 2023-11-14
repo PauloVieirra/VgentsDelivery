@@ -6,65 +6,52 @@ import './style.css';
 const Pedidos = () => {
   const [userOrders, setUserOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [nextStatus, setNextStatus] = useState('');
   const { user } = useAuth();
   console.log(userOrders);
 
-
   const updateOrderStatus = async (orderId, newStatus) => {
-  setNextStatus(newStatus);
-  try {
-    const userUid = user.uid;
-    const orderRef = firebase.database().ref(`orders/${userUid}/${orderId}`);
-    await orderRef.update({ status: newStatus });
-  } catch (error) {
-    console.error('Erro ao atualizar o status do pedido:', error);
-  }
-};
-
-  
-
- // ... Seu código existente ...
-
-useEffect(() => {
-  const fetchUserOrders = () => {
     try {
-      if (user) {
-        const userUid = user.uid;
-        const userOrderHistoryRef = firebase.database().ref(`orders/${userUid}`);
-
-        // Usando 'on' para ouvir as alterações em tempo real
-        userOrderHistoryRef.on('value', (snapshot) => {
-          if (snapshot.exists()) {
-            const orderIds = Object.keys(snapshot.val());
-            const userOrdersArray = [];
-
-            for (const orderId of orderIds) {
-              const orderDetailsSnapshot = snapshot.child(orderId);
-              const orderDetails = orderDetailsSnapshot.val();
-              userOrdersArray.push(orderDetails);
-            }
-
-            setUserOrders(userOrdersArray);
-          } else {
-            setUserOrders([]);
-          }
-        });
-
-       
-      }
+      const userUid = user.uid;
+      const orderRef = firebase.database().ref(`orders/${userUid}/${orderId}`);
+      await orderRef.update({ status: newStatus });
     } catch (error) {
-      console.error('Erro ao buscar pedidos:', error);
-    } finally {
-      setLoading(false);
+      console.error('Erro ao atualizar o status do pedido:', error);
     }
   };
 
-  fetchUserOrders();
-}, [user]);
+  useEffect(() => {
+    const fetchUserOrders = () => {
+      try {
+        if (user) {
+          const userUid = user.uid;
+          const userOrderHistoryRef = firebase.database().ref(`orders/${userUid}`);
 
-// ... Restante do seu código ...
+          userOrderHistoryRef.on('value', (snapshot) => {
+            if (snapshot.exists()) {
+              const orderIds = Object.keys(snapshot.val());
+              const userOrdersArray = [];
 
+              for (const orderId of orderIds) {
+                const orderDetailsSnapshot = snapshot.child(orderId);
+                const orderDetails = orderDetailsSnapshot.val();
+                userOrdersArray.push(orderDetails);
+              }
+
+              setUserOrders(userOrdersArray);
+            } else {
+              setUserOrders([]);
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao buscar pedidos:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserOrders();
+  }, [user]);
 
   return (
     <div className="meus-pedidos-container">
@@ -73,42 +60,65 @@ useEffect(() => {
         <p>Carregando...</p>
       ) : userOrders.length > 0 ? (
         <div className="cards-container">
-{userOrders.map((order, index) => (
-  <div key={index} className="cardty">
-    <div className='line'>
-      <div> </div>
+          {userOrders.map((order, index) => (
+            <div key={index} className="cardty">
+              <div className='line'>
+                <div> </div>
+                {order.products && order.products.map((product, productIndex) => (
+                  <div key={productIndex}>
+                    <div>{product.orderId}</div>
+                    <strong>Produto:</strong> {product.title}<br />
+                    <strong>Quantidade:</strong> {product.quantity}<br />
+                    <strong>Preço:</strong> R$ {product.price}
+                    <strong>Status:</strong> {order.status}
+                  </div>
+                ))}
+              </div>
 
-      {order.products && order.products.map((product, productIndex) => (
-        <>
-        <div key={productIndex}>
-          <div>{product.orderId}</div>
-          <strong>Produto:</strong> {product.title}<br />
-          <strong>Quantidade:</strong> {product.quantity}<br />
-          <strong>Preço:</strong> R$ {product.price}
-        </div>
-
-          <div>
-          {order.selectedAddress.cidade} {order.selectedAddress.bairro} {order.selectedAddress.rua} {order.selectedAddress.numero} {order.selectedAddress.telefoneContato}
-          </div>
-          </>
-      ))}
-    </div>
-
-  
-
-    <div>
-      {order.products && order.products.map((product, productIndex) => (
-        <React.Fragment key={productIndex}>
-          <button onClick={() => updateOrderStatus(product.orderId, 'Pedido aceito')}>Aceitar</button>
-          <button onClick={() => updateOrderStatus(product.orderId, 'Em Preparação')}>Em Preparação</button>
-          <button onClick={() => updateOrderStatus(product.orderId, 'Pronto para Entrega')}>Pronto para Entrega</button>
-          <button onClick={() => updateOrderStatus(product.orderId, 'Em Entrega')}>Em Entrega</button>
-        </React.Fragment>
-      ))}
-    </div>
-  </div>
-))}
-
+              <div>
+                {order.products && order.products.map((product, productIndex) => (
+                  <React.Fragment key={productIndex}>
+                    {order.status === 'Aguardando ser aceito' && (
+                      <button
+                        className="btn-aguardando"
+                        onClick={() => updateOrderStatus(product.orderId, 'Pedido aceito')}
+                      >
+                        Aceitar
+                      </button>
+                    )}
+                    {order.status === 'Pedido aceito' && (
+                      <button
+                        className="btn-aceito"
+                        onClick={() => updateOrderStatus(product.orderId, 'Em Preparação')}
+                      >
+                        Em Preparação
+                      </button>
+                    )}
+                    {order.status === 'Em Preparação' && (
+                      <button
+                        className="btn-preparacao"
+                        onClick={() => updateOrderStatus(product.orderId, 'Pronto para Entrega')}
+                      >
+                        Pronto para Entrega
+                      </button>
+                    )}
+                    {order.status === 'Pronto para Entrega' && (
+                      <button
+                        className="btn-entrega"
+                        onClick={() => updateOrderStatus(product.orderId, 'Em Entrega')}
+                      >
+                        Em entrega
+                      </button>
+                    )}
+                    
+                    {order.status === 'Em Entrega' && (
+                      <p>Em entrega</p>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <p>Você não possui pedidos ainda.</p>

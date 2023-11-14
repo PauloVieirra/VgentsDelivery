@@ -256,11 +256,6 @@ const AuthProvider = ({ children }) => {
   };
 
 
-
-  
-  
-
- 
   const getStoreIdByProductId = async (productId, onUpdate) => {
     try {
       const productRef = firebase.database().ref(`products/${productId}`);

@@ -10,6 +10,7 @@ import FormularioComplemento from '../../Components/Formcomplit/Index';
 import FormularioComplementoLogista from '../../Components/FormcomplitLogista/Index';
 import { v4 as uuidv4 } from 'uuid';
 import './styles.css';
+import { isEditable } from '@testing-library/user-event/dist/utils';
 
 const ConfirmationPage = () => {
   const location = useLocation();
@@ -22,9 +23,9 @@ const ConfirmationPage = () => {
   const [lastAddressData, setLastAddressData] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isAddressButtonVisible, setIsAddressButtonVisible] = useState(true);
-  const [isUserForm, setIsUserForm] = useState('');
+  const [isDelivery, setIsDelivery] = useState(null);
   const { cartItems, getTotalPrice, clearCart } = useCart();
-  
+  console.log(lastAddressData);
 
   const isFormSented = (form  || null );
   const idStore = (identidade);
@@ -61,15 +62,13 @@ const ConfirmationPage = () => {
    
     if (userUid) {
       const userRef = firebase.database().ref(`users/${userUid}`);
-      userRef.child('complemento').once('value', (snapshot) => {
+       userRef.child('complemento').once('value', (snapshot) => {
         const data = snapshot.val();
-        setLastAddressData(data);
-
-
-        if (data && data.formulario) {
-          setIsFormSubmitted(true);
+          setLastAddressData(data);
+            if (data && data.formulario) {
+           setIsFormSubmitted(true);
           localStorage.setItem('isFormSubmitted', 'true');
-        }
+         }
       });
     }
   }, [user]);
@@ -143,6 +142,18 @@ const ConfirmationPage = () => {
   };
   
 
+
+  const handleNoDelivery = ()=> { 
+    setIsDelivery(false);
+    handleUseAddressClick();
+   }
+
+   const handleDelivery = () => {
+    setIsDelivery(true);
+    handleUseAddressClick();
+   }
+
+   
   
 
   const handleAddressChange = (newAddressData) => {
@@ -167,7 +178,7 @@ const ConfirmationPage = () => {
             ))}
              {getTotalPrice().toFixed(2)}
           </ul>
-          {isFormSubmitted === false && lastAddressData && (
+          {isFormSubmitted === false && lastAddressData && isDelivery === true && (
             <div>
               <h3>Endereço de Complemento:</h3> 
               <p>Cidade: {lastAddressData.cidade}</p>
@@ -175,7 +186,7 @@ const ConfirmationPage = () => {
               <p>Bairro: {lastAddressData.rua}</p>
               <p>Endereço: {lastAddressData.numero}</p>
               <p>Endereço: {lastAddressData.telefoneContato}</p>
-             
+              <p>Tipo: {isDelivery}</p>
               {/* Add more fields as needed */}
               <h3>Selecione o Endereço:</h3>
               {Object.keys(user?.complemento || {}).map((key) => (
@@ -188,11 +199,45 @@ const ConfirmationPage = () => {
                   </div>
                 </div>
               ))}
+
+              
+
               {isAddressButtonVisible && (
                 <button onClick={handleUseAddressClick}>Usar este Endereço</button>
               )}
             </div>
           )}
+
+              {lastAddressData && (
+
+                <div style={{display:'flex', width:'100%', height:'42px'}}>
+                  {isDelivery === false || isDelivery === null ? (
+                  <div>
+                    <button onClick={handleNoDelivery} className='buttonprimary'> Retirar na loja </button> 
+                  </div>
+                  ):null}
+
+                  
+                   {isDelivery === true || isDelivery === null ? (
+                    <div>
+                    <button onClick={handleDelivery} className='buttonprimary'> Receber em casa </button> 
+                    </div>
+                  ):null}
+              
+               
+                
+               
+                 
+                { isDelivery === true || isDelivery === false ? (
+                <div>
+                <button onClick={() => setIsDelivery(null)} className='buttonprimary'>Cancelar</button>
+                </div>
+                ):null}
+               
+
+              </div>
+
+            )} 
 
 
           {isFormSubmitted === true && lastAddressData && (
@@ -205,12 +250,11 @@ const ConfirmationPage = () => {
             </div>
           )}
 
-  
-      {lastAddressData && isAddressButtonVisible === false && (
+      {lastAddressData && isAddressButtonVisible === false && isDelivery !== null ? (
             <button onClick={saveOrderToFirebase} disabled={isSending}>
               {isSending ? 'Enviando...' : 'Confirmar Pedido '}
             </button>
-          )}
+          ):null}
         </div>
       )}
 
